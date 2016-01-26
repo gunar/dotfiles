@@ -1,3 +1,5 @@
+ln -s "$(readlink -f awesome)" ~/.config/
+
 ln -s "$(readlink -f tmux.conf)" ~/.tmux.conf
 
 mkdir -p ~/.config/nvim
