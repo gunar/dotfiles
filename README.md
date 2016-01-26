@@ -4,14 +4,14 @@
 
 ## awesome wm
 
-[ ] Add bandwidth widget
-[ ] Add awmodoro widget
+- [ ] Add bandwidth widget
+- [ ] Add awmodoro widget
 
 ## Termite
 
 ## tmux
 
-[ ] Fix scrolling
+- [ ] Fix scrolling
 
 - Seamless navigation between vim buffers and tmux panels
 
@@ -21,4 +21,7 @@
 
 ## Neovim
 
+- [ ] Finish configuration
+
+- Based on [Mike Hartington's dotfiles](https://github.com/mhartington/dotfiles)
 - Seamless navigation between vim buffers and tmux panels
