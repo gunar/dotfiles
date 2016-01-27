@@ -11,9 +11,8 @@
 
 ## tmux
 
-- [ ] Fix scrolling
-
 - Seamless navigation between vim buffers and tmux panels
+- Scrolling works [plugin](https://github.com/NHDaly/tmux-scroll-copy-mode)
 
 ## zsh
 
