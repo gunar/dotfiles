@@ -167,155 +167,6 @@ if pluginsExist
 
 " }}}
 
-" System mappings  ----------------------------------------------------------{{{
-
-" No need for ex mode
-  nnoremap Q <nop>
-" recording macros is not my thing
-  map q <Nop>
-" exit insert, dd line, enter insert
-  inoremap <c-d> <esc>ddi
-" Navigate between display lines
-  noremap  <silent> <Up>   gk
-  noremap  <silent> <Down> gj
-  noremap  <silent> k gk
-  noremap  <silent> j gj
-  noremap  <silent> <Home> g<Home>
-  noremap  <silent> <End>  g<End>
-  inoremap <silent> <Home> <C-o>g<Home>
-  inoremap <silent> <End>  <C-o>g<End>
-" copy current files path to clipboard
-  nmap cp :let @+ = expand("%") <cr>
-" Neovim terminal mapping
-" terminal 'normal mode'
-  tmap <esc> <c-\><c-n><esc><cr>
-" ,f to format code, requires formatters: read the docs
-  noremap <leader>f :Autoformat<CR>
-" exit insert, dd line, enter insert
-  inoremap <c-d> <esc>ddi
-  noremap H ^
-  noremap L g_
-  noremap J 5j
-  noremap K 5k
-" this is the best, let me tell you why
-" how annoying is that everytime you want to do something in vim
-" you have to do shift-; to get :, can't we just do ;?
-" Plus what does ; do anyways??
-" if you do have a plugin that needs ;, you can just wap the mapping
-" nnoremap : ;
-" give it a try and you will like it
-  nnoremap ; :
-  inoremap <c-f> <c-x><c-f>
-" Copy to osx clipboard
-  vnoremap <C-c> "*y<CR>
-  vnoremap y "*y<CR>
-  nnoremap Y "*Y<CR>
-  let g:multi_cursor_next_key='<C-n>'
-  let g:multi_cursor_prev_key='<C-p>'
-  let g:multi_cursor_skip_key='<C-x>'
-  let g:multi_cursor_quit_key='<Esc>'
-
-" Align blocks of text and keep them selected
-  vmap < <gv
-  vmap > >gv
-  nnoremap <leader>d "_d
-  vnoremap <leader>d "_d
-  vnoremap <c-/> :TComment<cr>
-  map <esc> :noh<cr>
-
-  nnoremap <leader>e :call <SID>SynStack()<CR>
-  function! <SID>SynStack()
-    if !exists("*synstack")
-      return
-    endif
-    echo map(synstack(line('.'), col('.')), 'synIDattr(v:val, "name")')
-  endfunc
-
-  function! s:PlaceholderImgTag(size)
-    let url = 'http://dummyimage.com/' . a:size . '/000000/555555'
-    let [width,height] = split(a:size, 'x')
-    execute "normal a<img src=\"".url."\" width=\"".width."\" height=\"".height."\" />"
-    endfunction
-  command! -nargs=1 PlaceholderImgTag call s:PlaceholderImgTag(<f-args>)
-"}}}"
-
-" Themes, Commands, etc  ----------------------------------------------------{{{
-" Theme
-  syntax enable
-  colorscheme OceanicNext
-  set background=dark
-" highlightt the current line number
-  hi CursorLineNR guifg=#ffffff
-" no need to fold things in markdown all the time
-  let g:vim_markdown_folding_disabled = 1
-" turn on spelling for markdown files
-  autocmd BufRead,BufNewFile *.md setlocal spell complete+=kspell
-" highlight bad words in red
-  hi SpellBad guibg=#ff2929 guifg=#ffffff" ctermbg=224
-" disable markdown auto-preview. Gets annoying
-  let g:instant_markdown_autostart = 0
-" Keep my termo window open when I navigate away
-  autocmd TermOpen * set bufhidden=hide
-"}}}
-
-" Fold, gets it's own section  ----------------------------------------------{{{
-
-  function! MyFoldText() " {{{
-      let line = getline(v:foldstart)
-
-      let nucolwidth = &fdc + &number * &numberwidth
-      let windowwidth = winwidth(0) - nucolwidth - 3
-      let foldedlinecount = v:foldend - v:foldstart
-
-      " expand tabs into spaces
-      let onetab = strpart('          ', 0, &tabstop)
-      let line = substitute(line, '\t', onetab, 'g')
-
-      let line = strpart(line, 0, windowwidth - 2 -len(foldedlinecount))
-      let fillcharcount = windowwidth - len(line) - len(foldedlinecount)
-      return line . '…' . repeat(" ",fillcharcount) . foldedlinecount . '…' . ' '
-  endfunction " }}}
-
-  function! JavaScriptFold() "{{{
-    " syntax region foldBraces start=/{/ end=/}/ transparent fold keepend extend
-    setlocal foldmethod=syntax
-    setlocal foldlevel=99
-    echo "hello"
-    syn region foldBraces start=/{/ skip=/\(\/\/.*\)\|\(\/.*\/\)/ end=/}/ transparent fold keepend extend
-  endfunction "}}}
-
-  " function! HTMLFold() "{{{
-  "   " syn sync fromstart
-  "   set foldmethod=syntax
-  "   syn region HTMLFold start=+^<\([^/?!><]*[^/]>\)\&.*\(<\1\|[[:alnum:]]\)$+ end=+^</.*[^-?]>$+ fold transparent keepend extend
-  "   syn match HTMLCData "<!\[CDATA\[\_.\{-}\]\]>" fold transparent extend
-  "   syn match HTMLCommentFold "<!--\_.\{-}-->" fold transparent extend
-  " endfunction "}}}
-
-  set foldtext=MyFoldText()
-
-  autocmd InsertEnter * if !exists('w:last_fdm') | let w:last_fdm=&foldmethod | setlocal foldmethod=manual | endif
-  autocmd InsertLeave,WinLeave * if exists('w:last_fdm') | let &l:foldmethod=w:last_fdm | unlet w:last_fdm | endif
-
-  autocmd FileType vim setlocal fdc=1
-  set foldlevel=99
-" Space to toggle folds.
-  nnoremap <Space> za
-  vnoremap <Space> za
-  autocmd FileType vim setlocal foldmethod=marker
-  autocmd FileType vim setlocal foldlevel=0
-
-  " au FileType html call HTMLFold()
-  " autocmd FileType html setlocal foldmethod=syntax
-  autocmd FileType html setlocal fdl=99
-
-  " autocmd FileType javascript call JavaScriptFold()
-  autocmd FileType javascript,html,css,scss setlocal foldlevel=99
-  autocmd FileType javascript,css,scss,json setlocal foldmethod=marker
-  autocmd FileType javascript,css,scss,json setlocal foldmarker={,}
-  " au FileType html nnoremap <buffer> <leader>F zfat
-" }}}
-
 " " NERDTree ------------------------------------------------------------------{{{
 " 
 "   map <C-\> :NERDTreeToggle<CR>
@@ -472,20 +323,6 @@ if pluginsExist
 " "   map <leader>l :Lines<CR>
 " "}}}
 " 
-" Navigate between vim buffers and tmux panels ------------------------------{{{
-  let g:tmux_navigator_no_mappings = 1
-  nnoremap <silent> <C-j> :TmuxNavigateDown<cr>
-  nnoremap <silent> <C-k> :TmuxNavigateUp<cr>
-  nnoremap <silent> <C-l> :TmuxNavigateRight<cr>
-  nnoremap <silent> <C-h> :TmuxNavigateLeft<CR>
-  nnoremap <silent> <C-;> :TmuxNavigatePrevious<cr>
-  tmap <C-j> <C-\><C-n>:TmuxNavigateDown<cr>
-  tmap <C-k> <C-\><C-n>:TmuxNavigateUp<cr>
-  tmap <C-l> <C-\><C-n>:TmuxNavigateRight<cr>
-  tmap <C-h> <C-\><C-n>:TmuxNavigateLeft<CR>
-  tmap <C-;> <C-\><C-n>:TmuxNavigatePrevious<cr>
-"}}}
-
 " " vim-airline ---------------------------------------------------------------{{{
 "   let g:airline#extensions#tabline#enabled = 1
 "   set hidden
@@ -541,4 +378,13 @@ if pluginsExist
 "   command JscsFix :call JscsFix()
 "   noremap <leader>j :JscsFix<CR>
 " "}}}
+
+
+" Settings
+" Based on https://github.com/skwp/dotfiles/blob/master/vim/settings.vim
+let vimsettings = '~/.config/nvim/settings'
+for fpath in split(globpath(vimsettings, '*.vim'), '\n')
+  exe 'source' fpath
+endfor
+
 endif

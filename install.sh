@@ -11,6 +11,7 @@ ln -s "$(readlink -f zsh/zshrc)" ~/.zshrc
 # NeoVim
 mkdir -p ~/.config/nvim
 ln -s "$(readlink -f nvim/nvim.vim)" ~/.config/nvim/init.vim
+ln -s "$(readlink -f nvim/settings)" ~/.config/nvim/settings
 
 # Termite
 mkdir -p ~/.config/termite
