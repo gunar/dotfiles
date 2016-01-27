@@ -21,8 +21,8 @@
 
 ## Neovim
 
+- [ ] <C-h> not working to switch panes
 - [ ] Finish configuration
-- [ ] Allow for .eslint (neomake)
 - [ ] Import useful configs from my old .vimrc
 
 - Based on [Mike Hartington's dotfiles](https://github.com/mhartington/dotfiles)
@@ -37,3 +37,4 @@ Keymaps:
 - ,g Fugitive (Git) in Unite
 - <C-d> Delete line in insert mode
 - ,a Ag (silver bullet)
+- gf go to file (think import('file.js'))

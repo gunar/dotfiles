@@ -49,3 +49,7 @@ nnoremap <leader>d "_d
 vnoremap <leader>d "_d
 vnoremap <c-/> :TComment<cr>
 map <esc> :noh<cr>
+
+" Fast editing and reloading of vimrc configs
+nmap <leader>e :e! $MYVIMRC<cr>
+autocmd! bufwritepost $MYVIMRC source $MYVIMRC

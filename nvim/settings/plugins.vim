@@ -25,13 +25,13 @@ let pluginsExist = 1
 NeoBundleFetch 'Shougo/neobundle.vim'
 
 " syntax
-" NeoBundle 'pangloss/vim-javascript'
-" NeoBundle 'jelera/vim-javascript-syntax'
-" NeoBundle 'mxw/vim-jsx'
+NeoBundle 'pangloss/vim-javascript'
+NeoBundle 'jelera/vim-javascript-syntax'
+NeoBundle 'mxw/vim-jsx'
 NeoBundle 'othree/yajs.vim'
 " NeoBundle 'othree/es.next.syntax.vim'
 
-" NeoBundle '1995eaton/vim-better-javascript-completion'
+NeoBundle '1995eaton/vim-better-javascript-completion'
 " NeoBundle 'hail2u/vim-css3-syntax'
 " NeoBundle 'moll/vim-node'
 " " NeoBundle 'vim-scripts/SyntaxComplete'
@@ -56,7 +56,8 @@ NeoBundle 'Xuyuanp/nerdtree-git-plugin'
 " NeoBundle 'https://github.com/jaxbot/github-issues.vim'
 
 " untils
-" NeoBundle 'benekastah/neomake'
+NeoBundle 'vim-scripts/vim-auto-save'
+NeoBundle 'benekastah/neomake'
 NeoBundle 'editorconfig/editorconfig-vim'
 NeoBundle 'scrooloose/nerdtree'
 " NeoBundle 'AndrewRadev/switch.vim'
