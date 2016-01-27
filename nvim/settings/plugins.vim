@@ -40,6 +40,8 @@ NeoBundle 'othree/yajs.vim'
 " NeoBundle 'tpope/vim-markdown'
 " NeoBundle 'suan/vim-instant-markdown'
 " colorscheme & syntax highlighting
+
+" Theme
 NeoBundle 'mhartington/oceanic-next'
 " NeoBundle 'Yggdroot/indentLine'
 " NeoBundle 'myhere/vim-nodejs-complete'
@@ -53,7 +55,7 @@ NeoBundle 'airblade/vim-gitgutter'
 NeoBundle 'Xuyuanp/nerdtree-git-plugin'
 " NeoBundle 'https://github.com/jaxbot/github-issues.vim'
 
-" " untils
+" untils
 " NeoBundle 'benekastah/neomake'
 NeoBundle 'editorconfig/editorconfig-vim'
 NeoBundle 'scrooloose/nerdtree'
@@ -103,7 +105,6 @@ NeoBundle 'terryma/vim-multiple-cursors'
 " NeoBundle 'https://github.com/neovim/node-host'
 " NeoBundle 'vim-scripts/SyntaxRange'
 " NeoBundle 'vim-scripts/ingo-library'
-" NeoBundle 'vim-scripts/CSApprox'
 " " NeoBundle 'vim-scripts/XML-Folding'
 " NeoBundle 'ruanyl/vim-fixmyjs'
 

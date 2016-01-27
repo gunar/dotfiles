@@ -11,6 +11,8 @@
 
 ## tmux
 
+- [ ] Tmux splits like tabs (opens open buffer)
+
 - Seamless navigation between vim buffers and tmux panels
 - Scrolling works [plugin](https://github.com/NHDaly/tmux-scroll-copy-mode)
 
@@ -22,6 +24,7 @@
 
 - [ ] Finish configuration
 - [ ] Allow for .eslint (neomake)
+- [ ] Import useful configs from my old .vimrc
 
 - Based on [Mike Hartington's dotfiles](https://github.com/mhartington/dotfiles)
 - Seamless navigation between vim buffers and tmux panels
@@ -34,3 +37,4 @@ Keymaps:
 - ,. prev buffer
 - ,g Fugitive (Git) in Unite
 - <C-d> Delete line in insert mode
+- ,a Ag (silver bullet)
