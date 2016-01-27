@@ -11,10 +11,9 @@
 
 ## tmux
 
-- [ ] Tmux splits like tabs (opens open buffer)
-
-- Seamless navigation between vim buffers and tmux panels
+- Seamless navigation between vim buffers and tmux panels (C-hjkl)
 - Scrolling works [plugin](https://github.com/NHDaly/tmux-scroll-copy-mode)
+- Join (C-a + j), Send (s), Break (b) panes
 
 ## zsh
 
