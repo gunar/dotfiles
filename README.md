@@ -25,7 +25,7 @@
 - [ ] Finish configuration
 - [ ] Import useful configs from my old .vimrc
 
-- Based on [Mike Hartington's dotfiles](https://github.com/mhartington/dotfiles)
+- Based on [Mike Hartington's dotfiles](https://github.com/mhartington/dotfiles) [video](https://www.youtube.com/watch?v=xZTkrB_tEoY)
 - Seamless navigation between vim buffers and tmux panels
 
 Keymaps:
