@@ -1,0 +1,1122 @@
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"
+" Gunar C. Gessner - gunargessner.com (based on amix/vimrc)
+"                                (git is required for Plug)
+"
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" ,w            save
+" :W            sudo save
+" <tab>         wild menu
+" mouse         works
+" # *           search word under cursor
+" <space>       search
+" <c-space>     search back
+" <c-j,k,h,l>   move between windows
+" b , w         goto previous / next word
+" ,bd           Buffer Delete
+" ,ba           Buffer All delete
+" ,tn           Tab New
+" ,to           Tab Only
+" ,tc           Tab Close
+" ,tm           Tab Move
+" ,t,           Tab next
+" ,tl           Tab Last
+" ,te           Tab Edit
+" ,cd           CWD into current file path
+" >             Increase window width
+" <             Decrease window width
+" 0             goto first non-blank char
+"
+" ,ss           Spellcheck
+" ,sa           Add
+" ,sn           Next
+" ,sp           Previous
+" ,s?           Choose
+"
+" ,q            Scribble
+" ,x            Scribble Markdown
+" ,z            Zen mode
+" ,pp           Paste mode
+" ,e            Edit $MYVIMRC
+"
+" F8            Taglist
+" F10           Toggle last buffer
+" F11           Yank Ring
+" F12           bufexplorer toggle
+"   ,bs         bufexplorer split
+"   ,bv         bufexplorer v-split
+"   ,bt         bufexplorer tab
+"   d           hide buffer
+" ,f            MRU
+" ,nn           Nerdtree toggle
+" ,nb           Nerdtree bookmark
+" ,nf           Nerdtree find
+" <C-a>         Multiple cursors
+" <C-x>         Multiple cursors skip
+"
+" -- Normal --
+"  (c,d,y)s     Change/Delete/Yeld Surrounding
+"  ''           Go to last place
+"  gc           Comment
+"  ==           Auto indent
+"
+" -- Visual --
+"  <S-s>        Surrounding
+"  + , -        Inc/decrease selection
+"
+" -- Insert --
+"  xdate        current date
+"  <C-w>        Change last word
+"
+" -- Text objects --
+"   a           a ____ (includes surroundings)
+"   i           Inner ____ (excludes surroundings)
+" w             Word
+" s             Sentence
+" p             Paragraph (this dawdwa)
+" "             ""
+" '             ''
+" ( , )         ()
+" [ , ]         []
+" { , }         {}
+" t             Tag <html>
+" i             Indent level
+" a             Argument fn( arg , arg )
+"
+" -- Command-line --
+"  $c           Current file dir
+"  $h           $HOME
+"  $q           delete until last /
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" => General
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Sets how many lines of history VIM has to remember
+set history=700
+
+" Enable filetype plugins
+filetype plugin on
+filetype indent on
+
+" Set to auto read when a file is changed from the outside
+set autoread
+
+" With a map leader it's possible to do extra key combinations
+" like <leader>w saves the current file
+let mapleader = ","
+let g:mapleader = ","
+
+" :W sudo saves the file 
+" (useful for handling the permission-denied error)
+command W w !sudo tee % > /dev/null
+
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" => VIM user interface
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Set 7 lines to the cursor - when moving vertically using j/k
+set so=7
+
+" Turn on the WiLd menu
+set wildmenu
+
+" Ignore compiled files
+set wildignore=*.o,*~,*.pyc
+if has("win16") || has("win32")
+set wildignore+=*/.git/*,*/.hg/*,*/.svn/*,*/.DS_Store
+else
+set wildignore+=.git\*,.hg\*,.svn\*
+endif
+
+"Always show current position
+set ruler
+
+" Height of the command bar
+set cmdheight=2
+
+" A buffer becomes hidden when it is abandoned
+set hidden
+
+" Configure backspace so it acts as it should act
+set backspace=eol,start,indent
+set whichwrap+=<,>,h,l
+
+" In many terminal emulators the mouse works just fine, thus enable it.
+if has('mouse')
+set mouse=a
+endif
+
+" Ignore case when searching
+set ignorecase
+
+" When searching try to be smart about cases 
+set smartcase
+
+" Highlight search results
+set hlsearch
+
+" Makes search act like search in modern browsers
+set incsearch 
+
+" Don't redraw while executing macros (good performance config)
+set lazyredraw 
+
+" For regular expressions turn magic on
+set magic
+
+" Show matching brackets when text indicator is over them
+set showmatch 
+" How many tenths of a second to blink when matching brackets
+set mat=2
+
+" No annoying sound on errors
+set noerrorbells
+set novisualbell
+set t_vb=
+set tm=500
+
+" Add a bit extra margin to the left
+set foldcolumn=1
+
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" => Colors and Fonts
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Enable syntax highlighting
+syntax enable 
+
+
+let g:rehash256 = 1
+let g:molokai_original = 1
+set background=dark
+" Fix background in tmux
+set t_ut=
+
+" Set extra options when running in GUI mode
+if has("gui_running")
+set guioptions-=T
+set guioptions-=e
+set t_Co=256
+set guitablabel=%M\ %t
+endif
+
+" Set utf8 as standard encoding and en_US as the standard language
+set encoding=utf8
+
+
+if has("multi_byte")
+if &termencoding == ""
+let &termencoding = &encoding
+endif
+set encoding=utf-8
+setglobal fileencoding=utf-8
+"setglobal bomb
+set fileencodings=ucs-bom,utf-8,latin1
+endif
+
+" Use Unix as the standard file type
+set ffs=unix,dos,mac
+
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" => Files, backups and undo
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Turn backup off, since most stuff is in SVN, git et.c anyway...
+set nobackup
+set nowb
+set noswapfile
+
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" => Text, tab and indent related
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Use spaces instead of tabs
+set expandtab
+
+" Be smart when using tabs ;)
+set smarttab
+
+" 1 tab == 4 spaces
+set shiftwidth=2
+set tabstop=2
+
+" Linebreak on 500 characters
+set lbr
+set tw=500
+
+set ai "Auto indent
+set si "Smart indent
+set wrap "Wrap lines
+
+
+""""""""""""""""""""""""""""""
+" => Visual mode related
+""""""""""""""""""""""""""""""
+" Visual mode pressing * or # searches for the current selection
+" Super useful! From an idea by Michael Naumann
+vnoremap <silent> * :call VisualSelection('f', '')<CR>
+vnoremap <silent> # :call VisualSelection('b', '')<CR>
+
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" => Moving around, tabs, windows and buffers
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Treat long lines as break lines (useful when moving around in them)
+map j gj
+map k gk
+
+" Map <Space> to / (search) and Ctrl-<Space> to ? (backwards search)
+map <space> /
+map <c-space> ?
+
+" Map <Esq> to clear search results
+nnoremap <esc> :noh<return><esc>
+
+" Disable highlight when <leader><cr> is pressed
+map <silent> <leader><cr> :noh<cr>
+
+" Smart way to move between windows
+map <C-j> <C-W>j
+map <C-k> <C-W>k
+map <C-h> <C-W>h
+map <C-l> <C-W>l
+
+" Close the current buffer
+map <leader>bd :Bclose<cr>
+
+" Close all the buffers
+map <leader>ba :1,1000 bd!<cr>
+
+" Toggle between buffers
+noremap <F10> :e #<cr>
+
+" Useful mappings for managing tabs
+map <leader>tn :tabnew<cr>
+map <leader>to :tabonly<cr>
+map <leader>tc :tabclose<cr>
+map <leader>tm :tabmove 
+map <leader>t<leader> :tabnext 
+
+" Let 'tl' toggle between this and the last accessed tab
+let g:lasttab = 1
+nmap <Leader>tl :exe "tabn ".g:lasttab<CR>
+au TabLeave * let g:lasttab = tabpagenr()
+
+
+" Opens a new tab with the current buffer's path
+" Super useful when editing files in the same directory
+map <leader>te :tabedit <c-r>=expand("%:p:h")<cr>/
+
+" Switch CWD to the directory of the open buffer
+map <leader>cd :cd %:p:h<cr>:pwd<cr>
+
+" Specify the behavior when switching between buffers 
+try
+set switchbuf=useopen,usetab,newtab
+set stal=2
+catch
+endtry
+
+" Return to last edit position when opening files (You want this!)
+autocmd BufReadPost *
+ \ if line("'\"") > 0 && line("'\"") <= line("$") |
+ \   exe "normal! g`\"" |
+ \ endif
+" Remember info about open buffers on close
+set viminfo^=%
+
+
+""""""""""""""""""""""""""""""
+" => Status line
+""""""""""""""""""""""""""""""
+" Always show the status line
+set laststatus=2
+
+" Format the status line
+set statusline=\ %{HasPaste()}%F%m%r%h\ %w\ \ CWD:\ %r%{getcwd()}%h\ \ \ Line:\ %l
+
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" => Editing mappings
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Remap VIM 0 to first non-blank character
+map 0 ^
+
+
+if has("mac") || has("macunix")
+nmap <D-j> <M-j>
+nmap <D-k> <M-k>
+vmap <D-j> <M-j>
+vmap <D-k> <M-k>
+endif
+
+" Delete trailing white space on save, useful for Python and CoffeeScript ;)
+func! DeleteTrailingWS()
+exe "normal mz"
+%s/\s\+$//ge
+exe "normal `z"
+endfunc
+autocmd BufWrite *.py :call DeleteTrailingWS()
+autocmd BufWrite *.coffee :call DeleteTrailingWS()
+
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" => Ack searching and cope displaying
+"    requires ack.vim - it's much better than vimgrep/grep
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" When you press gv you Ack after the selected text
+vnoremap <silent> gv :call VisualSelection('Ag', '')<CR>
+
+" Open Ack and put the cursor in the right position
+map <leader>g :Ag 
+
+" When you press <leader>r you can search and replace the selected text
+vnoremap <silent> <leader>r :call VisualSelection('replace', '')<CR>
+
+" Do :help cope if you are unsure what cope is. It's super useful!
+"
+" When you search with Ack, display your results in cope by doing:
+"   <leader>cc
+"
+" To go to the next search result do:
+"   <leader>n
+"
+" To go to the previous search results do:
+"   <leader>p
+"
+map <leader>cc :botright cope<cr>
+map <leader>co ggVGy:tabnew<cr>:set syntax=qf<cr>pgg
+map <leader>n :cn<cr>
+map <leader>p :cp<cr>
+
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" => Spell checking
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Pressing ,ss will toggle and untoggle spell checking
+map <leader>ss :setlocal spell!<cr>
+
+" Shortcuts using <leader>
+map <leader>sn ]s
+map <leader>sp [s
+map <leader>sa zg
+map <leader>s? z=
+
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" => Misc
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Remove the Windows ^M - when the encodings gets messed up
+noremap <Leader>m mmHmt:%s/<C-V><cr>//ge<cr>'tzt'm
+
+" Quickly open a buffer for scribble
+map <leader>q :e ~/buffer<cr>
+
+" Quickly open a markdown buffer for scribble
+map <leader>x :e ~/buffer.md<cr>
+
+" Toggle paste mode on and off
+map <leader>pp :setlocal paste!<cr>
+
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"
+"                         FILETYPES
+"
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+""""""""""""""""""""""""""""""
+" => Python section
+""""""""""""""""""""""""""""""
+let python_highlight_all = 1
+au FileType python syn keyword pythonDecorator True None False self
+
+au BufNewFile,BufRead *.jinja set syntax=htmljinja
+au BufNewFile,BufRead *.mako set ft=mako
+
+au FileType python map <buffer> F :set foldmethod=indent<cr>
+
+au FileType python inoremap <buffer> $r return 
+au FileType python inoremap <buffer> $i import 
+au FileType python inoremap <buffer> $p print 
+au FileType python inoremap <buffer> $f #--- PH ----------------------------------------------<esc>FP2xi
+au FileType python map <buffer> <leader>1 /class 
+au FileType python map <buffer> <leader>2 /def 
+au FileType python map <buffer> <leader>C ?class 
+au FileType python map <buffer> <leader>D ?def 
+
+
+""""""""""""""""""""""""""""""
+" => JavaScript section
+"""""""""""""""""""""""""""""""
+" au FileType javascript call JavaScriptFold()
+" au FileType javascript setl fen
+" au FileType javascript setl nocindent
+
+au FileType javascript imap <c-t> console.log();<esc>hi
+" au FileType javascript imap <c-a> alert();<esc>hi
+
+" au FileType javascript inoremap <buffer> $r return 
+" au FileType javascript inoremap <buffer> $f //--- PH ----------------------------------------------<esc>FP2xi
+
+" function! JavaScriptFold() 
+" setl foldmethod=syntax
+" setl foldlevelstart=1
+" syn region foldBraces start=/{/ end=/}/ transparent fold keepend extend
+
+" function! FoldText()
+"     return substitute(getline(v:foldstart), '{.*', '{...}', '')
+" endfunction
+" setl foldtext=FoldText()
+" endfunction
+
+
+""""""""""""""""""""""""""""""
+" => CoffeeScript section
+"""""""""""""""""""""""""""""""
+function! CoffeeScriptFold()
+setl foldmethod=indent
+setl foldlevelstart=1
+endfunction
+au FileType coffee call CoffeeScriptFold()
+
+au FileType gitcommit call setpos('.', [0, 1, 1, 0])
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"
+"                         EXTENDED
+"
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" => GUI related
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Set font according to system
+if has("mac") || has("macunix")
+set gfn=Source\ Code\ Pro:h15,Menlo:h15
+elseif has("win16") || has("win32")
+set gfn=Source\ Code\ Pro:h12,Bitstream\ Vera\ Sans\ Mono:h11
+elseif has("linux")
+set gfn=Source\ Code\ Pro:h12,Bitstream\ Vera\ Sans\ Mono:h11
+elseif has("unix")
+set gfn=Monospace\ 11
+endif
+
+" Disable scrollbars (real hackers don't use scrollbars for navigation!)
+set guioptions-=r
+set guioptions-=R
+set guioptions-=l
+set guioptions-=L
+
+" if has("terminfo")
+"   let &t_Co=16
+"   let &t_AB="\<Esc>[%?%p1%{8}%<%t%p1%{40}%+%e%p1%{92}%+%;%dm"
+"   let &t_AF="\<Esc>[%?%p1%{8}%<%t%p1%{30}%+%e%p1%{82}%+%;%dm"
+" else
+"   let &t_Co=16
+"   let &t_Sf="\<Esc>[3%dm"
+"   let &t_Sb="\<Esc>[4%dm"
+" endif
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" => Fast editing and reloading of vimrc configs
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+map <leader>e :e! $MYVIMRC<cr>
+autocmd! bufwritepost $MYVIMRC source $MYVIMRC
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" => Default encryption (:X)
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Doesn't work in neovim
+" setlocal cm=blowfish2
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" => Turn persistent undo on 
+"    means that you can undo even when you close a buffer/VIM
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+try
+set undodir=~/.vim_runtime/temp_dirs/undodir
+set undofile
+set undolevels = 1000 "maximum number of changes that can be undone
+set undoreload = 10000 "maximum number lines to save for undo on a buffer reload
+catch
+endtry
+
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" => Command mode related
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Smart mappings on the command line
+cno $h e ~/
+cno $d e ~/Desktop/
+cno $j e ./
+cno $c e <C-\>eCurrentFileDir("e")<cr>
+
+" $q is super useful when browsing on the command line
+" it deletes everything until the last slash 
+cno $q <C-\>eDeleteTillSlash()<cr>
+
+" Bash like keys for the command line
+cnoremap <C-A>		<Home>
+cnoremap <C-E>		<End>
+cnoremap <C-K>		<C-U>
+
+cnoremap <C-P> <Up>
+cnoremap <C-N> <Down>
+
+" Map auto complete of (, ", ', [
+inoremap $1 ()<esc>i
+inoremap $2 []<esc>i
+inoremap $3 {}<esc>i
+inoremap $4 {<esc>o}<esc>O
+inoremap $q ''<esc>i
+inoremap $$ ""<esc>i
+inoremap $t <><esc>i
+
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" => General abbreviations
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+iab xdate <c-r>=strftime("%d/%m/%y %H:%M:%S")<cr>
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" => Omni complete functions
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+autocmd FileType css set omnifunc=csscomplete#CompleteCSS
+autocmd FileType javascript set omnifunc=javascriptcomplete#CompleteJS
+
+
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" => Helper functions
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+func! DeleteTillSlash()
+let g:cmd = getcmdline()
+
+if has("win16") || has("win32")
+    let g:cmd_edited = substitute(g:cmd, "\\(.*\[\\\\]\\).*", "\\1", "")
+else
+    let g:cmd_edited = substitute(g:cmd, "\\(.*\[/\]\\).*", "\\1", "")
+endif
+
+if g:cmd == g:cmd_edited
+    if has("win16") || has("win32")
+        let g:cmd_edited = substitute(g:cmd, "\\(.*\[\\\\\]\\).*\[\\\\\]", "\\1", "")
+    else
+        let g:cmd_edited = substitute(g:cmd, "\\(.*\[/\]\\).*/", "\\1", "")
+    endif
+endif   
+
+return g:cmd_edited
+endfunc
+
+func! CurrentFileDir(cmd)
+return a:cmd . " " . expand("%:p:h") . "/"
+endfunc
+
+function! CmdLine(str)
+exe "menu Foo.Bar :" . a:str
+emenu Foo.Bar
+unmenu Foo
+endfunction 
+
+function! VisualSelection(direction, extra_filter) range
+let l:saved_reg = @"
+execute "normal! vgvy"
+
+let l:pattern = escape(@", '\\/.*$^~[]')
+let l:pattern = substitute(l:pattern, "\n$", "", "")
+
+if a:direction == 'b'
+    execute "normal ?" . l:pattern . "^M"
+elseif a:direction == 'gv'
+    call CmdLine("Ack \"" . l:pattern . "\" " )
+elseif a:direction == 'replace'
+    call CmdLine("%s" . '/'. l:pattern . '/')
+elseif a:direction == 'f'
+    execute "normal /" . l:pattern . "^M"
+endif
+
+let @/ = l:pattern
+let @" = l:saved_reg
+endfunction
+
+
+" Returns true if paste mode is enabled
+function! HasPaste()
+if &paste
+    return 'PASTE MODE  '
+endif
+return ''
+endfunction
+
+" Don't close window, when deleting a buffer
+command! Bclose call <SID>BufcloseCloseIt()
+function! <SID>BufcloseCloseIt()
+let l:currentBufNum = bufnr("%")
+let l:alternateBufNum = bufnr("#")
+
+if buflisted(l:alternateBufNum)
+ buffer #
+else
+ bnext
+endif
+
+if bufnr("%") == l:currentBufNum
+ new
+endif
+
+if buflisted(l:currentBufNum)
+ execute("bdelete! ".l:currentBufNum)
+endif
+endfunction
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"
+"                        PLUGINS
+"
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+" => Load Plugins with Plug
+""""""""""""""""""""""""""""""
+let firstrun=0
+if !filereadable(expand("~/.vim/autoload/plug.vim"))
+
+    let firstrun=1
+    silent !mkdir -p ~/.vim/autoload
+    silent !mkdir -p ~/.vim/colors
+    silent !mkdir -p ~/.vim/undo
+    silent !mkdir -p ~/.vim/backups
+    silent !curl -fLo ~/.vim/autoload/plug.vim
+        \ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+    silent !curl -fLo ~/.vim/colors/luna.vim
+        \ https://raw.githubusercontent.com/notpratheek/vim-luna/master/colors/luna.vim
+    silent !curl -fLo ~/.vim/colors/molokai.vim
+        \ https://raw.githubusercontent.com/tomasr/molokai/master/colors/molokai.vim
+endif
+call plug#begin('~/.vim/plugged')
+Plug 'vim-scripts/vim-auto-save'
+Plug 'vim-scripts/YankRing.vim'
+Plug 'jlanzarotta/bufexplorer'
+Plug 'kien/ctrlp.vim'
+Plug 'vim-scripts/mru.vim'
+Plug 'scrooloose/nerdtree'
+Plug 'tpope/vim-surround'
+Plug 'godlygeek/csapprox'
+Plug 'terryma/vim-multiple-cursors'
+Plug 'bling/vim-airline'
+Plug 'amix/open_file_under_cursor.vim'
+
+Plug 'scrooloose/syntastic'
+Plug 'tpope/vim-unimpaired'
+
+Plug 'vim-scripts/taglist.vim' 
+Plug 'terryma/vim-expand-region' 
+Plug 'rking/ag.vim'
+Plug 'tpope/vim-commentary'
+Plug 'matze/vim-move'
+Plug 'mattn/emmet-vim'
+" Windows
+Plug 'talek/obvious-resize'
+Plug 'danro/rename.vim'
+Plug 'wesQ3/vim-windowswap'
+
+"Plug 'mustache/vim-mustache-handlebars'
+Plug 'gorodinskiy/vim-coloresque'
+
+" CSS Extensions
+"Plug 'wavded/vim-stylus'
+"Plug 'cakebaker/scss-syntax.vim'
+
+" For ruby (later)
+"Plug 'tpope/vim-rails'
+"Plug 'tpope/vim-bundler'
+"Plug 'skalnik/vim-vroom'
+"Plug 'nelstrom/vim-textobj-rubyblock'
+
+" Goyo is dependency of zenroom2
+Plug 'junegunn/goyo.vim'
+Plug 'amix/vim-zenroom2'
+
+" SnipMate dependencies
+Plug 'tomtom/tlib_vim'
+Plug 'marcweber/vim-addon-mw-utils'
+" SnipMate
+Plug 'garbas/vim-snipmate'
+" Snips catalog
+Plug 'honza/vim-snippets'
+
+" Text objects
+Plug 'vim-scripts/argtextobj.vim'
+Plug 'michaeljsmith/vim-indent-object'
+
+Plug 'godlygeek/tabular'
+Plug 'plasticboy/vim-markdown'
+Plug 'kchmck/vim-coffee-script'
+" Plug 'kovisoft/slimv'
+Plug 'othree/html5.vim'
+" Plug 'pangloss/vim-javascript'
+Plug 'bigfish/vim-js-context-coloring'
+Plug 'digitaltoad/vim-jade'
+
+
+call plug#end()
+if 1 == firstrun
+    :PlugInstall
+endif
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" => vim-js-context-coloring
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+let g:js_context_colors_block_scope_with_let=1
+let g:js_context_colors_jsx=1
+" let g:js_context_colors_show_error_message = 1
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" => vim-markdown
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+let g:vim_markdown_folding_disabled=1
+au BufRead,BufNewFile *.md setlocal textwidth=80
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""k
+" => vim-multiple-cursors
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" plugin not working
+let g:multi_cursor_use_default_mapping=0
+let g:multi_cursor_next_key='<C-a>'
+"let g:multi_cursor_prev_key='<C-p>'
+let g:multi_cursor_skip_key='<C-x>'
+let g:multi_cursor_quit_key='<Esc>'
+
+""""""""""""""""""""""""""""""
+" => Obvious Resize
+""""""""""""""""""""""""""""""
+noremap <silent> <C-Up> :<C-U>ObviousResizeUp<CR>
+noremap <silent> <C-Down> :<C-U>ObviousResizeDown<CR>
+noremap <silent> <C-Left> :<C-U>ObviousResizeLeft<CR>
+noremap <silent> <C-Right> :<C-U>ObviousResizeRight<CR>
+
+""""""""""""""""""""""""""""""
+" => YankRing
+""""""""""""""""""""""""""""""
+if has("win16") || has("win32")
+    " Don't do anything
+else
+    silent !mkdir ~/.vim/temp_dirs/ > /dev/null 2>&1
+    let g:yankring_history_dir = '~/.vim/temp_dirs/'
+endif
+nnoremap <silent> <F11> :YRShow<CR>
+
+""""""""""""""""""""""""""""""
+" => bufExplorer plugin
+""""""""""""""""""""""""""""""
+let g:bufExplorerDefaultHelp=0
+let g:bufExplorerShowRelativePath=1
+let g:bufExplorerFindActive=1
+let g:bufExplorerSortBy='name'
+nnoremap <F12> :ToggleBufExplorer<cr>
+nnoremap <silent> <M-h> :bp<CR>
+nnoremap <silent> <M-l>  :bn<CR>
+nnoremap <silent> h :bp<CR>
+nnoremap <silent> l  :bn<CR>
+
+
+""""""""""""""""""""""""""""""
+" => CTRL-P
+""""""""""""""""""""""""""""""
+let g:ctrlp_working_path_mode = 0
+
+let g:ctrlp_map = '<c-f>'
+map <leader>j :CtrlP<cr>
+map <c-b> :CtrlPBuffer<cr>
+
+let g:ctrlp_max_height = 20
+let g:ctrlp_custom_ignore = {
+  \ 'dir':  '\v[\/](\.(git|hg|svn)|\_site|node_modules|bower_components)$',
+  \ 'file': '\v\.(exe|so|dll|class|png|jpg|jpeg)$',
+\}
+
+
+""""""""""""""""""""""""""""""
+" => MRU plugin
+""""""""""""""""""""""""""""""
+let MRU_Max_Entries = 400
+map <leader>f :MRU<CR>
+
+
+
+""""""""""""""""""""""""""""""
+" => Emmet
+""""""""""""""""""""""""""""""
+" Enable all functions in all modes
+let g:user_emmet_mode='a'
+let g:user_emmet_install_global = 0
+autocmd FileType html,css,php,js,jsx EmmetInstall
+
+
+""""""""""""""""""""""""""""""
+" => snipMate (beside <TAB> support <CTRL-j>)
+""""""""""""""""""""""""""""""
+ino <c-j> <c-r>=snipMate#TriggerSnippet()<cr>
+snor <c-j> <esc>i<right><c-r>=snipMate#TriggerSnippet()<cr>
+
+
+""""""""""""""""""""""""""""""
+" => Vim grep
+""""""""""""""""""""""""""""""
+let Grep_Skip_Dirs = 'RCS CVS SCCS .svn generated'
+set grepprg=/usr/bin/grep\ -nH
+
+
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" => Nerd Tree
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+let g:NERDTreeWinPos = 'left'
+let NERDTreeIgnore = ['\.pyc$']
+let g:NERDTreeWinSize=35
+map <leader>nn :NERDTreeToggle<cr>
+map <leader>nb :NERDTreeFromBookmark 
+map <leader>nf :NERDTreeFind<cr>
+
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" => surround.vim config
+" Annotate strings with gettext http://amix.dk/blog/post/19678
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+vmap Si S(i_<esc>f)
+au FileType mako vmap Si S"i${ _(<esc>2f"a) }<esc>
+
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" => vim-airline config (force color)
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+let g:airline_theme="luna"
+" Enable the list of buffers
+let g:airline#extensions#tabline#enabled = 1
+
+" Show just the filename
+let g:airline#extensions#tabline#fnamemod = ':t'
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" => Vimroom
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+let g:goyo_width=100
+let g:goyo_margin_top = 2
+let g:goyo_margin_bottom = 2
+nnoremap <silent> <leader>z :Goyo<cr>
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" => AutoSave (vim-auto-save)
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+let g:auto_save = 1
+let g:auto_save_in_insert_mode = 0  
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" => Syntastic (syntax checker)
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" let g:syntastic_python_checkers=['pyflakes']
+" let g:syntastic_php_checkers = ['php', 'phpcs', 'phpmd']
+
+" Use local eslint if available, global otherwise
+" This is so plugins locally installed work
+function! SyntasticESlintChecker()
+  let l:npm_bin = ''
+  let l:eslint = 'eslint'
+
+  if executable('npm')
+    let l:npm_bin = split(system('npm bin'), '\n')[0]
+  endif
+
+  if strlen(l:npm_bin) && executable(l:npm_bin . '/eslint')
+    let l:eslint = l:npm_bin . '/eslint'
+  endif
+
+  let b:syntastic_javascript_eslint_exec = l:eslint
+endfunction
+autocmd FileType javascript :call SyntasticESlintChecker()
+let g:syntastic_javascript_checkers = ['eslint']
+set statusline+=%#warningmsg#
+set statusline+=%{SyntasticStatuslineFlag()}
+set statusline+=%*
+
+let g:syntastic_always_populate_loc_list = 1
+let g:syntastic_loc_list_height = 3
+let g:syntastic_auto_loc_list = 1
+let g:syntastic_check_on_open = 1
+let g:syntastic_check_on_wq = 0
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" => Taglist
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+nnoremap <silent> <F8> :TlistToggle<CR>
+let Tlist_Use_Right_Window   = 1
+
+" Colorscheme after PLUGINS not to bring up errors 1st time
+colorscheme molokai
+let g:colors_name="molokai"
+
+" If you are using a console version of Vim, or dealing
+" with a file that changes externally (e.g. a web server log)
+" then Vim does not always check to see if the file has been changed.
+" The GUI version of Vim will check more often (for example on Focus change),
+" and prompt you if you want to reload the file.
+"
+" There can be cases where you can be working away, and Vim does not
+" realize the file has changed. This command will force Vim to check
+" more often.
+"
+" Calling this command sets up autocommands that check to see if the
+" current buffer has been modified outside of vim (using checktime)
+" and, if it has, reload it for you.
+"
+" This check is done whenever any of the following events are triggered:
+" * BufEnter
+" * CursorMoved
+" * CursorMovedI
+" * CursorHold
+" * CursorHoldI
+"
+" In other words, this check occurs whenever you enter a buffer, move the cursor,
+" or just wait without doing anything for 'updatetime' milliseconds.
+"
+" Normally it will ask you if you want to load the file, even if you haven't made
+" any changes in vim. This can get annoying, however, if you frequently need to reload
+" the file, so if you would rather have it to reload the buffer *without*
+" prompting you, add a bang (!) after the command (WatchForChanges!).
+" This will set the autoread option for that buffer in addition to setting up the
+" autocommands.
+"
+" If you want to turn *off* watching for the buffer, just call the command again while
+" in the same buffer. Each time you call the command it will toggle between on and off.
+"
+" WatchForChanges sets autocommands that are triggered while in *any* buffer.
+" If you want vim to only check for changes to that buffer while editing the buffer
+" that is being watched, use WatchForChangesWhileInThisBuffer instead.
+"
+command! -bang WatchForChanges                  :call WatchForChanges(@%,  {'toggle': 1, 'autoread': <bang>0})
+command! -bang WatchForChangesWhileInThisBuffer :call WatchForChanges(@%,  {'toggle': 1, 'autoread': <bang>0, 'while_in_this_buffer_only': 1})
+command! -bang WatchForChangesAllFile           :call WatchForChanges('*', {'toggle': 1, 'autoread': <bang>0})
+" WatchForChanges function
+"
+" This is used by the WatchForChanges* commands, but it can also be
+" useful to call this from scripts. For example, if your script executes a
+" long-running process, you can have your script run that long-running process
+" in the background so that you can continue editing other files, redirects its
+" output to a file, and open the file in another buffer that keeps reloading itself
+" as more output from the long-running command becomes available.
+"
+" Arguments:
+" * bufname: The name of the buffer/file to watch for changes.
+"     Use '*' to watch all files.
+" * options (optional): A Dict object with any of the following keys:
+"   * autoread: If set to 1, causes autoread option to be turned on for the buffer in
+"     addition to setting up the autocommands.
+"   * toggle: If set to 1, causes this behavior to toggle between on and off.
+"     Mostly useful for mappings and commands. In scripts, you probably want to
+"     explicitly enable or disable it.
+"   * disable: If set to 1, turns off this behavior (removes the autocommand group).
+"   * while_in_this_buffer_only: If set to 0 (default), the events will be triggered no matter which
+"     buffer you are editing. (Only the specified buffer will be checked for changes,
+"     though, still.) If set to 1, the events will only be triggered while
+"     editing the specified buffer.
+"   * more_events: If set to 1 (the default), creates autocommands for the events
+"     listed above. Set to 0 to not create autocommands for CursorMoved, CursorMovedI,
+"     (Presumably, having too much going on for those events could slow things down,
+"     since they are triggered so frequently...)
+function! WatchForChanges(bufname, ...)
+  " Figure out which options are in effect
+  if a:bufname == '*'
+    let id = 'WatchForChanges'.'AnyBuffer'
+    " If you try to do checktime *, you'll get E93: More than one match for * is given
+    let bufspec = ''
+  else
+    if bufnr(a:bufname) == -1
+      echoerr "Buffer " . a:bufname . " doesn't exist"
+      return
+    end
+    let id = 'WatchForChanges'.bufnr(a:bufname)
+    let bufspec = a:bufname
+  end
+  if len(a:000) == 0
+    let options = {}
+  else
+    if type(a:1) == type({})
+      let options = a:1
+    else
+      echoerr "Argument must be a Dict"
+    end
+  end
+  let autoread    = has_key(options, 'autoread')    ? options['autoread']    : 0
+  let toggle      = has_key(options, 'toggle')      ? options['toggle']      : 0
+  let disable     = has_key(options, 'disable')     ? options['disable']     : 0
+  let more_events = has_key(options, 'more_events') ? options['more_events'] : 1
+  let while_in_this_buffer_only = has_key(options, 'while_in_this_buffer_only') ? options['while_in_this_buffer_only'] : 0
+  if while_in_this_buffer_only
+    let event_bufspec = a:bufname
+  else
+    let event_bufspec = '*'
+  end
+  let reg_saved = @"
+  "let autoread_saved = &autoread
+  let msg = "\n"
+  " Check to see if the autocommand already exists
+  redir @"
+    silent! exec 'au '.id
+  redir END
+  let l:defined = (@" !~ 'E216: No such group or event:')
+  " If not yet defined...
+  if !l:defined
+    if l:autoread
+      let msg = msg . 'Autoread enabled - '
+      if a:bufname == '*'
+        set autoread
+      else
+        setlocal autoread
+      end
+    end
+    silent! exec 'augroup '.id
+      if a:bufname != '*'
+        "exec "au BufDelete    ".a:bufname . " :silent! au! ".id . " | silent! augroup! ".id
+        "exec "au BufDelete    ".a:bufname . " :echomsg 'Removing autocommands for ".id."' | au! ".id . " | augroup! ".id
+        exec "au BufDelete    ".a:bufname . " execute 'au! ".id."' | execute 'augroup! ".id."'"
+      end
+        exec "au BufEnter     ".event_bufspec . " :checktime ".bufspec
+        exec "au CursorHold   ".event_bufspec . " :checktime ".bufspec
+        exec "au CursorHoldI  ".event_bufspec . " :checktime ".bufspec
+      " The following events might slow things down so we provide a way to disable them...
+      " vim docs warn:
+      "   Careful: Don't do anything that the user does
+      "   not expect or that is slow.
+      if more_events
+        exec "au CursorMoved  ".event_bufspec . " :checktime ".bufspec
+        exec "au CursorMovedI ".event_bufspec . " :checktime ".bufspec
+      end
+    augroup END
+    let msg = msg . 'Now watching ' . bufspec . ' for external updates...'
+  end
+  " If they want to disable it, or it is defined and they want to toggle it,
+  if l:disable || (l:toggle && l:defined)
+    if l:autoread
+      let msg = msg . 'Autoread disabled - '
+      if a:bufname == '*'
+        set noautoread
+      else
+        setlocal noautoread
+      end
+    end
+    " Using an autogroup allows us to remove it easily with the following
+    " command. If we do not use an autogroup, we cannot remove this
+    " single :checktime command
+    " augroup! checkforupdates
+    silent! exec 'au! '.id
+    silent! exec 'augroup! '.id
+    let msg = msg . 'No longer watching ' . bufspec . ' for external updates.'
+  elseif l:defined
+    let msg = msg . 'Already watching ' . bufspec . ' for external updates'
+  end
+  echo msg
+  let @"=reg_saved
+endfunction
+" let autoreadargs={'autoread':1} 
+" execute WatchForChanges("*",autoreadargs) 

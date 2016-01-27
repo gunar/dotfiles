@@ -21,6 +21,16 @@
 ## Neovim
 
 - [ ] Finish configuration
+- [ ] Allow for .eslint (neomake)
 
 - Based on [Mike Hartington's dotfiles](https://github.com/mhartington/dotfiles)
 - Seamless navigation between vim buffers and tmux panels
+
+Keymaps:
+
+- <C-\> Toggle NERDtree
+- <C-p> Fuzzy file search
+- ,, next buffer
+- ,. prev buffer
+- ,g Fugitive (Git) in Unite
+- <C-d> Delete line in insert mode

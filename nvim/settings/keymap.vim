@@ -1,3 +1,9 @@
+nmap <leader>t :term<cr>
+nmap <leader>, :bnext<CR>
+tmap <leader>, <C-\><C-n>:bnext<cr>
+nmap <leader>. :bprevious<CR>
+tmap <leader>. <C-\><C-n>:bprevious<CR>
+
 " No need for ex mode
 nnoremap Q <nop>
 " recording macros is not my thing
@@ -35,14 +41,6 @@ noremap K 5k
 " give it a try and you will like it
 nnoremap ; :
 inoremap <c-f> <c-x><c-f>
-" Copy to osx clipboard
-vnoremap <C-c> "*y<CR>
-vnoremap y "*y<CR>
-nnoremap Y "*Y<CR>
-let g:multi_cursor_next_key='<C-n>'
-let g:multi_cursor_prev_key='<C-p>'
-let g:multi_cursor_skip_key='<C-x>'
-let g:multi_cursor_quit_key='<Esc>'
 
 " Align blocks of text and keep them selected
 vmap < <gv
@@ -51,18 +49,3 @@ nnoremap <leader>d "_d
 vnoremap <leader>d "_d
 vnoremap <c-/> :TComment<cr>
 map <esc> :noh<cr>
-
-nnoremap <leader>e :call <SID>SynStack()<CR>
-function! <SID>SynStack()
-  if !exists("*synstack")
-    return
-  endif
-  echo map(synstack(line('.'), col('.')), 'synIDattr(v:val, "name")')
-endfunc
-
-function! s:PlaceholderImgTag(size)
-  let url = 'http://dummyimage.com/' . a:size . '/000000/555555'
-  let [width,height] = split(a:size, 'x')
-  execute "normal a<img src=\"".url."\" width=\"".width."\" height=\"".height."\" />"
-endfunction
-command! -nargs=1 PlaceholderImgTag call s:PlaceholderImgTag(<f-args>)
