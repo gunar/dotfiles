@@ -44,4 +44,4 @@ let g:indentLine_char='│'
 let g:deoplete#enable_at_startup = 1
 
 let g:auto_save = 1
-let g:auto_save_in_insert_mode = 1 
+let g:auto_save_in_insert_mode = 0
