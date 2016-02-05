@@ -7,11 +7,29 @@
 "   \ }
 " endfunction
 let g:neomake_javascript_enabled_makers = ['eslint']
+let g:neomake_jsx_enabled_makers = ['eslint']
 
 " Prefer local eslint over global
 " (https://github.com/benjie/neomake-local-eslint.vim)
-let s:eslint_path = system('PATH=$(npm bin):$PATH && which eslint')
-let b:neomake_javascript_eslint_exe = substitute(s:eslint_path, '^\n*\s*\(.\{-}\)\n*\s*$', '\1', '')
+" let s:eslint_path = system('PATH=$(npm bin):$PATH && which eslint')
+" let b:neomake_javascript_eslint_exe = substitute(s:eslint_path, '^\n*\s*\(.\{-}\)\n*\s*$', '\1', '')
+" Use local eslint if available, global otherwise
+" This is so plugins locally installed work
+function! NeomakeESlintChecker()
+  let l:npm_bin = ''
+  let l:eslint = 'eslint'
+
+  if executable('npm')
+    let l:npm_bin = split(system('npm bin'), '\n')[0]
+  endif
+
+  if strlen(l:npm_bin) && executable(l:npm_bin . '/eslint')
+    let l:eslint = l:npm_bin . '/eslint'
+  endif
+
+  let b:neomake_javascript_eslint_exe = l:eslint
+endfunction
+autocmd FileType javascript :call NeomakeESlintChecker()
  
 autocmd! BufWritePost,BufReadPost * Neomake
 
