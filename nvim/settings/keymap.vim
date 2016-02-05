@@ -50,6 +50,24 @@ vnoremap <leader>d "_d
 vnoremap <c-/> :TComment<cr>
 map <esc> :noh<cr>
 
+" Move lines up and down
+nnoremap <A-j> :m .+1<CR>==
+nnoremap <A-k> :m .-2<CR>==
+inoremap <A-j> <Esc>:m .+1<CR>==gi
+inoremap <A-k> <Esc>:m .-2<CR>==gi
+vnoremap <A-j> :m '>+1<CR>gv=gv
+vnoremap <A-k> :m '<-2<CR>gv=gv
+
+" Switch CWD to the directory of the open buffer
+map <leader>cd :cd %:p:h<cr>:pwd<cr>
+
+" Close the current buffer
+map <leader>d :bd<cr>
+
+" Switch buffers with alt+l alt+h
+nnoremap <silent> è :bp<CR>
+nnoremap <silent> ì  :bn<CR>
+
 " Fast editing and reloading of vimrc configs
 nmap <leader>e :e! $MYVIMRC<cr>
 autocmd! bufwritepost $MYVIMRC source $MYVIMRC
