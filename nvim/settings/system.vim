@@ -35,8 +35,11 @@ autocmd BufRead * normal zz
 let g:jsx_ext_required = 0
 set complete=.,w,b,u,t,k
 let g:gitgutter_max_signs = 1000  " default value
-autocmd InsertEnter * let save_cwd = getcwd() | set autochdir
-autocmd InsertLeave * set noautochdir | execute 'cd' fnameescape(save_cwd)
+
+" Auto CD to current file's directory
+" autocmd InsertEnter * let save_cwd = getcwd() | set autochdir
+" autocmd InsertLeave * set noautochdir | execute 'cd' fnameescape(save_cwd)
+
 let g:lua_complete_omni = 1
 
 let g:indentLine_char='│'
