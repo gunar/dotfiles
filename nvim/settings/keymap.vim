@@ -65,8 +65,8 @@ map <leader>cd :cd %:p:h<cr>:pwd<cr>
 map <leader>d :bd<cr>
 
 " Switch buffers with alt+l alt+h
-nnoremap <silent> è :bp<CR>
-nnoremap <silent> ì  :bn<CR>
+nnoremap <silent> <A-h> :bp<CR>
+nnoremap <silent> <A-l>  :bn<CR>
 
 " Fast editing and reloading of vimrc configs
 nmap <leader>e :e! $MYVIMRC<cr>
