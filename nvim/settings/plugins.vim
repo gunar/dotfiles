@@ -25,13 +25,16 @@ let pluginsExist = 1
 NeoBundleFetch 'Shougo/neobundle.vim'
 
 " syntax
-NeoBundle 'pangloss/vim-javascript'
-NeoBundle 'jelera/vim-javascript-syntax'
-NeoBundle 'mxw/vim-jsx'
-NeoBundle 'othree/yajs.vim'
+" NeoBundle 'jelera/vim-javascript-syntax'
+NeoBundle 'bigfish/vim-js-context-coloring', {'build' : {'unix' : 'npm install --update'} }
+" NeoBundle 'pangloss/vim-javascript'
+" NeoBundle 'mxw/vim-jsx'
+
+" NeoBundle 'othree/yajs.vim'
 " NeoBundle 'othree/es.next.syntax.vim'
 
-NeoBundle '1995eaton/vim-better-javascript-completion'
+" NeoBundle '1995eaton/vim-better-javascript-completion'
+
 " NeoBundle 'hail2u/vim-css3-syntax'
 " NeoBundle 'moll/vim-node'
 " " NeoBundle 'vim-scripts/SyntaxComplete'
@@ -103,7 +106,7 @@ NeoBundle 'terryma/vim-multiple-cursors'
 " NeoBundle 'junegunn/goyo.vim'
 " NeoBundle 'junegunn/limelight.vim'
 " NeoBundle 'https://github.com/danielmiessler/VimBlog'
-" NeoBundle 'https://github.com/neovim/node-host'
+NeoBundle 'https://github.com/neovim/node-host'
 " NeoBundle 'vim-scripts/SyntaxRange'
 " NeoBundle 'vim-scripts/ingo-library'
 " " NeoBundle 'vim-scripts/XML-Folding'
