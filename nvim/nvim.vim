@@ -61,6 +61,9 @@ for fpath in split(globpath(vimsettings, '*.vim'), '\n')
   if (fpath == expand(vimsettings) . "/plugins.vim")
     continue " do not source twice
   endif
+  if (fpath == expand(vimsettings) . "/system.vim")
+    continue " do not source twice
+  endif
 
   exe 'source' fpath
 endfor
