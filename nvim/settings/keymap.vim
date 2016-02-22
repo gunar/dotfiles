@@ -71,3 +71,6 @@ nnoremap <silent> <A-l>  :bn<CR>
 " Fast editing and reloading of vimrc configs
 nmap <leader>e :e! $MYVIMRC<cr>
 autocmd! bufwritepost $MYVIMRC source $MYVIMRC
+
+" Go to first non blank char
+map 0 ^
