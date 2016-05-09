@@ -39,7 +39,8 @@ end
 
 -- Xcompmgr Composition Manager for transparency
 -- TODO: I should remove this if my theme doesn't use transparency
-awful.util.spawn_with_shell("xcompmgr &")
+-- xcompmgr removed because widgets' buttons weren't working
+-- awful.util.spawn_with_shell("xcompmgr &")
 
 -- Simple function to load additional LUA files from rc/.
 function loadrc(name, mod)
