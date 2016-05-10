@@ -278,6 +278,7 @@ root.buttons(awful.util.table.join(
 -- {{{ Key bindings
 globalkeys = awful.util.table.join(globalkeys,
     awful.key({ modkey,           }, "e", function () awful.util.spawn("thunar") end),
+    awful.key({ "Control"         }, "q", function () awful.util.spawn("catfish") end),
     awful.key({ modkey,           }, "i", function () awful.util.spawn("chromium --profile-directory=Default") end),
     awful.key({ modkey,           }, "o", function () awful.util.spawn("chromium --profile-directory=\"Profile 1\"") end),
     awful.key({ modkey,           }, "Up", function () awful.util.spawn("chromium --profile-directory=Default https://web.telegram.org") end),
