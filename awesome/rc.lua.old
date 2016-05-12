@@ -1,2 +1,0 @@
-        local heat_load = 40
--- string.match(line, "temp1: [ ]+ (%d+)")
