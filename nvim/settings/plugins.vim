@@ -24,16 +24,18 @@ let pluginsExist = 1
 " Required:
 NeoBundleFetch 'Shougo/neobundle.vim'
 
+
 " syntax
-" NeoBundle 'jelera/vim-javascript-syntax'
-NeoBundle 'bigfish/vim-js-context-coloring', {'build' : {'unix' : 'npm install --update'} }
-" NeoBundle 'pangloss/vim-javascript'
-" NeoBundle 'mxw/vim-jsx'
+NeoBundle 'jelera/vim-javascript-syntax'
+" NeoBundle 'bigfish/vim-js-context-coloring', {'build' : {'unix' : 'npm install --update'} }
+NeoBundle 'pangloss/vim-javascript'
+NeoBundle 'mxw/vim-jsx'
+NeoBundle 'alunny/pegjs-vim'
 
-" NeoBundle 'othree/yajs.vim'
-" NeoBundle 'othree/es.next.syntax.vim'
+NeoBundle 'othree/yajs.vim'
+NeoBundle 'othree/es.next.syntax.vim'
 
-" NeoBundle '1995eaton/vim-better-javascript-completion'
+NeoBundle '1995eaton/vim-better-javascript-completion'
 
 " NeoBundle 'hail2u/vim-css3-syntax'
 " NeoBundle 'moll/vim-node'
