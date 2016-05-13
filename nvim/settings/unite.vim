@@ -1,9 +1,13 @@
-let g:unite_data_directory='~/.nvim/.cache/unite'
+" let g:unite_data_directory='~/.nvim/.cache/unite'
 let g:unite_source_history_yank_enable=1
 let g:unite_prompt='» '
-let g:unite_source_rec_async_command =['ag', '--follow', '--nocolor', '--nogroup','--hidden', '-g', '', '--ignore', '.git', '--ignore', '*.png', '--ignore', 'lib']
+let g:unite_source_rec_async_command =['ag', '--follow', '--nocolor', '--nogroup','--hidden', '-g', '', '--ignore', '.git', '--ignore', '*.png']
 
-nnoremap <silent> <c-p> :Unite -auto-resize -start-insert -direction=botright file_rec/neovim<CR>
+call unite#custom#source('file_rec/neovim', 'max_candidates', 300)
+call unite#custom#source('file_rec/neovim', 'matchers', ['converter_relative_word', 'matcher_fuzzy'])
+call unite#custom#source('file_rec/neovim', 'sorters', 'sorter_rank')
+
+nnoremap <silent> <c-p> :Unite -auto-resize -start-insert -direction=botright -ignorecase file_rec/neovim<CR>
 nnoremap <silent> <leader>c :Unite -auto-resize -start-insert -direction=botright colorscheme<CR>
 nnoremap <silent> <leader>u :Unite neobundle/update<CR>
 
