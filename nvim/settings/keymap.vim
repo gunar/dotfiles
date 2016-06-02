@@ -6,8 +6,6 @@ tmap <leader>. <C-\><C-n>:bprevious<CR>
 
 " No need for ex mode
 nnoremap Q <nop>
-" recording macros is not my thing
-map q <Nop>
 " exit insert, dd line, enter insert
 inoremap <c-d> <esc>ddi
 " Navigate between display lines
@@ -74,3 +72,18 @@ autocmd! bufwritepost $MYVIMRC source $MYVIMRC
 
 " Go to first non blank char
 map 0 ^
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" => Spell checking
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Pressing ,ss will toggle and untoggle spell checking
+map <leader>ss :setlocal spell!<cr>
+
+" Shortcuts using <leader>
+map <leader>sn ]s
+map <leader>sp [s
+map <leader>sa zg
+map <leader>s? z=
+
+" Sort module.exports and {} stuff
+nnoremap <C-s> vi{=vi{:sort<cr>
