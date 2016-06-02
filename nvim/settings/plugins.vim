@@ -89,13 +89,13 @@ NeoBundle 'ujihisa/unite-colorscheme'
 "       \     'unix' : 'gmake',
 "       \    },
 "       \ }
-" NeoBundle 'Shougo/deoplete.nvim'
+NeoBundle 'Shougo/deoplete.nvim'
 " NeoBundle 'Shougo/neco-vim'
 " NeoBundle 'Shougo/neoinclude.vim'
 " NeoBundleLazy 'ujihisa/neco-look',{'autoload':{'filetypes':['markdown']}}
-" NeoBundle 'Shougo/neosnippet.vim'
-" NeoBundle 'Shougo/neosnippet-snippets'
-" NeoBundle 'honza/vim-snippets'
+NeoBundle 'Shougo/neosnippet.vim'
+" Not using the default snippets
+NeoBundle 'Shougo/neosnippet-snippets'
 
 NeoBundle 'junegunn/fzf', { 'dir': '~/.fzf' }
 NeoBundle 'junegunn/fzf.vim'
