@@ -48,3 +48,12 @@ let g:deoplete#enable_at_startup = 1
 
 let g:auto_save = 1
 let g:auto_save_in_insert_mode = 0
+
+
+" visual-at https://github.com/stoeffel/.dotfiles/blob/master/vim/visual-at.vim<Paste>
+" allows you to select multiple lines and run a macro on each
+xnoremap @ :<C-u>call ExecuteMacroOverVisualRange()<CR>
+function! ExecuteMacroOverVisualRange()
+  echo "@".getcmdline()
+  execute ":'<,'>normal @".nr2char(getchar())
+endfunction

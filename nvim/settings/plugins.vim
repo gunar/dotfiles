@@ -102,7 +102,6 @@ NeoBundle 'junegunn/fzf.vim'
 " NeoBundle 'mhinz/vim-sayonara'
 " NeoBundle 'vim-lua-ftplugin', {'depends': 'xolox/vim-misc'}
 " NeoBundle 'mattn/gist-vim', {'depends': 'mattn/webapi-vim'}
-NeoBundle 'terryma/vim-multiple-cursors'
 " NeoBundle 'rhysd/github-complete.vim'
 " NeoBundle 'junegunn/goyo.vim'
 " NeoBundle 'junegunn/limelight.vim'
