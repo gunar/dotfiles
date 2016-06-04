@@ -60,7 +60,7 @@ NeoBundle 'Xuyuanp/nerdtree-git-plugin'
 " NeoBundle 'https://github.com/jaxbot/github-issues.vim'
 
 " untils
-NeoBundle 'vim-scripts/vim-auto-save'
+NeoBundle '907th/vim-auto-save'
 NeoBundle 'benekastah/neomake'
 NeoBundle 'editorconfig/editorconfig-vim'
 NeoBundle 'scrooloose/nerdtree'
