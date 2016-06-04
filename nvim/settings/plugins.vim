@@ -27,7 +27,6 @@ NeoBundleFetch 'Shougo/neobundle.vim'
 
 " syntax
 NeoBundle 'jelera/vim-javascript-syntax'
-" NeoBundle 'bigfish/vim-js-context-coloring', {'build' : {'unix' : 'npm install --update'} }
 NeoBundle 'pangloss/vim-javascript'
 NeoBundle 'mxw/vim-jsx'
 NeoBundle 'alunny/pegjs-vim'
