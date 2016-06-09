@@ -24,6 +24,12 @@ let pluginsExist = 1
 " Required:
 NeoBundleFetch 'Shougo/neobundle.vim'
 
+" Clojure
+"  Syntax Indent Completion
+NeoBundle 'guns/vim-clojure-static'
+NeoBundle 'kien/rainbow_parentheses.vim'
+NeoBundle 'tpope/vim-fireplace'
+
 
 " syntax
 NeoBundle 'jelera/vim-javascript-syntax'

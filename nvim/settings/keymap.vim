@@ -86,4 +86,4 @@ map <leader>sa zg
 map <leader>s? z=
 
 " Sort module.exports and {} stuff
-nnoremap <C-s> vi{=vi{:sort<cr>
+nnoremap <C-s> vi{=vi{:sort i<cr>
