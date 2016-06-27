@@ -8,6 +8,12 @@ snippet req
 options word
   const ${1:#:name:} = require('${2:#:required}')
 
+snippet reqd
+options word
+  const {
+    ${1}
+  } = require('${2}')
+
 snippet :f
 options head
   ${1:#:method_name}: function(${2:#:attribute}) {
