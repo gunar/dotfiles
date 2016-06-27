@@ -59,8 +59,8 @@ vnoremap <A-k> :m '<-2<CR>gv=gv
 " Switch CWD to the directory of the open buffer
 map <leader>cd :cd %:p:h<cr>:pwd<cr>
 
-" Close the current buffer
-map <leader>d :bd<cr>
+" Close the current buffer using bufkill
+map <leader>d :BD<cr>
 
 " Switch buffers with alt+l alt+h
 nnoremap <silent> <A-h> :bp<CR>

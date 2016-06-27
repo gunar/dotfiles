@@ -119,6 +119,9 @@ NeoBundle 'https://github.com/neovim/node-host'
 " NeoBundle 'ruanyl/vim-fixmyjs'
 
 " NeoBundle 'ryanoasis/vim-devicons'
+
+NeoBundle 'qpkorr/vim-bufkill'
+
 call neobundle#end()
 
 " Required:
