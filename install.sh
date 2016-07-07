@@ -1,3 +1,6 @@
+# git
+ln -s "$(readlink -f git/gitconfig)" ~/.gitconfig
+
 # awesome wm
 ln -s "$(readlink -f awesome)" ~/.config/
 
