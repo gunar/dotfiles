@@ -1,6 +1,12 @@
-snippet co
+snippet fnco
 options word
-  co.wrap(function* (){
+  const ${1:#:name:} = co.wrap(function* (${2:#:args:}) {
+    ${0:TARGET}
+  })
+
+snippet co
+options head
+  co(function* () {
     ${0:TARGET}
   })
 
