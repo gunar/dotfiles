@@ -60,3 +60,11 @@ endfunction
 
 " add margin to the view
 set scrolloff=5
+
+" type writer sound
+function! PlaySound()
+  call jobstart('aplay ~/.config/nvim/settings/typewriter.wav')
+endfunction
+function! TypeWriter()
+  autocmd CursorMovedI * call PlaySound()
+endfunction
