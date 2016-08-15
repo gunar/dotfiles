@@ -1,18 +1,27 @@
-snippet fnco
-options word
+snippet co-function-wrap
+alias cofn
+options head
   const ${1:#:name:} = co.wrap(function* (${2:#:args:}) {
     ${0:TARGET}
   })
 
-snippet co
-options head
-  co(function* () {
+snippet co-wrap
+alias cowr
+options word
+  co.wrap(function* (${1:#:args:}) {
+    ${0:TARGET}
+  })
+
+snippet coroutine-with-co
+alias coo
+options word
+  co(function* (${1:#:args}) {
     ${0:TARGET}
   })
 
 snippet req
 options word
-  const ${1:#:name:} = require('${2:#:required}')
+  const ${1:#:name:} = require('$1${0:TARGET}')
 
 snippet reqd
 options word
