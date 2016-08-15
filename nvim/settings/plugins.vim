@@ -30,6 +30,8 @@ NeoBundle 'guns/vim-clojure-static'
 NeoBundle 'kien/rainbow_parentheses.vim'
 NeoBundle 'tpope/vim-fireplace'
 
+" testing
+NeoBundle 'janko-m/vim-test'
 
 " syntax
 NeoBundle 'jelera/vim-javascript-syntax'
@@ -65,7 +67,7 @@ NeoBundle 'airblade/vim-gitgutter'
 NeoBundle 'Xuyuanp/nerdtree-git-plugin'
 " NeoBundle 'https://github.com/jaxbot/github-issues.vim'
 
-" untils
+" utils
 NeoBundle '907th/vim-auto-save'
 NeoBundle 'benekastah/neomake'
 NeoBundle 'editorconfig/editorconfig-vim'
