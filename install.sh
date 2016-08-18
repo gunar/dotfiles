@@ -1,6 +1,10 @@
 # git
 ln -s "$(readlink -f git/gitconfig)" ~/.gitconfig
 
+# backup script
+sudo ln -s "$(readlink -f scripts/backup/backup.service)" /etc/systemd/system/backup.service
+sudo ln -s "$(readlink -f scripts/backup/backup.timer)" /etc/systemd/system/backup.timer
+
 # awesome wm
 ln -s "$(readlink -f awesome)" ~/.config/
 

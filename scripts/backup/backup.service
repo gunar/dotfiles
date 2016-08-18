@@ -1,0 +1,6 @@
+[Unit]
+Description=Backup home to SD
+
+[Service]
+Type=simple
+ExecStart=/home/gcg/dotfiles/scripts/backup/daily.sh
