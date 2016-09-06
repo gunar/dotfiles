@@ -32,6 +32,7 @@ NeoBundle 'tpope/vim-fireplace'
 
 " testing
 NeoBundle 'janko-m/vim-test'
+NeoBundle 'juanpabloaj/vim-istanbul'
 
 " syntax
 NeoBundle 'jelera/vim-javascript-syntax'
