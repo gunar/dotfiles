@@ -87,6 +87,8 @@ map <leader>s? z=
 
 " Sort module.exports and {} stuff
 nnoremap <C-s> vi{=vi{:sort i<cr>
+" Sort [] stuff
+nnoremap <leader>s vi[=vi[:sort i<cr>
 
 " replacement for multiple cursors
 nnoremap <silent> <C-n> *#cgn
