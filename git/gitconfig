@@ -28,7 +28,8 @@
   untracked = red
 [core]
   # two-space tabs
-  pager = ~/.git-templates/hooks/commit-emoji.sh | less --raw-control-chars -FXS -x2 # less -FXRS -x2
+  # pager = ~/.git-templates/hooks/commit-emoji.sh | less --raw-control-chars -FXS -x2 # less -FXRS -x2
+  pager = diff-so-fancy | less --tabs=2 -RFX
   whitespace = blank-at-eol, space-before-tab, tab-in-indent, blank-at-eof, trailing-space, cr-at-eol, tabwidth=2
 
 [push]
