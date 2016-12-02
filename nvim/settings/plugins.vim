@@ -125,6 +125,10 @@ NeoBundle 'https://github.com/neovim/node-host'
 
 NeoBundle 'qpkorr/vim-bufkill'
 
+
+NeoBundle 'terryma/vim-expand-region' " Adds + and _ to expand and reduce region
+NeoBundle 'vim-scripts/argtextobj.vim' " Adds 'a' motion for function arguments
+
 call neobundle#end()
 
 " Required:
