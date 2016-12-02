@@ -1,3 +1,7 @@
+snippet stub
+options head
+  const ${1:#:name} = sandbox.stub(${2:#:module}, '${3:#:method}').returns(Promise.resolve())
+
 snippet co-function-wrap
 alias cofn
 options head
