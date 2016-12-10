@@ -92,3 +92,20 @@ nnoremap <leader>s vi[=vi[:sort i<cr>
 
 " replacement for multiple cursors
 nnoremap <silent> <C-n> *#cgn
+
+" Search mappings: These will make it so that going to the next one in a
+" search will center on the line it's found in.
+nnoremap n nzzzv
+nnoremap N Nzzzv
+
+" Visual Mode */# from Scrooloose {{{
+function! s:VSetSearch()
+  let temp = @@
+  norm! gvy
+  let @/ = '\V' . substitute(escape(@@, '\'), '\n', '\\n', 'g')
+  let @@ = temp
+endfunction
+
+vnoremap * :<c-u>call <sid>VSetSearch()<cr>//<cr><c-o>
+vnoremap # :<c-u>call <sid>VSetSearch()<cr>??<cr><c-o>
+" }}}
