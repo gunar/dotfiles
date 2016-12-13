@@ -50,10 +50,14 @@ NeoBundle '1995eaton/vim-better-javascript-completion'
 " " NeoBundle 'vim-scripts/SyntaxComplete'
 " NeoBundle 'othree/javascript-libraries-syntax.vim'
 " NeoBundleLazy 'elzr/vim-json', {'autoload':{'filetypes':['json']}}
-" NeoBundle 'tpope/vim-markdown'
-" NeoBundle 'suan/vim-instant-markdown'
-" colorscheme & syntax highlighting
 
+" markdown {{{
+NeoBundle 'godlygeek/tabular'
+NeoBundle 'plasticboy/vim-markdown'
+NeoBundle 'nelstrom/vim-markdown-folding' "Use :FoldToggle for nested folding
+" }}}
+
+" colorscheme & syntax highlighting
 " Theme
 NeoBundle 'mhartington/oceanic-next'
 " NeoBundle 'Yggdroot/indentLine'
