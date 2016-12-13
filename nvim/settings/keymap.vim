@@ -24,8 +24,8 @@ nmap cp :let @+ = expand("%") <cr>
 tmap <esc> <c-\><c-n><esc><cr>
 " ,f to format code, requires formatters: read the docs
 noremap <leader>f :Autoformat<CR>
-" exit insert, dd line, enter insert
-inoremap <c-d> <esc>ddi
+
+" move around
 noremap H ^
 noremap L g_
 noremap J 5j
