@@ -21,6 +21,7 @@ alias n='nvim'
 alias griom='git rebase -i origin/master'
 nag () { (echo -n $* | xclip -selection c) ; n `ag -l "$*"` }
 nf () { n `find -name "$*"` }
+alias f='find -name'
 # export TERM=xterm-256color
 
 eval $(dircolors ~/.dircolors)
