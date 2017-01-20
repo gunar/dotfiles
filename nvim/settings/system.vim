@@ -27,6 +27,8 @@ set wildmode=full
 let mapleader = ','
 set undofile
 set undodir="$HOME/.VIM_UNDO_FILES"
+" incremental replace
+set inccommand=split " nosplit
 " Remember cursor position between vim sessions
 autocmd BufReadPost *
       \ if line("'\"") > 0 && line ("'\"") <= line("$") |
