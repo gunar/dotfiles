@@ -11,7 +11,7 @@ function urlencode(str)
 end
 globalkeys = awful.util.table.join(globalkeys, 
   awful.key({ modkey },            "t",     function ()
-    local promptbox = mypromptbox[mouse.screen]
+    local promptbox = mypromptbox[mouse.screen.index]
       awful.prompt.run(
         {prompt = "<span>Translate: </span>"},
         promptbox.widget,
@@ -27,7 +27,7 @@ globalkeys = awful.util.table.join(globalkeys,
         awful.util.getdir("cache") .. "/history")
   end),
   awful.key({ modkey },            "g",     function ()
-    local promptbox = mypromptbox[mouse.screen]
+    local promptbox = mypromptbox[mouse.screen.index]
       awful.prompt.run(
         {prompt = "<span>Search: </span>"},
         promptbox.widget,
