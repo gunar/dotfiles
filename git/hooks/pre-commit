@@ -15,16 +15,19 @@ if [[ "$?" == 1 ]]; then
   exit 1
 fi
 
+FILES_WITH_ERRORS=()
 for FILE in $STAGED_FILES
 do
   eslint "$FILE"
 
   if [[ "$?" != 0 ]]; then
+    FILES_WITH_ERRORS+=($FILE)
     PASS=false
   fi
 done
 
 if ! $PASS; then
+  $EDITOR $FILES_WITH_ERRORS
   exit 1
 fi
 
