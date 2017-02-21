@@ -71,5 +71,8 @@ function! PlaySound()
   call jobstart('aplay ~/.config/nvim/settings/typewriter.wav')
 endfunction
 function! TypeWriter()
-  autocmd CursorMovedI * call PlaySound()
+  augroup TypeWriter
+    autocmd!
+    autocmd CursorMovedI * call PlaySound()
+  augroup END
 endfunction

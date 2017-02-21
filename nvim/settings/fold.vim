@@ -30,25 +30,28 @@ endfunction "}}}
 "   syn match HTMLCommentFold "<!--\_.\{-}-->" fold transparent extend
 " endfunction "}}}
 
-set foldtext=MyFoldText()
-
-autocmd InsertEnter * if !exists('w:last_fdm') | let w:last_fdm=&foldmethod | setlocal foldmethod=manual | endif
-autocmd InsertLeave,WinLeave * if exists('w:last_fdm') | let &l:foldmethod=w:last_fdm | unlet w:last_fdm | endif
-
-autocmd FileType vim setlocal fdc=1
-set foldlevel=99
 " Space to toggle folds.
 nnoremap <Space> za
 vnoremap <Space> za
-autocmd FileType vim setlocal foldmethod=marker
-autocmd FileType vim setlocal foldlevel=0
 
-" au FileType html call HTMLFold()
-" autocmd FileType html setlocal foldmethod=syntax
-autocmd FileType html setlocal fdl=99
+set foldlevel=99
+set foldtext=MyFoldText()
 
-" autocmd FileType javascript call JavaScriptFold()
-autocmd FileType javascript,html,css,scss setlocal foldlevel=99
-autocmd FileType javascript,css,scss,json setlocal foldmethod=marker
-autocmd FileType javascript,css,scss,json setlocal foldmarker={,}
-" au FileType html nnoremap <buffer> <leader>F zfat
+augroup fold
+  autocmd!
+  autocmd InsertEnter * if !exists('w:last_fdm') | let w:last_fdm=&foldmethod | setlocal foldmethod=manual | endif
+  autocmd InsertLeave,WinLeave * if exists('w:last_fdm') | let &l:foldmethod=w:last_fdm | unlet w:last_fdm | endif
+  autocmd FileType vim setlocal fdc=1
+  autocmd FileType vim setlocal foldmethod=marker
+  autocmd FileType vim setlocal foldlevel=0
+
+  " au FileType html call HTMLFold()
+  " autocmd FileType html setlocal foldmethod=syntax
+  autocmd FileType html setlocal fdl=99
+
+  " autocmd FileType javascript call JavaScriptFold()
+  autocmd FileType javascript,html,css,scss setlocal foldlevel=99
+  autocmd FileType javascript,css,scss,json setlocal foldmethod=marker
+  autocmd FileType javascript,css,scss,json setlocal foldmarker={,}
+  " au FileType html nnoremap <buffer> <leader>F zfat
+augroup END

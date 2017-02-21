@@ -13,7 +13,10 @@ nnoremap <silent> <leader>c :Unite -auto-resize -start-insert -direction=botrigh
 nnoremap <silent> <leader>u :Unite neobundle/update<CR>
 
 " Custom mappings for the unite buffer
-autocmd FileType unite call s:unite_settings()
+augroup spelling
+  autocmd!
+  autocmd FileType unite call s:unite_settings()
+augroup END
 
 function! s:unite_settings() "{{{
   " Enable navigation with control-j and control-k in insert mode

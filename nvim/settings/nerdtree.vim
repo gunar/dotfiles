@@ -1,10 +1,13 @@
 map <C-\> :NERDTreeToggle<CR>
-autocmd StdinReadPre * let s:std_in=1
 " autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | NERDTree | endif
 let NERDTreeShowHidden=1
 let g:NERDTreeWinSize=45
 let g:NERDTreeAutoDeleteBuffer=1
 " NERDTress File highlighting
+augroup spelling
+  autocmd!
+  autocmd StdinReadPre * let s:std_in=1
+augroup END
 function! NERDTreeHighlightFile(extension, fg, bg, guifg, guibg)
   exec 'autocmd FileType nerdtree highlight ' . a:extension .' ctermbg='. a:bg .' ctermfg='. a:fg .' guibg='. a:guibg .' guifg='. a:guifg
   exec 'autocmd FileType nerdtree syn match ' . a:extension .' #^\s\+.*'. a:extension .'$#'

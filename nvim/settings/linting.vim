@@ -29,8 +29,9 @@ function! NeomakeESlintChecker()
 
   let b:neomake_javascript_eslint_exe = l:eslint
 endfunction
-autocmd FileType javascript :call NeomakeESlintChecker()
- 
-autocmd! BufWritePost,BufReadPost * Neomake
+augroup neomake_lint
+  autocmd FileType javascript :call NeomakeESlintChecker()
+  autocmd BufWritePost,BufReadPost * Neomake
+augroup END
 
 nmap <F2> :lfirst<cr>

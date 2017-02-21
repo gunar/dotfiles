@@ -19,4 +19,7 @@ let g:neosnippet#snippets_directory='~/dotfiles/nvim/snippets'
 let g:neosnippet#enable_auto_clear_markers=0
 
 " remove markers
-autocmd InsertLeave * NeoSnippetClearMarkers
+augroup remove_markers
+  autocmd!
+  autocmd InsertLeave * NeoSnippetClearMarkers
+augroup END
