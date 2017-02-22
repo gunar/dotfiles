@@ -76,3 +76,6 @@ function! TypeWriter()
     autocmd CursorMovedI * call PlaySound()
   augroup END
 endfunction
+
+" Allow saving of files as sudo when I forgot to start vim using sudo.
+cmap w!! w !sudo tee > /dev/null %
