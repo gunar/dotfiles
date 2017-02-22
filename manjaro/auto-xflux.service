@@ -1,0 +1,12 @@
+[Unit]
+Description=Inputless xflux daemon that geocodes based on your external IP address
+After=network.target display-manager.service
+
+[Service]
+Type=forking
+ExecStart=/usr/bin/auto-xflux
+Restart=always
+Environment=DISPLAY=:0
+
+[Install]
+WantedBy=graphical.target
