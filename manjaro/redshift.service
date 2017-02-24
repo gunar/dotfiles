@@ -1,12 +1,13 @@
 [Unit]
-Description=Inputless xflux daemon that geocodes based on your external IP address
+Description=Redshift
 After=network.target display-manager.service
 
 [Service]
-Type=forking
-ExecStart=/usr/bin/auto-xflux
+Type=simple
+ExecStart=/usr/bin/redshift
 Restart=always
 Environment=DISPLAY=:0
+User=gcg
 
 [Install]
 WantedBy=graphical.target

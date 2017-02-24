@@ -8,7 +8,8 @@ sudo systemctl enable cgconfig
 sudo systemctl start cgrules
 sudo systemctl enable cgrules
 
-# xflux
-sudo ln -fs "$(readlink -f auto-xflux.service)" /etc/systemd/system/auto-xflux.service
-sudo systemctl start auto-xflux
-sudo systemctl enable auto-xflux
+# redshift
+sudo ln -fs "$(readlink -f redshift.service)" /etc/systemd/system/redshift.service
+sudo ln -fs "$(readlink -f redshift.conf)" ~/.config/redshift.conf
+sudo systemctl start redshift
+sudo systemctl enable redshift
