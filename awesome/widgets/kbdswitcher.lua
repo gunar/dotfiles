@@ -14,7 +14,7 @@ function create_kbdswitcher_widget()
     os.execute( kbdcfg.cmd .. " " .. t[1] .. " " .. t[2] )
   end
   -- default
-  kbdcfg.current = 0
+  kbdcfg.current = 2
   kbdcfg.widget = wibox.widget.textbox()
   kbdcfg.background = wibox.widget.background()
   kbdcfg.background:set_widget(kbdcfg.widget)
