@@ -275,8 +275,21 @@ root.buttons(awful.util.table.join(
 ))
 -- }}}
 
+-- {{{ Spotify
+function sendToSpotify(command)
+  return function ()
+    awful.util.spawn_with_shell("dbus-send --print-reply --dest=org.mpris.MediaPlayer2.spotify /org/mpris/MediaPlayer2 org.mpris.MediaPlayer2.Player." .. command)
+  end
+end
+-- }}}
+
 -- {{{ Key bindings
 globalkeys = awful.util.table.join(globalkeys,
+    -- {{{ Spotify 
+    awful.key({ modkey }, "s", sendToSpotify("PlayPause")), --  XF86AudioPlay
+    awful.key({ modkey }, "d", sendToSpotify("Next")), -- XF86AudioNext
+    awful.key({ modkey }, "a", sendToSpotify("Previous")), -- XF86AudioPrev
+    -- }}}
     awful.key({ modkey,           }, "e", function () awful.util.spawn("thunar") end),
     awful.key({ "Control"         }, "q", function () awful.util.spawn("catfish") end),
     awful.key({ modkey,           }, "i", function () awful.util.spawn("chromium --profile-directory=Default") end),
