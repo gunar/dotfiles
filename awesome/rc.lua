@@ -300,9 +300,9 @@ globalkeys = awful.util.table.join(globalkeys,
     awful.key({ modkey,           }, "Right",  awful.tag.viewnext       ),
     awful.key({ modkey,           }, "Escape", awful.tag.history.restore),
 
-    awful.key({ modkey,         }, "Up", function () awful.screen.focus_relative(1) end),
+    awful.key({ modkey,         }, "Up", function () awful.screen.focus(2) end),
     awful.key({ modkey, "Shift" }, "Up", function () awful.client.movetoscreen() end),
-    awful.key({ modkey,         }, "Down", function () awful.screen.focus_relative(-1) end),
+    awful.key({ modkey,         }, "Down", function () awful.screen.focus(1) end),
     awful.key({ modkey, "Shift" }, "Down", function () awful.client.movetoscreen() end),
     awful.key({ modkey,           }, "j",
         function ()
