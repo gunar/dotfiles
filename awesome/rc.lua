@@ -292,18 +292,24 @@ globalkeys = awful.util.table.join(globalkeys,
     -- }}}
     awful.key({ modkey,           }, "e", function () awful.util.spawn("thunar") end),
     awful.key({ "Control"         }, "q", function () awful.util.spawn("catfish") end),
-    awful.key({ modkey,           }, "i", function () awful.util.spawn("chromium --profile-directory=Default") end),
-    awful.key({ modkey,           }, "o", function () awful.util.spawn("chromium --profile-directory=\"Profile 1\"") end),
+    awful.key({ modkey,           }, "o", function () awful.util.spawn("chromium --profile-directory=Default") end),
+    awful.key({ modkey, "Control" }, "o", function () awful.util.spawn("chromium --profile-directory=\"Profile 1\"") end),
     awful.key({ modkey,           }, ".", function () awful.util.spawn("chromium --profile-directory=Default https://web.telegram.org") end),
     awful.key({         }, "Print",       function () awful.util.spawn("xfce4-screenshooter") end),
     awful.key({ modkey,           }, "Left",   awful.tag.viewprev       ),
     awful.key({ modkey,           }, "Right",  awful.tag.viewnext       ),
     awful.key({ modkey,           }, "Escape", awful.tag.history.restore),
 
+    awful.key({ modkey,         }, "i", function () awful.screen.focus(2) end),
+    awful.key({ modkey, "Control" }, "i", function () awful.client.movetoscreen() end),
+    awful.key({ modkey,         }, "n", function () awful.screen.focus(1) end),
+    awful.key({ modkey, "Control" }, "n", function () awful.client.movetoscreen() end),
     awful.key({ modkey,         }, "Up", function () awful.screen.focus(2) end),
-    awful.key({ modkey, "Shift" }, "Up", function () awful.client.movetoscreen() end),
+    awful.key({ modkey, "Control" }, "Up", function () awful.client.movetoscreen() end),
     awful.key({ modkey,         }, "Down", function () awful.screen.focus(1) end),
-    awful.key({ modkey, "Shift" }, "Down", function () awful.client.movetoscreen() end),
+    awful.key({ modkey, "Control" }, "Down", function () awful.client.movetoscreen() end),
+
+
     awful.key({ modkey,           }, "j",
         function ()
             awful.client.focus.byidx( 1)
@@ -344,7 +350,7 @@ globalkeys = awful.util.table.join(globalkeys,
     awful.key({ modkey,           }, "space", function () awful.layout.inc(layouts,  1) end),
     awful.key({ modkey, "Shift"   }, "space", function () awful.layout.inc(layouts, -1) end),
 
-    awful.key({ modkey, "Control" }, "n", awful.client.restore),
+    -- awful.key({ modkey, "Control" }, "n", awful.client.restore),
 
     -- Prompt
     awful.key({ modkey },            "r",     function () mypromptbox[mouse.screen.index]:run() end),
