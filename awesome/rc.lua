@@ -361,6 +361,8 @@ globalkeys = awful.util.table.join(globalkeys,
 
     -- awful.key({ modkey, "Control" }, "n", awful.client.restore),
 
+    awful.key({ modkey, "Control" },  "x",     function () awful.util.spawn("xkill") end),
+
     -- Prompt
     awful.key({ modkey },            "r",     function () mypromptbox[mouse.screen.index]:run() end),
 
