@@ -290,6 +290,15 @@ globalkeys = awful.util.table.join(globalkeys,
     awful.key({ modkey }, "d", sendToSpotify("Next")), -- XF86AudioNext
     awful.key({ modkey }, "a", sendToSpotify("Previous")), -- XF86AudioPrev
     -- }}}
+    -- {{{ Audio
+    awful.key({ }, "XF86AudioRaiseVolume",    function () awful.util.spawn("amixer set Master 4000+") end),
+    awful.key({ }, "XF86AudioLowerVolume",    function () awful.util.spawn("amixer set Master 4000-") end),
+    awful.key({ }, "XF86AudioMute",    function () awful.util.spawn("amixer set Master toggle") end),
+    -- }}}
+    -- {{{ Brightness
+    awful.key({ }, "XF86MonBrightnessDown", function () awful.util.spawn("xbacklight -dec 15") end),
+    awful.key({ }, "XF86MonBrightnessUp", function () awful.util.spawn("xbacklight -inc 15") end),
+    -- }}}
     awful.key({ modkey,           }, "e", function () awful.util.spawn("thunar") end),
     awful.key({ "Control"         }, "q", function () awful.util.spawn("catfish") end),
     awful.key({ modkey,           }, "o", function () awful.util.spawn("chromium --profile-directory=Default") end),
