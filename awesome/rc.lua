@@ -120,6 +120,7 @@ end
 -- {{{ Prompts
 loadrc("prompt")
 loadrc("xrandr")
+loadrc("wallpaper")
 -- }}}
 
 -- {{{ Widgets
