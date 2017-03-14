@@ -21,6 +21,7 @@ theme.fg_urgent     = "#ffffff"
 theme.fg_minimize   = "#ffffff"
 
 theme.border_width  = 2
+-- Border transparency requires a compositor
 theme.border_normal = "#00000000"
 theme.border_focus  = "#ffffff00"
 theme.border_marked = "#91231c00"
