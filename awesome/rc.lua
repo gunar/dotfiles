@@ -310,12 +310,20 @@ function sendToSpotify(command)
 end
 -- }}}
 
+--- {{{ Revelation
+local revelation = require('revelation')
+revelation.init() -- must come after beautiful.init
+--- }}}
+
 -- {{{ Key bindings
 globalkeys = awful.util.table.join(globalkeys,
---- {{{ Useless gap
+    --- {{{ Useless gap
     awful.key({ modkey, "Control" }, "+", function () useless_gaps_resize(2) end),
     awful.key({ modkey, "Control" }, "-", function () useless_gaps_resize(-2) end),
--- }}}
+    -- }}}
+    --- {{{ Switcher
+    awful.key({ modkey }, "+", revelation),
+    --- }}}
     -- {{{ Spotify 
     awful.key({ modkey }, "s", sendToSpotify("PlayPause")), --  XF86AudioPlay
     awful.key({ modkey }, "d", sendToSpotify("Next")), -- XF86AudioNext
