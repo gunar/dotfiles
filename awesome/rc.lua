@@ -340,14 +340,18 @@ globalkeys = awful.util.table.join(globalkeys,
     awful.key({ modkey,           }, "Right",  awful.tag.viewnext       ),
     awful.key({ modkey,           }, "Escape", awful.tag.history.restore),
 
-    awful.key({ modkey,         }, "i", function () awful.screen.focus(2) end),
+    --- {{{ Screen movement
+    -- Switch screen
+    awful.key({ modkey,         }, "i", function () awful.screen.focus_bydirection('up') end),
+    awful.key({ modkey,         }, "Up", function () awful.screen.focus_bydirection('up') end),
+    awful.key({ modkey,         }, "n", function () awful.screen.focus_bydirection('down') end),
+    awful.key({ modkey,         }, "Down", function () awful.screen.focus_bydirection('down') end),
+    -- Move client
     awful.key({ modkey, "Control" }, "i", function () awful.client.movetoscreen() end),
-    awful.key({ modkey,         }, "n", function () awful.screen.focus(1) end),
-    awful.key({ modkey, "Control" }, "n", function () awful.client.movetoscreen() end),
-    awful.key({ modkey,         }, "Up", function () awful.screen.focus(2) end),
     awful.key({ modkey, "Control" }, "Up", function () awful.client.movetoscreen() end),
-    awful.key({ modkey,         }, "Down", function () awful.screen.focus(1) end),
+    awful.key({ modkey, "Control" }, "n", function () awful.client.movetoscreen() end),
     awful.key({ modkey, "Control" }, "Down", function () awful.client.movetoscreen() end),
+    --- }}}
 
 
     awful.key({ modkey,           }, "j",
