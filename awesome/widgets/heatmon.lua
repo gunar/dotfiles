@@ -26,13 +26,13 @@ function update_heatmon (widget)
   .. hex(math.ceil(255 * tonumber(temp) / 105))
   .. hex(math.ceil(255 * (105 - tonumber(temp)) / 105))
   .. "00\">  " .. temp .. "&#8451;  </span>")
-  widget:set_markup(table.concat(output," "))
+  widget.markup = table.concat(output," ")
 end
 
 function create_heatmon_widget()
   -- Define widgegt
   heatmon = wibox.widget.textbox()
-  -- heatmon:set_align("right")
+  -- heatmon.align = "right"
 
   -- init the widget
   update_heatmon(heatmon)

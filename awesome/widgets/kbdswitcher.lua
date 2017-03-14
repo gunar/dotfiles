@@ -10,15 +10,15 @@ function create_kbdswitcher_widget()
   kbdcfg.switch = function ()
     kbdcfg.current = kbdcfg.current % #(kbdcfg.layout) + 1
     local t = kbdcfg.layout[kbdcfg.current]
-    kbdcfg.widget:set_text(" " .. t[3] .. " ")
-    os.execute( kbdcfg.cmd .. " " .. t[1] .. " " .. t[2] )
+    kbdcfg.widget.text = " " .. t[3] .. " "
+    os.execute(kbdcfg.cmd .. " " .. t[1] .. " " .. t[2])
   end
   -- default
   kbdcfg.current = 2
   kbdcfg.widget = wibox.widget.textbox()
   kbdcfg.background = wibox.widget.background()
-  kbdcfg.background:set_widget(kbdcfg.widget)
-  kbdcfg.background:set_bg("#ffffff33")
+  kbdcfg.background.widged = (kbdcfg.widget)
+  kbdcfg.background.bg = "#ffffff33"
   kbdcfg.switch()
   -- Mouse bindings
   kbdcfg.widget:buttons(

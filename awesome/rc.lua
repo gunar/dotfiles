@@ -259,11 +259,11 @@ for s = 1, screen.count() do
 
     -- Now bring it all together (with the tasklist in the middle)
     local layout = wibox.layout.align.horizontal()
-    layout:set_left(left_layout)
-    layout:set_middle(mytasklist[s])
-    layout:set_right(right_layout)
+    layout.left = left_layout
+    layout.middle = mytasklist[s]
+    layout.right = right_layout
 
-    mywibox[s]:set_widget(layout)
+    mywibox[s].widget = layout
 end
 -- }}}
 
@@ -548,17 +548,17 @@ client.connect_signal("manage", function (c, startup)
         -- The title goes in the middle
         local middle_layout = wibox.layout.flex.horizontal()
         local title = awful.titlebar.widget.titlewidget(c)
-        title:set_align("center")
+        title.align = 'center'
         middle_layout:add(title)
         middle_layout:buttons(buttons)
 
         -- Now bring it all together
         local layout = wibox.layout.align.horizontal()
-        layout:set_left(left_layout)
-        layout:set_right(right_layout)
-        layout:set_middle(middle_layout)
+        layout.left = left_layout
+        layout.right = right_layout
+        layout.middle = middle_layout
 
-        awful.titlebar(c):set_widget(layout)
+        awful.titlebar(c).widget = layout
     end
 end)
 
