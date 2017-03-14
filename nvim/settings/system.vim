@@ -20,7 +20,12 @@ set conceallevel=0
 set virtualedit=
 set wildmenu
 set laststatus=2
-"set colorcolumn=100
+
+set colorcolumn=81
+set textwidth=80
+autocmd FileType gitcommit set colorcolumn=73
+autocmd FileType gitcommit set textwidth=73
+
 set wrap linebreak nolist
 set wildmode=full
 " leader is ,
