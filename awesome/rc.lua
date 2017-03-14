@@ -120,7 +120,7 @@ end
 -- {{{ Prompts
 loadrc("prompt")
 loadrc("xrandr")
-loadrc("wallpaper")
+local refreshWallpaper = loadrc("wallpaper")
 -- }}}
 
 -- {{{ Widgets
@@ -163,15 +163,14 @@ end
 -- {{{ Menu
 -- Create a laucher widget and a main menu
 myawesomemenu = {
-	{ "manual", terminal .. " -e man awesome" },
-	{ "edit config", editor_cmd .. " " .. awesome.conffile },
 	{ "restart", awesome.restart },
-	{ "quit", function () awful.util.spawn("xfce4-session-logout -lf") end},
+	{ "logout", function () awful.util.spawn("xfce4-session-logout -lf") end},
 	{ "shutdown", terminal .. " -e shutdown" }
 }
 
 mymainmenu = awful.menu({ items = { { "awesome", myawesomemenu, beautiful.awesome_icon },
-                                    { "open terminal", terminal }
+                                    { "open terminal", terminal },
+                                    { "refresh wallpaper", refreshWallpaper }
                                   }
                         })
 

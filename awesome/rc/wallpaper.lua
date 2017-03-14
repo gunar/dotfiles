@@ -30,3 +30,5 @@ wallpaperTimer:connect_signal("timeout", function()
   wallpaperTimer:start()
 end)
 wallpaperTimer:start()
+
+return refresh
