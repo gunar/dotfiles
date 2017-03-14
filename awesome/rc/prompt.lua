@@ -17,8 +17,8 @@ globalkeys = awful.util.table.join(globalkeys,
         promptbox.widget,
         function (string)
           -- -new-window 
-          local command = awful.util.spawn("chromium https://translate.google.com/#auto/en/" .. urlencode(string))
-          -- local result = awful.util.spawn(command)
+          local command = awful.spawn("chromium https://translate.google.com/#auto/en/" .. urlencode(string))
+          -- local result = awful.spawn(command)
           -- if type(result) == "string" then
           --   promptbox.widget.text = result
           -- end
@@ -32,8 +32,8 @@ globalkeys = awful.util.table.join(globalkeys,
         {prompt = "<span>Search: </span>"},
         promptbox.widget,
         function (string)
-          local command = awful.util.spawn("chromium https://duckduckgo.com/?q=" .. string)
-          -- local result = awful.util.spawn(command)
+          local command = awful.spawn("chromium https://duckduckgo.com/?q=" .. string)
+          -- local result = awful.spawn(command)
           -- if type(result) == "string" then
           --   promptbox.widget.text = result
           -- end

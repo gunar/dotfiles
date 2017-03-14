@@ -40,7 +40,7 @@ end
 -- Xcompmgr Composition Manager for transparency
 -- TODO: I should remove this if my theme doesn't use transparency
 -- xcompmgr removed because widgets' buttons weren't working
--- awful.util.spawn_with_shell("xcompmgr &")
+-- awful.spawn_with_shell("xcompmgr &")
 
 -- Simple function to load additional LUA files from rc/.
 function loadrc(name, mod)
@@ -162,7 +162,7 @@ end
 -- Create a laucher widget and a main menu
 myawesomemenu = {
 	{ "restart", awesome.restart },
-	{ "logout", function () awful.util.spawn("xfce4-session-logout -lf") end},
+	{ "logout", function () awful.spawn("xfce4-session-logout -lf") end},
 	{ "shutdown", terminal .. " -e shutdown" }
 }
 
@@ -297,7 +297,7 @@ root.buttons(awful.util.table.join(
 -- {{{ Spotify
 function sendToSpotify(command)
   return function ()
-    awful.util.spawn_with_shell("dbus-send --print-reply --dest=org.mpris.MediaPlayer2.spotify /org/mpris/MediaPlayer2 org.mpris.MediaPlayer2.Player." .. command)
+    awful.spawn("dbus-send --print-reply --dest=org.mpris.MediaPlayer2.spotify /org/mpris/MediaPlayer2 org.mpris.MediaPlayer2.Player." .. command)
   end
 end
 -- }}}
@@ -310,20 +310,20 @@ globalkeys = awful.util.table.join(globalkeys,
     awful.key({ modkey }, "a", sendToSpotify("Previous")), -- XF86AudioPrev
     -- }}}
     -- {{{ Audio
-    awful.key({ }, "XF86AudioRaiseVolume",    function () awful.util.spawn("amixer set Master 4000+") end),
-    awful.key({ }, "XF86AudioLowerVolume",    function () awful.util.spawn("amixer set Master 4000-") end),
-    awful.key({ }, "XF86AudioMute",    function () awful.util.spawn("amixer set Master toggle") end),
+    awful.key({ }, "XF86AudioRaiseVolume",    function () awful.spawn("amixer set Master 4000+") end),
+    awful.key({ }, "XF86AudioLowerVolume",    function () awful.spawn("amixer set Master 4000-") end),
+    awful.key({ }, "XF86AudioMute",    function () awful.spawn("amixer set Master toggle") end),
     -- }}}
     -- {{{ Brightness
-    awful.key({ }, "XF86MonBrightnessDown", function () awful.util.spawn("xbacklight -dec 15") end),
-    awful.key({ }, "XF86MonBrightnessUp", function () awful.util.spawn("xbacklight -inc 15") end),
+    awful.key({ }, "XF86MonBrightnessDown", function () awful.spawn("xbacklight -dec 15") end),
+    awful.key({ }, "XF86MonBrightnessUp", function () awful.spawn("xbacklight -inc 15") end),
     -- }}}
-    awful.key({ modkey,           }, "e", function () awful.util.spawn("thunar") end),
-    awful.key({ "Control"         }, "q", function () awful.util.spawn("catfish") end),
-    awful.key({ modkey,           }, "o", function () awful.util.spawn("chromium --profile-directory=Default") end),
-    awful.key({ modkey, "Control" }, "o", function () awful.util.spawn("chromium --profile-directory=\"Profile 1\"") end),
-    awful.key({ modkey,           }, ".", function () awful.util.spawn("chromium --profile-directory=Default https://web.telegram.org") end),
-    awful.key({         }, "Print",       function () awful.util.spawn("xfce4-screenshooter") end),
+    awful.key({ modkey,           }, "e", function () awful.spawn("thunar") end),
+    awful.key({ "Control"         }, "q", function () awful.spawn("catfish") end),
+    awful.key({ modkey,           }, "o", function () awful.spawn("chromium --profile-directory=Default") end),
+    awful.key({ modkey, "Control" }, "o", function () awful.spawn("chromium --profile-directory=\"Profile 1\"") end),
+    awful.key({ modkey,           }, ".", function () awful.spawn("chromium --profile-directory=Default https://web.telegram.org") end),
+    awful.key({         }, "Print",       function () awful.spawn("xfce4-screenshooter") end),
     awful.key({ modkey,           }, "Left",   awful.tag.viewprev       ),
     awful.key({ modkey,           }, "Right",  awful.tag.viewnext       ),
     awful.key({ modkey,           }, "Escape", awful.tag.history.restore),
@@ -365,9 +365,9 @@ globalkeys = awful.util.table.join(globalkeys,
         end),
 
     -- Standard program
-    awful.key({ modkey,           }, "Return", function () awful.util.spawn(terminal) end),
+    awful.key({ modkey,           }, "Return", function () awful.spawn(terminal) end),
     awful.key({ modkey, "Control" }, "r", awesome.restart),
-  	awful.key({ modkey, "Shift"   }, "q", function () awful.util.spawn("xfce4-session-logout -lf") end),
+  	awful.key({ modkey, "Shift"   }, "q", function () awful.spawn("xfce4-session-logout -lf") end),
 
     awful.key({ modkey,           }, "l",     function () awful.tag.incmwfact( 0.05)    end),
     awful.key({ modkey,           }, "h",     function () awful.tag.incmwfact(-0.05)    end),
@@ -380,7 +380,7 @@ globalkeys = awful.util.table.join(globalkeys,
 
     -- awful.key({ modkey, "Control" }, "n", awful.client.restore),
 
-    awful.key({ modkey, "Control" },  "x",     function () awful.util.spawn("xkill") end),
+    awful.key({ modkey, "Control" },  "x",     function () awful.spawn("xkill") end),
 
     -- Prompt
     awful.key({ modkey },            "r",     function () mypromptbox[mouse.screen.index]:run() end),

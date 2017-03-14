@@ -128,7 +128,7 @@ local function xrandr()
     state.timer = nil
     state.iterator = nil
     if action then
-      awful.util.spawn(action, false)
+      awful.spawn(action, false)
     end
   end)
   state.timer:start()
