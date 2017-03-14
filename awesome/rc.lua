@@ -269,10 +269,26 @@ end
 -- }}}
 
 -- {{{ Mouse bindings
+do
+  local flipUp = false
+  function scrollUp(t)
+    if flipUp then
+      awful.tag.viewnext(awful.tag.getscreen(t))
+    end 
+    flipUp = not flipUp
+  end
+  local flipDown = false
+  function scrollDown(t)
+    if flipDown then
+      awful.tag.viewprev(awful.tag.getscreen(t))
+    end 
+    flipDown = not flipDown
+  end
+end
 root.buttons(awful.util.table.join(
     awful.button({ }, 3, function () mymainmenu:toggle() end),
-    awful.button({ modkey }, 4, function(t) awful.tag.viewnext(awful.tag.getscreen(t)) end),
-    awful.button({ modkey }, 5, function(t) awful.tag.viewprev(awful.tag.getscreen(t)) end)
+    awful.button({ modkey }, 4, scrollUp),
+    awful.button({ modkey }, 5, scrollDown)
 ))
 -- }}}
 
@@ -447,8 +463,9 @@ clientbuttons = awful.util.table.join(
     awful.button({ }, 1, function (c) client.focus = c; c:raise() end),
     awful.button({ modkey }, 1, awful.mouse.client.move),
     awful.button({ modkey }, 3, awful.mouse.client.resize),
-    awful.button({ modkey }, 4, function(t) awful.tag.viewnext(awful.tag.getscreen(t)) end),
-    awful.button({ modkey }, 5, function(t) awful.tag.viewprev(awful.tag.getscreen(t)) end))
+    awful.button({ modkey }, 4, scrollUp),
+    awful.button({ modkey }, 5, scrollDown)
+)
 
 -- Set keys
 root.keys(globalkeys)
