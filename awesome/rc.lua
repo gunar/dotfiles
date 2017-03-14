@@ -127,9 +127,6 @@ local refreshWallpaper = loadrc("wallpaper")
 -- {{{ Widgets
 mytextclock = awful.widget.textclock("%H:%M | %d ", 60)
 
--- require("widgets/volume")
--- volume_widget = create_volume_widget()
-
 require("widgets/heatmon")
 heatmon_widget = create_heatmon_widget()
 
@@ -245,24 +242,29 @@ for s = 1, screen.count() do
     mywibox[s] = awful.wibox({ position = "top", height = "28", screen = s })
 
     -- Widgets that are aligned to the left
-    local left_layout = wibox.layout.fixed.horizontal()
-    left_layout:add(mytaglist[s])
-    left_layout:add(mypromptbox[s])
+    local left_layout = wibox.layout {
+      mytaglist[s],
+      mypromptbox[s],
+      layout = wibox.layout.fixed.horizontal()
+    }
 
     -- Widgets that are aligned to the right
-    local right_layout = wibox.layout.fixed.horizontal()
     -- if s == 1 then right_layout:add(wibox.widget.systray()) end
-    right_layout:add(heatmon_widget)
-    right_layout:add(myassault)
-    right_layout:add(kbdswitcher_widget)
-    right_layout:add(mytextclock)
-    -- right_layout:add(volume_widget)
+    local right_layout = wibox.layout {
+      heatmon_widget,
+      myassault,
+      kbdswitcher_widget,
+      mytextclock,
+      layout = wibox.layout.fixed.horizontal()
+    }
 
     -- Now bring it all together (with the tasklist in the middle)
-    local layout = wibox.layout.align.horizontal()
-    layout.left = left_layout
-    layout.middle = mytasklist[s]
-    layout.right = right_layout
+    local layout = wibox.layout {
+      left_layout,
+      mytasklist[s],
+      right_layout,
+      layout = wibox.layout.align.horizontal()
+    }
 
     mywibox[s].widget = layout
 end
