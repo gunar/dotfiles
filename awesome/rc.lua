@@ -78,7 +78,15 @@ end
 -- {{{ Variable definitions
 -- Themes define colours, icons, font and wallpapers.
 beautiful.init(awful.util.getdir("config") .. "/" .. "themes/gunar/theme.lua")
+
+-- {{{ Useless gap
 beautiful.useless_gap = 10
+function useless_gaps_resize(thatmuch)
+    local scr = awful.screen.focused()
+    scr.selected_tag.gap = scr.selected_tag.gap + tonumber(thatmuch)
+    awful.layout.arrange(scr)
+end
+--- }}}
 
 -- This is used later as the default terminal and editor to run.
 terminal = "termite -e tmux"
@@ -304,6 +312,10 @@ end
 
 -- {{{ Key bindings
 globalkeys = awful.util.table.join(globalkeys,
+--- {{{ Useless gap
+    awful.key({ modkey, "Control" }, "+", function () useless_gaps_resize(2) end),
+    awful.key({ modkey, "Control" }, "-", function () useless_gaps_resize(-2) end),
+-- }}}
     -- {{{ Spotify 
     awful.key({ modkey }, "s", sendToSpotify("PlayPause")), --  XF86AudioPlay
     awful.key({ modkey }, "d", sendToSpotify("Next")), -- XF86AudioNext
