@@ -289,13 +289,11 @@ function debounce(fn, n)
     end
   end
 end
-local scrollUp   = debounce(function (t) awful.tag.viewnext(t.screen) end, 2)
-local scrollDown = debounce(function (t) awful.tag.viewprev(t.screen) end, 2)
 
 root.buttons(awful.util.table.join(
     awful.button({ }, 3, function () mymainmenu:toggle() end),
-    awful.button({ modkey }, 4, scrollUp),
-    awful.button({ modkey }, 5, scrollDown)
+    awful.button({ modkey }, 4, debounce(function () awful.tag.viewnext(mouse.screen) end, 2)),
+    awful.button({ modkey }, 5, debounce(function () awful.tag.viewprev(mouse.screen) end, 2))
 ))
 -- }}}
 
@@ -486,8 +484,8 @@ clientbuttons = awful.util.table.join(
     awful.button({ }, 1, function (c) client.focus = c; c:raise() end),
     awful.button({ modkey }, 1, awful.mouse.client.move),
     awful.button({ modkey }, 3, awful.mouse.client.resize),
-    awful.button({ modkey }, 4, scrollUp),
-    awful.button({ modkey }, 5, scrollDown)
+    awful.button({ modkey }, 4, debounce(function (t) awful.tag.viewnext(t.screen) end, 2)),
+    awful.button({ modkey }, 5, debounce(function (t) awful.tag.viewprev(t.screen) end, 2))
 )
 
 -- Set keys
