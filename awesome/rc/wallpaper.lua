@@ -20,15 +20,11 @@ function refresh()
 end
 refresh()
 
--- Apply a random wallpaper every changeTime seconds.
-changeTime = 3600
-wallpaperTimer = timer { timeout = changeTime }
-wallpaperTimer:connect_signal("timeout", function()
-  wallpaperTimer:stop()
+-- Apply a random wallpaper every aTimer seconds.
+local timer = gears.timer({ timeout = 60*60 })
+timer:connect_signal("timeout", function()
   refresh()
-  wallpaperTimer.timeout = changeTime
-  wallpaperTimer:start()
 end)
-wallpaperTimer:start()
+timer:start()
 
 return refresh

@@ -16,7 +16,7 @@ function create_kbdswitcher_widget()
   -- default
   kbdcfg.current = 2
   kbdcfg.widget = wibox.widget.textbox()
-  kbdcfg.background = wibox.widget.background()
+  kbdcfg.background = wibox.container.background()
   kbdcfg.background.widged = (kbdcfg.widget)
   kbdcfg.background.bg = "#ffffff33"
   kbdcfg.switch()

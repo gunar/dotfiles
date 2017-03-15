@@ -1,4 +1,5 @@
 local wibox = require("wibox")
+local gears = require('gears')
 
 function hex(inp)
   return inp > 16 and string.format("%X", inp) or string.format("0%X", inp)
@@ -37,11 +38,11 @@ function create_heatmon_widget()
   -- init the widget
   update_heatmon(heatmon)
 
-  heatmon_timer = timer({timeout = 10})
-  heatmon_timer:connect_signal("timeout", function()
+  local timer = gears.timer({ timeout = 10 })
+  timer:connect_signal("timeout", function()
     update_heatmon( heatmon )
   end)
-  heatmon_timer:start()
+  timer:start()
 
   return heatmon
 end

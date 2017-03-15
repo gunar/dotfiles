@@ -133,7 +133,7 @@ local refreshWallpaper = loadrc("wallpaper")
 -- }}}
 
 -- {{{ Widgets
-mytextclock = awful.widget.textclock("%H:%M | %d ", 60)
+mytextclock = wibox.widget.textclock("%H:%M | %d ", 60)
 
 require("widgets/heatmon")
 heatmon_widget = create_heatmon_widget()
@@ -197,8 +197,8 @@ mytaglist.buttons = awful.util.table.join(
                     awful.button({ modkey }, 1, awful.client.movetotag),
                     awful.button({ }, 3, awful.tag.viewtoggle),
                     awful.button({ modkey }, 3, awful.client.toggletag),
-                    awful.button({ }, 4, function(t) awful.tag.viewnext(awful.tag.getscreen(t)) end),
-                    awful.button({ }, 5, function(t) awful.tag.viewprev(awful.tag.getscreen(t)) end)
+                    awful.button({ }, 4, function(t) awful.tag.viewnext(t.screen) end),
+                    awful.button({ }, 5, function(t) awful.tag.viewprev(t.screen) end)
                     )
 mytasklist = {}
 mytasklist.buttons = awful.util.table.join(
@@ -247,7 +247,7 @@ for s = 1, screen.count() do
     mytasklist[s] = awful.widget.tasklist(s, awful.widget.tasklist.filter.currenttags, mytasklist.buttons)
 
     -- Create the wibox
-    mywibox[s] = awful.wibox({ position = "top", height = "28", screen = s })
+    mywibox[s] = awful.wibar({ position = "top", height = "28", screen = s })
 
     -- Widgets that are aligned to the left
     local left_layout = wibox.layout {
@@ -289,8 +289,8 @@ function debounce(fn, n)
     end
   end
 end
-local scrollUp   = debounce(function (t) awful.tag.viewnext(awful.tag.getscreen(t)) end, 2)
-local scrollDown = debounce(function (t) awful.tag.viewprev(awful.tag.getscreen(t)) end, 2)
+local scrollUp   = debounce(function (t) awful.tag.viewnext(t.screen) end, 2)
+local scrollDown = debounce(function (t) awful.tag.viewprev(t.screen) end, 2)
 
 root.buttons(awful.util.table.join(
     awful.button({ }, 3, function () mymainmenu:toggle() end),
@@ -352,10 +352,10 @@ globalkeys = awful.util.table.join(globalkeys,
     awful.key({ modkey,         }, "n", function () awful.screen.focus_bydirection('down') end),
     awful.key({ modkey,         }, "Down", function () awful.screen.focus_bydirection('down') end),
     -- Move client
-    awful.key({ modkey, "Control" }, "i", function () awful.client.movetoscreen() end),
-    awful.key({ modkey, "Control" }, "Up", function () awful.client.movetoscreen() end),
-    awful.key({ modkey, "Control" }, "n", function () awful.client.movetoscreen() end),
-    awful.key({ modkey, "Control" }, "Down", function () awful.client.movetoscreen() end),
+    awful.key({ modkey, "Control" }, "i",    function () client.focus:move_to_screen() end),
+    awful.key({ modkey, "Control" }, "Up",   function () client.focus:move_to_screen() end),
+    awful.key({ modkey, "Control" }, "n",    function () client.focus:move_to_screen() end),
+    awful.key({ modkey, "Control" }, "Down", function () client.focus:move_to_screen() end),
     --- }}}
 
 
@@ -446,16 +446,16 @@ for i = 1, 9 do
         awful.key({ modkey }, "#" .. i + 9,
                   function ()
                         local screen = mouse.screen
-                        local tag = awful.tag.gettags(screen)[i]
+                        local tag = screen.tags[i]
                         if tag then
-                           awful.tag.viewonly(tag)
+                          tag:view_only()
                         end
                   end),
         -- Toggle tag.
         awful.key({ modkey, "Control" }, "#" .. i + 9,
                   function ()
                       local screen = mouse.screen
-                      local tag = awful.tag.gettags(screen)[i]
+                      local tag = screen.tags[i]
                       if tag then
                          awful.tag.viewtoggle(tag)
                       end
@@ -464,9 +464,9 @@ for i = 1, 9 do
         awful.key({ modkey, "Shift" }, "#" .. i + 9,
                   function ()
                       if client.focus then
-                          local tag = awful.tag.gettags(client.focus.screen)[i]
+                          local tag = client.focus.screen.tags[i]
                           if tag then
-                              awful.client.movetotag(tag)
+                              client.focus:move_to_tag(tag)
                           end
                      end
                   end),
@@ -474,7 +474,7 @@ for i = 1, 9 do
         awful.key({ modkey, "Control", "Shift" }, "#" .. i + 9,
                   function ()
                       if client.focus then
-                          local tag = awful.tag.gettags(client.focus.screen)[i]
+                          local tag = client.focus.screen.tags[i]
                           if tag then
                               awful.client.toggletag(tag)
                           end
