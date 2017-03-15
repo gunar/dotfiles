@@ -4,8 +4,7 @@ local awful = require("awful")
 local gears = require("gears")
 
 function refresh()
-  local i = math.random(1,99999)
-  local file = "/tmp/wallpaper-" .. i .. ".jpg"
+  local file = "/tmp/wallpaper.jpg"
   local width = screen[1].geometry.width
   local height = screen[1].geometry.height
   local commandLine = "wget -O " .. file .. " https://source.unsplash.com/random/" .. width .. "x" .. height
