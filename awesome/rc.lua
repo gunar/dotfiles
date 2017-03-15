@@ -279,22 +279,19 @@ end
 -- }}}
 
 -- {{{ Mouse bindings
-do
-  local flipUp = false
-  function scrollUp(t)
-    if flipUp then
-      awful.tag.viewnext(awful.tag.getscreen(t))
-    end 
-    flipUp = not flipUp
-  end
-  local flipDown = false
-  function scrollDown(t)
-    if flipDown then
-      awful.tag.viewprev(awful.tag.getscreen(t))
-    end 
-    flipDown = not flipDown
+function debounce(fn, n)
+  local acc = 0
+  return function (arg)
+    acc = acc + 1
+    if acc > n then
+      fn(arg)
+      acc = 0
+    end
   end
 end
+local scrollUp   = debounce(function (t) awful.tag.viewnext(awful.tag.getscreen(t)) end, 2)
+local scrollDown = debounce(function (t) awful.tag.viewprev(awful.tag.getscreen(t)) end, 2)
+
 root.buttons(awful.util.table.join(
     awful.button({ }, 3, function () mymainmenu:toggle() end),
     awful.button({ modkey }, 4, scrollUp),
