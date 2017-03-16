@@ -162,7 +162,7 @@ myassault = assault({
 tags = {}
 for s = 1, screen.count() do
     -- Each screen has its own tag table.
-    tags[s] = awful.tag({ 1, 2, 3, 4, 5, 6, 7, 8, 9 }, s, layouts[1])
+    tags[s] = awful.tag({ 1, 2, 3, 4, 5, 6, 7, 8 }, s, layouts[1])
 end
 -- }}}
 
@@ -350,10 +350,10 @@ globalkeys = awful.util.table.join(globalkeys,
     awful.key({ modkey,         }, "n", function () awful.screen.focus_bydirection('down') end),
     awful.key({ modkey,         }, "Down", function () awful.screen.focus_bydirection('down') end),
     -- Move client
-    awful.key({ modkey, "Control" }, "i",    function () client.focus:move_to_screen() end),
-    awful.key({ modkey, "Control" }, "Up",   function () client.focus:move_to_screen() end),
-    awful.key({ modkey, "Control" }, "n",    function () client.focus:move_to_screen() end),
-    awful.key({ modkey, "Control" }, "Down", function () client.focus:move_to_screen() end),
+    awful.key({ modkey, "Shift" }, "i",    function () client.focus:move_to_screen() end),
+    awful.key({ modkey, "Shift" }, "Up",   function () client.focus:move_to_screen() end),
+    awful.key({ modkey, "Shift" }, "n",    function () client.focus:move_to_screen() end),
+    awful.key({ modkey, "Shift" }, "Down", function () client.focus:move_to_screen() end),
     --- }}}
 
 
@@ -438,7 +438,7 @@ clientkeys = awful.util.table.join(
 -- Bind all key numbers to tags.
 -- Be careful: we use keycodes to make it works on any keyboard layout.
 -- This should map on the top row of your keyboard, usually 1 to 9.
-for i = 1, 9 do
+for i = 1, 8 do
     globalkeys = awful.util.table.join(globalkeys,
         -- View tag only.
         awful.key({ modkey }, "#" .. i + 9,
@@ -470,6 +470,48 @@ for i = 1, 9 do
                   end),
         -- Toggle tag.
         awful.key({ modkey, "Control", "Shift" }, "#" .. i + 9,
+                  function ()
+                      if client.focus then
+                          local tag = client.focus.screen.tags[i]
+                          if tag then
+                              awful.client.toggletag(tag)
+                          end
+                      end
+                  end))
+end
+
+for i = 5, 8 do
+    globalkeys = awful.util.table.join(globalkeys,
+        -- View tag only.
+        awful.key({ modkey }, "F" .. i - 4,
+                  function ()
+                        local screen = mouse.screen
+                        local tag = screen.tags[i]
+                        if tag then
+                          tag:view_only()
+                        end
+                  end),
+        -- Toggle tag.
+        awful.key({ modkey, "Control" }, "F" .. i - 4,
+                  function ()
+                      local screen = mouse.screen
+                      local tag = screen.tags[i]
+                      if tag then
+                         awful.tag.viewtoggle(tag)
+                      end
+                  end),
+        -- Move client to tag.
+        awful.key({ modkey, "Shift" }, "F" .. i - 4,
+                  function ()
+                      if client.focus then
+                          local tag = client.focus.screen.tags[i]
+                          if tag then
+                              client.focus:move_to_tag(tag)
+                          end
+                     end
+                  end),
+        -- Toggle tag.
+        awful.key({ modkey, "Control", "Shift" }, "F" .. i - 4,
                   function ()
                       if client.focus then
                           local tag = client.focus.screen.tags[i]
