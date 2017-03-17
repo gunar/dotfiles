@@ -62,6 +62,7 @@
     # cherry   = cherry-pick
     cm       = commit -m
     co       = checkout
+    cor       = "!cor() { git fetch && git co $1 && git reset --hard origin/$1; }; cor"
     # d        = diff --word-diff
     # dev      = checkout dev
     # dmeld    = difftool --extcmd = meld
