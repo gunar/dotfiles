@@ -333,12 +333,15 @@ globalkeys = awful.util.table.join(globalkeys,
     awful.key({ }, "XF86MonBrightnessDown", function () awful.spawn("xbacklight -dec 15") end),
     awful.key({ }, "XF86MonBrightnessUp", function () awful.spawn("xbacklight -inc 15") end),
     -- }}}
+    -- {{{ Software
     awful.key({ modkey,           }, "e", function () awful.spawn("thunar") end),
     awful.key({ "Control"         }, "q", function () awful.spawn("catfish") end),
     awful.key({ modkey,           }, "o", function () awful.spawn("chromium --profile-directory=Default") end),
     awful.key({ modkey, "Control" }, "o", function () awful.spawn("chromium --profile-directory=\"Profile 1\"") end),
     awful.key({ modkey,           }, ".", function () awful.spawn("chromium --profile-directory=Default https://web.telegram.org") end),
     awful.key({         }, "Print",       function () awful.spawn("xfce4-screenshooter") end),
+    awful.key({ modkey, "Control" }, "m", function () awful.spawn("xfce4-taskmanager") end),
+    -- }}}
     awful.key({ modkey,           }, "Left",   awful.tag.viewprev       ),
     awful.key({ modkey,           }, "Right",  awful.tag.viewnext       ),
     awful.key({ modkey,           }, "Escape", awful.tag.history.restore),
