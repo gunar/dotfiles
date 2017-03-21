@@ -1,12 +1,11 @@
 #!/bin/sh
 
+CACHE_FILE=/tmp/$$.pid
 STAGED_FILES=$(git diff --cached --name-only --diff-filter=ACM | grep ".jsx\{0,1\}$")
 
 if [[ "$STAGED_FILES" = "" ]]; then
   exit 0
 fi
-
-PASS=true
 
 # Check for eslint
 which eslint &> /dev/null
@@ -15,19 +14,27 @@ if [[ "$?" == 1 ]]; then
   exit 1
 fi
 
-FILES_WITH_ERRORS=()
+# Clear our cache file
+rm $CACHE_FILE 2>/dev/null
 for FILE in $STAGED_FILES
 do
-  eslint "$FILE"
-
-  if [[ "$?" != 0 ]]; then
-    FILES_WITH_ERRORS+=($FILE)
-    PASS=false
-  fi
+  (
+    eslint "$FILE"
+    if [[ "$?" != 0 ]]; then
+      echo -n "$FILE ">>$CACHE_FILE
+    fi
+  ) &
 done
+wait
 
-if ! $PASS; then
-  $EDITOR $FILES_WITH_ERRORS
+ALL_PASSED=true
+if [ -f $CACHE_FILE ]; then
+  ALL_PASSED=false
+fi
+
+if ! $ALL_PASSED; then
+  echo "FILES $(cat $CACHE_FILE)"
+  $EDITOR $(cat $CACHE_FILE)
   exit 1
 fi
 
