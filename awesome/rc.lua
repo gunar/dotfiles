@@ -196,9 +196,7 @@ mytaglist.buttons = awful.util.table.join(
                     awful.button({ }, 1, awful.tag.viewonly),
                     awful.button({ modkey }, 1, awful.client.movetotag),
                     awful.button({ }, 3, awful.tag.viewtoggle),
-                    awful.button({ modkey }, 3, awful.client.toggletag),
-                    awful.button({ }, 4, function(t) awful.tag.viewnext(t.screen) end),
-                    awful.button({ }, 5, function(t) awful.tag.viewprev(t.screen) end)
+                    awful.button({ modkey }, 3, awful.client.toggletag)
                     )
 mytasklist = {}
 mytasklist.buttons = awful.util.table.join(
@@ -293,7 +291,11 @@ end
 root.buttons(awful.util.table.join(
     awful.button({ }, 3, function () mymainmenu:toggle() end),
     awful.button({ modkey }, 4, debounce(function () awful.tag.viewnext(mouse.screen) end, 2)),
-    awful.button({ modkey }, 5, debounce(function () awful.tag.viewprev(mouse.screen) end, 2))
+    awful.button({ modkey }, 5, debounce(function () awful.tag.viewprev(mouse.screen) end, 2)),
+    --- {{{ Audio
+    awful.button({ "Control" }, 4,    function () awful.spawn("amixer set Master 4000+") end),
+    awful.button({ "Control" }, 5,    function () awful.spawn("amixer set Master 4000-") end)
+    --- }}}
 ))
 -- }}}
 
@@ -529,8 +531,14 @@ clientbuttons = awful.util.table.join(
     awful.button({ }, 1, function (c) client.focus = c; c:raise() end),
     awful.button({ modkey }, 1, awful.mouse.client.move),
     awful.button({ modkey }, 3, awful.mouse.client.resize),
+    --- {{{ Scroll
     awful.button({ modkey }, 4, debounce(function (t) awful.tag.viewnext(t.screen) end, 2)),
-    awful.button({ modkey }, 5, debounce(function (t) awful.tag.viewprev(t.screen) end, 2))
+    awful.button({ modkey }, 5, debounce(function (t) awful.tag.viewprev(t.screen) end, 2)),
+    --- }}}
+    --- {{{ Audio
+    awful.button({ "Control" }, 4,    function () awful.spawn("amixer set Master 4000+") end),
+    awful.button({ "Control" }, 5,    function () awful.spawn("amixer set Master 4000-") end)
+    --- }}}
 )
 
 -- Set keys
