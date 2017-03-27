@@ -22,6 +22,8 @@ alias griom='git rebase -i origin/master'
 nag () { (echo -n $* | xclip -selection c) ; n `ag -l "$*"` }
 nf () { n `find -name "$*"` }
 alias f='ag -g'
+alias w='watch -n 0.5'
+alias v='viewnior'
 export TERM=screen-256color
 
 eval $(dircolors ~/.dircolors)
