@@ -18,6 +18,7 @@ alias vincenza='ssh -o PubKeyAuthentication=no -p 2222 vincenza@maisonvincenza.c
 export VISUAL=nvim
 export EDITOR="$VISUAL"
 alias n='nvim'
+alias webcam='guvcview'
 alias griom='git rebase -i origin/master'
 nag () { (echo -n $* | xclip -selection c) ; n `ag -l "$*"` }
 nf () { n `find -name "$*"` }
