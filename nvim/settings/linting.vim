@@ -6,6 +6,14 @@
 "   \ '%W%f: line %l\, col %c\, Warning - %m'
 "   \ }
 " endfunction
+
+let g:neomake_markdown_vale_maker = {
+\ 'exe': 'vale',
+\ 'args': ['--output', 'line'],
+\ 'errorformat': '/%f:%l:%c:%s:%m'
+\ }
+let g:neomake_markdown_enabled_makers = ['vale']
+
 let g:neomake_javascript_enabled_makers = ['eslint']
 let g:neomake_jsx_enabled_makers = ['eslint']
 
