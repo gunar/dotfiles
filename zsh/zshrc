@@ -25,6 +25,7 @@ nf () { n `find -name "$*"` }
 alias f='ag -g'
 alias w='watch -n 0.5'
 alias v='viewnior'
+alias c='xclip -selection clipboard'
 export TERM=screen-256color
 
 eval $(dircolors ~/.dircolors)
