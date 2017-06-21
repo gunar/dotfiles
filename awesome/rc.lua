@@ -291,11 +291,7 @@ end
 root.buttons(awful.util.table.join(
     awful.button({ }, 3, function () mymainmenu:toggle() end),
     awful.button({ modkey }, 4, debounce(function () awful.tag.viewnext(mouse.screen) end, 2)),
-    awful.button({ modkey }, 5, debounce(function () awful.tag.viewprev(mouse.screen) end, 2)),
-    --- {{{ Audio
-    awful.button({ "Control" }, 4,    function () awful.spawn("amixer set Master 4000+") end),
-    awful.button({ "Control" }, 5,    function () awful.spawn("amixer set Master 4000-") end)
-    --- }}}
+    awful.button({ modkey }, 5, debounce(function () awful.tag.viewprev(mouse.screen) end, 2))
 ))
 -- }}}
 
@@ -329,11 +325,15 @@ globalkeys = awful.util.table.join(globalkeys,
     -- {{{ Audio
     awful.key({ }, "XF86AudioRaiseVolume",    function () awful.spawn("amixer set Master 4000+") end),
     awful.key({ }, "XF86AudioLowerVolume",    function () awful.spawn("amixer set Master 4000-") end),
-    awful.key({ }, "XF86AudioMute",    function () awful.spawn("amixer set Master toggle") end),
+    awful.key({ }, "XF86AudioMute",           function () awful.spawn("amixer set Master toggle") end),
+    awful.key({ modkey, "Control" }, "Up",    function () awful.spawn("amixer set Master 4000+") end),
+    awful.key({ modkey, "Control" }, "Down",  function () awful.spawn("amixer set Master 4000-") end),
     -- }}}
     -- {{{ Brightness
-    awful.key({ }, "XF86MonBrightnessDown", function () awful.spawn("xbacklight -dec 15") end),
-    awful.key({ }, "XF86MonBrightnessUp", function () awful.spawn("xbacklight -inc 15") end),
+    awful.key({ }, "XF86MonBrightnessDown",   function () awful.spawn("xbacklight -dec 15") end),
+    awful.key({ }, "XF86MonBrightnessUp",     function () awful.spawn("xbacklight -inc 15") end),
+    awful.key({ modkey, "Control" }, "Left",  function () awful.spawn("xbacklight -dec 15") end),
+    awful.key({ modkey, "Control" }, "Right", function () awful.spawn("xbacklight -inc 15") end),
     -- }}}
     -- {{{ Software
     awful.key({ modkey,           }, "e", function () awful.spawn("thunar") end),
@@ -534,11 +534,7 @@ clientbuttons = awful.util.table.join(
     awful.button({ modkey }, 3, awful.mouse.client.resize),
     --- {{{ Scroll
     awful.button({ modkey }, 4, debounce(function (t) awful.tag.viewnext(t.screen) end, 2)),
-    awful.button({ modkey }, 5, debounce(function (t) awful.tag.viewprev(t.screen) end, 2)),
-    --- }}}
-    --- {{{ Audio
-    awful.button({ "Control" }, 4,    function () awful.spawn("amixer set Master 4000+") end),
-    awful.button({ "Control" }, 5,    function () awful.spawn("amixer set Master 4000-") end)
+    awful.button({ modkey }, 5, debounce(function (t) awful.tag.viewprev(t.screen) end, 2))
     --- }}}
 )
 
