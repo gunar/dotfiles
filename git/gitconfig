@@ -102,3 +102,5 @@
   enabled = true
 [init]
 	templatedir = ~/.git-templates
+[advice]
+  detachedhead=false
