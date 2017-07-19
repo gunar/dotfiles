@@ -23,6 +23,10 @@ options word
     ${0:TARGET}
   })
 
+snippet sym
+options word
+  const ${1:#:name:} = Symbol('$1${0:TARGET}')
+
 snippet req
 options word
   const ${1:#:name:} = require('$1${0:TARGET}')
@@ -53,16 +57,11 @@ options head
     ${0:TARGET}
   }
 
-snippet proto
-options head
-  ${1:#:class_name}.prototype.${2:#:method_name} = function(${3:#:first_argument}) {
-    ${0:TARGET}
-  }
-
-
 snippet f
 options word
-  function(${1}) { ${0:TARGET} }
+  const ${1} = async (${2}) => {
+    ${0:TARGET}
+  }
 
 snippet if
 options head
@@ -169,15 +168,22 @@ options head
 
 snippet iife
 options head
-  (function(${1}) {
+  ;(function(${1}) {
+    'use strict'
+    ${0:TARGET}
+  })(${2})
+
+snippet iifeasync
+options head
+  ;(async (${1}) => {
     'use strict'
     ${0:TARGET}
   })(${2})
 
 snippet js
 options head
-  JSON.stringify(${1:TARGET}, ${2:null}, ${3:2})
+  JSON.stringify(${1:TARGET}, undefined, 2)
 
 snippet jsc
 options head
-  console.log(JSON.stringify(${1:TARGET}, ${2:null}, ${3:2}))
+  console.log(JSON.stringify(${1:TARGET}, undefined, 2))
