@@ -22,7 +22,7 @@ alias webcam='guvcview'
 alias griom='git rebase -i origin/master'
 alias n='nvim'
 nag () { n "+/$*" `ag -l "$*"` }
-nf () { n `find -name "$*"` }
+nf () { n `find -name "$*" -not -path "./node_modules/*"` }
 nlint() { n `eslint --cache -f ./node_modules/eslint-formatter-list scripts src test` }
 alias f='ag -g'
 alias w='watch -n 0.5'
