@@ -18,15 +18,20 @@ source $ZSH/oh-my-zsh.sh
 alias vincenza='ssh -o PubKeyAuthentication=no -p 2222 vincenza@maisonvincenza.com.br'
 export VISUAL=nvim
 export EDITOR="$VISUAL"
-alias n='nvim'
 alias webcam='guvcview'
 alias griom='git rebase -i origin/master'
+alias n='nvim'
 nag () { n "+/$*" `ag -l "$*"` }
 nf () { n `find -name "$*"` }
+nlint() { n `eslint --cache -f ./node_modules/eslint-formatter-list scripts src test` }
 alias f='ag -g'
 alias w='watch -n 0.5'
 alias v='viewnior'
 alias c='xclip -selection clipboard'
+speedup() { ffmpeg -i $1 -filter_complex "[0:v]setpts=0.8*PTS[v]" -map "[v]" fast-$1 }
+speedupx() { ffmpeg -i $1 -filter_complex "[0:v]setpts=$2*PTS[v]" -map "[v]" fast-$1 }
+speedupa() { ffmpeg -i $1 -filter_complex "[0:v]setpts=0.8*PTS[v];[0:a]atempo=1.25[a]" -map "[v]" -map "[a]" fast-$1 }
+reload() { source ~/.zshrc }
 export TERM=screen-256color
 
 eval $(dircolors ~/.dircolors)
