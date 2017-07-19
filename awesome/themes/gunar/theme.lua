@@ -22,8 +22,8 @@ theme.fg_minimize   = "#ffffff"
 
 theme.border_width  = 2
 -- Border transparency requires a compositor
-theme.border_normal = "#00000000"
-theme.border_focus  = "#ffffff00"
+theme.border_normal = "#aaaaaa00"
+theme.border_focus  = "#ff000000"
 theme.border_marked = "#91231c00"
 
 -- There are other variable sets
