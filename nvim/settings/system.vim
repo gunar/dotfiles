@@ -43,7 +43,16 @@ autocmd BufReadPost *
 autocmd BufRead * normal zz
 
 let g:jsx_ext_required = 0
+
+" Context-sensitive auto-completion
+" .: The current buffer
+" w: Buffers in other windows
+" b: Other loaded buffers
+" u: Unloaded buffers
+" t: Tags
+" i: Included files
 set complete=.,w,b,u,t,k
+
 let g:gitgutter_max_signs = 1000  " default value
 
 " Auto CD to current file's directory
