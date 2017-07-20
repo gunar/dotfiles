@@ -35,7 +35,10 @@ function! NeomakeESlintChecker()
     let l:eslint = l:npm_bin . '/eslint'
   endif
 
-  let b:neomake_javascript_eslint_exe = l:eslint
+  let b:neomake_eslint_maker = {
+    \ 'exe': l:eslint,
+    \ 'args': ['--fix']
+  \ }
 endfunction
 augroup neomake_lint
   autocmd FileType javascript :call NeomakeESlintChecker()
