@@ -30,6 +30,7 @@ NeoBundle 'guns/vim-clojure-static'
 NeoBundle 'kien/rainbow_parentheses.vim'
 NeoBundle 'tpope/vim-fireplace'
 
+" javascript --- {{{
 " testing
 NeoBundle 'janko-m/vim-test'
 NeoBundle 'juanpabloaj/vim-istanbul'
@@ -39,6 +40,7 @@ NeoBundle 'jelera/vim-javascript-syntax'
 NeoBundle 'pangloss/vim-javascript'
 NeoBundle 'mxw/vim-jsx'
 NeoBundle 'alunny/pegjs-vim'
+NeoBundle 'ternjs/tern_for_vim'
 
 NeoBundle 'othree/yajs.vim'
 NeoBundle 'othree/es.next.syntax.vim'
@@ -50,6 +52,7 @@ NeoBundle '1995eaton/vim-better-javascript-completion'
 " " NeoBundle 'vim-scripts/SyntaxComplete'
 " NeoBundle 'othree/javascript-libraries-syntax.vim'
 " NeoBundleLazy 'elzr/vim-json', {'autoload':{'filetypes':['json']}}
+" --- }}}
 
 " markdown {{{
 NeoBundle 'godlygeek/tabular'
