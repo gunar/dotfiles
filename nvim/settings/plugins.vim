@@ -41,6 +41,7 @@ NeoBundle 'pangloss/vim-javascript'
 NeoBundle 'mxw/vim-jsx'
 NeoBundle 'alunny/pegjs-vim'
 NeoBundle 'ternjs/tern_for_vim'
+NeoBundle 'carlitux/deoplete-ternjs', { 'build': { 'unix': 'yarn global add tern' }}
 
 NeoBundle 'othree/yajs.vim'
 NeoBundle 'othree/es.next.syntax.vim'

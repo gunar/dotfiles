@@ -6,3 +6,4 @@
 (cd termite;./install.sh)
 (cd tmux;./install.sh)
 (cd zsh;./install.sh)
+(cd tern;./install.sh)
