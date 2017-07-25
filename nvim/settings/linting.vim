@@ -36,7 +36,8 @@ function! NeomakeESlintChecker()
   endif
 
   let b:neomake_javascript_eslint_exe = l:eslint
-  let b:neomake_javascript_eslint_args = ['-f', 'compact', '--fix']
+  " Making eslint fix problems live is problematic while coding
+  " let b:neomake_javascript_eslint_args = ['-f', 'compact', '--fix']
 endfunction
 augroup neomake_lint
   autocmd FileType javascript :call NeomakeESlintChecker()
