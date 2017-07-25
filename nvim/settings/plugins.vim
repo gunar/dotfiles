@@ -36,7 +36,7 @@ NeoBundle 'janko-m/vim-test'
 NeoBundle 'juanpabloaj/vim-istanbul'
 
 " syntax
-NeoBundle 'jelera/vim-javascript-syntax'
+" NeoBundle 'jelera/vim-javascript-syntax' " deprecated by yajs
 NeoBundle 'pangloss/vim-javascript'
 NeoBundle 'mxw/vim-jsx'
 NeoBundle 'alunny/pegjs-vim'
@@ -47,9 +47,9 @@ NeoBundle 'othree/yajs.vim'
 NeoBundle 'othree/es.next.syntax.vim'
 
 NeoBundle '1995eaton/vim-better-javascript-completion'
+NeoBundle 'moll/vim-node' " makes `gf` work on node_modules
 
 " NeoBundle 'hail2u/vim-css3-syntax'
-" NeoBundle 'moll/vim-node'
 " " NeoBundle 'vim-scripts/SyntaxComplete'
 " NeoBundle 'othree/javascript-libraries-syntax.vim'
 " NeoBundleLazy 'elzr/vim-json', {'autoload':{'filetypes':['json']}}
