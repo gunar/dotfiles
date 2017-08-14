@@ -49,6 +49,9 @@ NeoBundle 'othree/es.next.syntax.vim'
 NeoBundle '1995eaton/vim-better-javascript-completion'
 NeoBundle 'moll/vim-node' " makes `gf` work on node_modules
 
+" interactive scratchpad instant evaluation
+NeoBundle 'metakirby5/codi.vim'
+
 " NeoBundle 'hail2u/vim-css3-syntax'
 " " NeoBundle 'vim-scripts/SyntaxComplete'
 " NeoBundle 'othree/javascript-libraries-syntax.vim'
