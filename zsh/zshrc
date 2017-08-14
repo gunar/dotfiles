@@ -23,7 +23,7 @@ alias griom='git rebase -i origin/master'
 alias n='nvim'
 nag () { n "+/\c$*" `ag -l "$*"` }
 nf () { n `find -name "$*" -not -path "./node_modules/*"` }
-nlint() { n `eslint --cache -f ./node_modules/eslint-formatter-list scripts src test` }
+nlint() { n `eslint --cache -f ./node_modules/eslint-formatter-list .` }
 alias f='ag -g'
 alias w='watch -n 0.5'
 alias v='viewnior'
