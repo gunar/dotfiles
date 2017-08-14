@@ -6,6 +6,9 @@ let g:tsuquyomi_disable_quickfix = 1
 let g:vim_json_syntax_conceal = 0
 let g:deoplete#omni_patterns = {}
 
+" Remove trailing spaces
+autocmd BufWritePre *.js :%s/\s\+$//e
+
 " tern_for_vim --- {{{{
 " this fucks up with eslint message
 " let g:tern_show_argument_hints='on_move' 
