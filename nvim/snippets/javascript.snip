@@ -1,3 +1,9 @@
+snippet us
+options head
+  'use strict'
+
+  ${0:TARGET}
+
 snippet stub
 options head
   const ${1:#:name} = sandbox.stub(${2:#:module}, '${3:#:method}').returns(Promise.resolve())
