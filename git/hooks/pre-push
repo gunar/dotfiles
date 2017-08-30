@@ -1,11 +1,6 @@
 #!/bin/sh
 
 CACHE_FILE=/tmp/$$.pid
-STAGED_FILES=$(git diff --cached --name-only --diff-filter=ACM | grep "\.jsx\{0,1\}$")
-
-if [[ "$STAGED_FILES" = "" ]]; then
-  exit 0
-fi
 
 # Check for eslint
 which eslint &> /dev/null
@@ -16,7 +11,7 @@ fi
 
 # Clear our cache file
 rm $CACHE_FILE 2>/dev/null
-for FILE in $STAGED_FILES
+for FILE in $(find . -name '*.js')
 do
   (
     eslint "$FILE"
