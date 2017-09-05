@@ -51,6 +51,7 @@
     cmd = $HOME/.git-templates/mymeld.sh $BASE $LOCAL $REMOTE $MERGED
 
 [alias]
+  delete-all-branches = "!f(){git branch | grep -v "master" | xargs git branch -D};f"
   c = clone
   amend = commit -a --amend --no-edit
   # changelog = !"git log --pretty=format:'- %s%n%b' --since='$(git show -s --format=%ad `git rev-list --tags --max-count=1`)'"
