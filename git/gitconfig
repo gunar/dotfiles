@@ -81,7 +81,10 @@
   bkpo      = "!bkpo() { cur_branch=`git branch | grep '* ' | tr -d '* '` ; git branch -D bkp-origin-$cur_branch ; git checkout -b bkp-origin-$cur_branch ; git reset --hard origin/$cur_branch; git co $cur_branch; }; bkpo"
   # rcb: reset current branch (from origin)
   rcb      = "!rcb() { cur_branch=`git branch | grep '* ' | tr -d '* '` ; git fetch; git reset --hard origin/$cur_branch; }; rcb"
-  con      = "!con() { nvim `git diff --name-status --diff-filter=U | cut -f 2-`; }; con"
+  # conflicts
+  conf      = "!f() { nvim `git diff --name-status --diff-filter=U | cut -f 2-`; }; f"
+  # continue
+  cont      = "!f() { git add . && git rebase --continue }; f"
   resetm   = "!resetm() { git pom && git reset origin/master; }; resetm"
   pom      = "!pom() { export tmp_branch=`git branch | grep '* ' | tr -d '* '` && git branch -D master && git checkout master && git pull && git checkout $tmp_branch; unset tmp_branch; }; pom"
   meld     = mergetool
