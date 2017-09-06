@@ -24,6 +24,8 @@ let pluginsExist = 1
 " Required:
 NeoBundleFetch 'Shougo/neobundle.vim'
 
+NeoBundle 'Shougo/deoplete.nvim'
+
 " Clojure
 "  Syntax Indent Completion
 NeoBundle 'guns/vim-clojure-static'
@@ -108,7 +110,6 @@ NeoBundle 'ujihisa/unite-colorscheme'
 "       \     'unix' : 'gmake',
 "       \    },
 "       \ }
-NeoBundle 'Shougo/deoplete.nvim'
 " NeoBundle 'Shougo/neco-vim'
 " NeoBundle 'Shougo/neoinclude.vim'
 " NeoBundleLazy 'ujihisa/neco-look',{'autoload':{'filetypes':['markdown']}}

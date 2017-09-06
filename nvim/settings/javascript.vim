@@ -1,7 +1,6 @@
 " Javscript omni complete
 let g:vimjs#casesensistive = 1
 let g:vimjs#smartcomplete = 1
-set completeopt-=preview
 let g:tsuquyomi_disable_quickfix = 1
 let g:vim_json_syntax_conceal = 0
 let g:deoplete#omni_patterns = {}
@@ -21,14 +20,22 @@ nnoremap <silent> <leader>gr :TernRename<CR>
 " --- }}}
 
 " deoplete-ternjs --- {{{
-" Use deoplete.
+
+" This would disable the preview window
+" set completeopt-=preview
+" This to close preview when insert mode leaves
+autocmd InsertLeave,CompleteDone * if pumvisible() == 0 | pclose | endif
+
 let g:tern_request_timeout = 1
-" let g:tern_show_signature_in_pum = '0'  " This do disable full signature type on autocomplete
+let g:deoplete#sources#ternjs#docs = 1
+let g:deoplete#sources#ternjs#types = 1
+let g:deoplete#sources#ternjs#filter = 0
+" let g:tern_show_signature_in_pum = '1'  " This do disable full signature type on autocomplete
 "Add extra filetypes
 let g:tern#filetypes = [
                 \ 'jsx',
                 \ ]
 " Use tern_for_vim.
 let g:tern#command = ["tern"]
-let g:tern#arguments = ["--persistent", "--no-port-file"]
+let g:tern#arguments = ["--persistent"]
 " --- }}}
