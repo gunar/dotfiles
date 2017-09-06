@@ -1,10 +1,17 @@
 {
   "libs": [
   ],
-  "loadEagerly": [
-  ],
+  "async": true,
+  "loadEagerly": [ ],
   "plugins": {
+    "doc_comment": {
+      "fullDocs": true
+    },
+    "complete_strings": {},
+    "es_modules": {},
+    "modules": {},
     "node": {},
-    "node_resolve": {}
+    "commonjs": {},
+    "node_resolve":{}
   }
 }
