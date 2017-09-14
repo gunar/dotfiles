@@ -84,7 +84,7 @@
   # conflicts
   conf      = "!f() { nvim `git diff --name-status --diff-filter=U | cut -f 2-`; }; f"
   # continue
-  cont      = "!f() { git add . && git rebase --continue }; f"
+  cont      = "!f() { git add . && git rebase --continue; }; f"
   resetm   = "!resetm() { git pom && git reset origin/master; }; resetm"
   pom      = "!pom() { export tmp_branch=`git branch | grep '* ' | tr -d '* '` && git branch -D master && git checkout master && git pull && git checkout $tmp_branch; unset tmp_branch; }; pom"
   meld     = mergetool
