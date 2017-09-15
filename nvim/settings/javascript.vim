@@ -1,3 +1,10 @@
+" Keymaps
+" Sort {} stuff
+nnoremap <C-s> vi{=vi{:sort i<cr>
+" Sort [] stuff
+nnoremap <leader>s vi[=vi[:sort i<cr>
+nnoremap <leader>l muyiwgg/lodash?{opA,==vi{=vi{:sort i<cr>'u
+
 " Javscript omni complete
 let g:vimjs#casesensistive = 1
 let g:vimjs#smartcomplete = 1
