@@ -39,9 +39,10 @@ function! NeomakeESlintChecker()
   " Making eslint fix problems live is problematic while coding
   " let b:neomake_javascript_eslint_args = ['-f', 'compact', '--fix']
 endfunction
+
 augroup neomake_lint
   autocmd FileType javascript :call NeomakeESlintChecker()
-  autocmd BufWritePost,BufReadPost * Neomake
+  call neomake#configure#automake('rwn')
 augroup END
 
 nmap <F2> :lfirst<cr>

@@ -81,9 +81,12 @@ NeoBundle 'airblade/vim-gitgutter'
 NeoBundle 'Xuyuanp/nerdtree-git-plugin'
 " NeoBundle 'https://github.com/jaxbot/github-issues.vim'
 
+" Linting --- {{{
+NeoBundle 'neomake/neomake'
+" --- }}}
+
 " utils
 NeoBundle '907th/vim-auto-save'
-NeoBundle 'benekastah/neomake'
 NeoBundle 'editorconfig/editorconfig-vim'
 NeoBundle 'scrooloose/nerdtree'
 " NeoBundle 'AndrewRadev/switch.vim'
