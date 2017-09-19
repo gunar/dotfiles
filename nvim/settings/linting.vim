@@ -42,7 +42,7 @@ endfunction
 
 augroup neomake_lint
   autocmd FileType javascript :call NeomakeESlintChecker()
-  call neomake#configure#automake('rwn')
+  call neomake#configure#automake('w')
 augroup END
 
 nmap <F2> :lfirst<cr>
