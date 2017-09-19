@@ -32,6 +32,9 @@ alias wr='nmcli r w off&&nmcli r w on'
 alias ww='watch nmcli d w'
 alias performance='for i in `ls -d /sys/devices/system/cpu/cpu*|grep -v cpufreq|grep -v cpuidle`; do echo performance | sudo tee --append $i/cpufreq/scaling_governor >/dev/null; done'
 alias powersave='for i in `ls -d /sys/devices/system/cpu/cpu*|grep -v cpufreq|grep -v cpuidle`; do sudo echo powersave  | sudo tee --append $i/cpufreq/scaling_governor >/dev/null; done; xbacklight -set 7'
+alias hibernate='echo disk | sudo tee /sys/power/state'
+alias suspend='echo mem | sudo tee /sys/power/state'
+alias wf='chromium --app="https://workflowy.com" --enable-apps --enable-extension-apps'
 
 alias curlpost='curl -v -H "Content-Type: application/json" -d -'
 gif() { ffmpeg -i $1 $1.gif }
@@ -49,3 +52,10 @@ if [[ $TERM == xterm-termite ]]; then
   . /etc/profile.d/vte.sh
   __vte_osc7
 fi
+
+# tabtab source for serverless package
+# uninstall by removing these lines or running `tabtab uninstall serverless`
+[[ -f /home/gcg/.config/yarn/global/node_modules/tabtab/.completions/serverless.zsh ]] && . /home/gcg/.config/yarn/global/node_modules/tabtab/.completions/serverless.zsh
+# tabtab source for sls package
+# uninstall by removing these lines or running `tabtab uninstall sls`
+[[ -f /home/gcg/.config/yarn/global/node_modules/tabtab/.completions/sls.zsh ]] && . /home/gcg/.config/yarn/global/node_modules/tabtab/.completions/sls.zsh
