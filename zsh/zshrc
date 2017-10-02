@@ -30,6 +30,19 @@ alias v='viewnior'
 alias c='xclip -selection clipboard'
 alias wr='nmcli r w off&&nmcli r w on'
 alias ww='watch nmcli d w'
+alias y='yarn'
+alias ya='yarn add'
+alias t='npm test'
+alias zsh='nvim ~/.zshrc'
+alias a='ag --ignore yarn.lock'
+mkd() { mkdir -p $1 && cd $1 }
+tmp() {
+  cd /tmp
+  mkd $RANDOM
+  npm init --yes
+}
+alias ng='killall ngrok;ngrok http -subdomain=invisible-dev-2 3000 >/dev/null &!'
+alias ln='nvim `eslint --cache -f ~/code/_archive/eslint-formatter-list --ignore-path .gitignore .`'
 alias performance='for i in `ls -d /sys/devices/system/cpu/cpu*|grep -v cpufreq|grep -v cpuidle`; do echo performance | sudo tee --append $i/cpufreq/scaling_governor >/dev/null; done'
 alias powersave='for i in `ls -d /sys/devices/system/cpu/cpu*|grep -v cpufreq|grep -v cpuidle`; do sudo echo powersave  | sudo tee --append $i/cpufreq/scaling_governor >/dev/null; done; xbacklight -set 7'
 alias hibernate='echo disk | sudo tee /sys/power/state'
@@ -38,6 +51,12 @@ alias wf='chromium --app="https://workflowy.com" --enable-apps --enable-extensio
 
 alias curlpost='curl -v -H "Content-Type: application/json" -d -'
 gif() { ffmpeg -i $1 $1.gif }
+gifhq() {
+  palette="/tmp/palette.png"
+  filters="fps=15,scale=420:-1:flags=lanczos"
+  ffmpeg -v warning -i $1 -vf "$filters,palettegen" -y $palette
+  ffmpeg -v warning -i $1 -i $palette -lavfi "$filters [x]; [x][1:v] paletteuse" -y $2
+}
 speedup() { ffmpeg -i $1 -filter_complex "[0:v]setpts=0.8*PTS[v]" -map "[v]" fast-$1 }
 speedupx() { ffmpeg -i $1 -filter_complex "[0:v]setpts=$2*PTS[v]" -map "[v]" fast-$1 }
 speedupa() { ffmpeg -i $1 -filter_complex "[0:v]setpts=0.8*PTS[v];[0:a]atempo=1.25[a]" -map "[v]" -map "[a]" fast-$1 }
