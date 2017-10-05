@@ -3,7 +3,7 @@ export ZSH=/home/gcg/.oh-my-zsh
 
 ZSH_THEME="agnoster"
 HIST_STAMPS="yyyy-mm-dd"
-plugins=(git jsontools sudo cloudapp)
+plugins=(git jsontools sudo cloudapp jump)
 
 export PATH="/home/gcg/.gem/ruby/2.3.0/bin:/opt/android-sdk-linux/tools:/opt/android-sdk-linux/platform-tools:/usr/local/sbin:/usr/local/bin:/usr/bin:/usr/lib/jvm/default/bin:/usr/bin/site_perl:/usr/bin/vendor_perl:/usr/bin/core_perl"
 export PATH="$PATH:./node_modules/.bin:../node_modules/.bin:../../node_modules/.bin:../../../node_modules/.bin:../../../../node_modules/.bin"
