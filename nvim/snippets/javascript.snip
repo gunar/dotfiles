@@ -187,9 +187,27 @@ options head
   })(${2})
 
 snippet js
-options head
   JSON.stringify(${1:TARGET}, undefined, 2)
 
 snippet jsc
 options head
   console.log(JSON.stringify(${1:TARGET}, undefined, 2))
+
+snippet clj
+options head
+  console.log(JSON.stringify(${1:TARGET}, undefined, 2))
+
+snippet desc
+options head
+  describe('${1}', () => {
+    const { ${1} } = ${2}
+    it('should ${3}', () => {
+      ${0:TARGET}
+    })
+  })
+
+snippet it
+options head
+  it('should ${1}', () => {
+    ${0:TARGET}
+  })
