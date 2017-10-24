@@ -77,7 +77,7 @@
   lp       = log -p -w
   # m        = merge --no-ff
   master   = checkout master
-  bkp      = "!bkp() { cur_branch=`git branch | grep '* ' | tr -d '* '` ; git branch -D bkp-$cur_branch ; git branch bkp-$cur_branch; }; bkp"
+  bkp      = "!bkp() { cur_branch=`git branch | grep '* ' | tr -d '* '` ; git branch -D bkp-$cur_branch 2>/dev/null; git branch bkp-$cur_branch; }; bkp"
   bkpo      = "!bkpo() { cur_branch=`git branch | grep '* ' | tr -d '* '` ; git branch -D bkp-origin-$cur_branch ; git checkout -b bkp-origin-$cur_branch ; git reset --hard origin/$cur_branch; git co $cur_branch; }; bkpo"
   # rcb: reset current branch (from origin)
   rcb      = "!rcb() { cur_branch=`git branch | grep '* ' | tr -d '* '` ; git fetch; git reset --hard origin/$cur_branch; }; rcb"
