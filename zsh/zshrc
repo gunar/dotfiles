@@ -20,11 +20,13 @@ export VISUAL=nvim
 export EDITOR="$VISUAL"
 alias webcam='guvcview'
 alias griom='git rebase -i origin/master'
+alias gdc='git diff --cached'
 alias n='nvim'
 alias nd='node -r ~/dotfiles/node'
-nag () { n "+/\c$*" `ag -l "$*"` }
+na () { n "+/\c$*" `ag --ignore yarn.lock -l "$*"` }
+nag () { n "+/\c$*" `ag --ignore yarn.lock -l "$*"` }
 nf () { n `find -name "$*" -not -path "./node_modules/*"` }
-nlint() { n `eslint --cache -f ./node_modules/eslint-formatter-list .` }
+nlint() { n `eslint --cache -f ~/code/_archive/eslint-formatter-list .` }
 alias f='ag -g'
 alias w='watch -n 0.5'
 alias v='viewnior'
@@ -34,8 +36,13 @@ alias ww='watch nmcli d w'
 alias y='yarn'
 alias ya='yarn add'
 alias t='npm test'
+alias tw='npm run test-watch'
 alias zsh='nvim ~/.zshrc'
 alias a='ag --ignore yarn.lock'
+re() {
+  rec -t wav - | lame -V 9 -h - >/tmp/record.mp3
+  cloudapp /tmp/record.mp3
+}
 mkd() { mkdir -p $1 && cd $1 }
 tmp() {
   cd /tmp
