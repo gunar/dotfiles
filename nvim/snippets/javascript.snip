@@ -1,8 +1,7 @@
 snippet us
 options head
   'use strict'
-
-  ${0:TARGET}
+  
 
 snippet stub
 options head
@@ -182,7 +181,6 @@ options head
 snippet iifeasync
 options head
   ;(async (${1}) => {
-    'use strict'
     ${0:TARGET}
   })(${2})
 
@@ -201,13 +199,13 @@ snippet desc
 options head
   describe('${1}', () => {
     const { ${1} } = ${2}
-    it('should ${3}', () => {
+    it('should ${3}', async () => {
       ${0:TARGET}
     })
   })
 
 snippet it
 options head
-  it('should ${1}', () => {
+  it('should ${1}', async () => {
     ${0:TARGET}
   })
