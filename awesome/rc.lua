@@ -298,7 +298,13 @@ root.buttons(awful.util.table.join(
 -- {{{ Spotify
 function sendToSpotify(command)
   return function ()
-    awful.spawn("dbus-send --print-reply --dest=org.mpris.MediaPlayer2.spotify /org/mpris/MediaPlayer2 org.mpris.MediaPlayer2.Player." .. command)
+    local isOpen ="ps ax|grep -v grep|grep spotify"
+    awful.spawn.easy_async_with_shell(isOpen, function(stdout, stderr, reason, exit_code)
+      if exit_code > 0 then
+        awful.spawn("spotify")
+      end
+      awful.spawn("dbus-send --print-reply --dest=org.mpris.MediaPlayer2.spotify /org/mpris/MediaPlayer2 org.mpris.MediaPlayer2.Player." .. command)
+    end)
   end
 end
 -- }}}
