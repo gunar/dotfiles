@@ -83,6 +83,12 @@ speedupx() { ffmpeg -i $1 -filter_complex "[0:v]setpts=$2*PTS[v]" -map "[v]" fas
 speedupa() { ffmpeg -i $1 -filter_complex "[0:v]setpts=0.8*PTS[v];[0:a]atempo=1.25[a]" -map "[v]" -map "[a]" fast-$1 }
 reload() { source ~/.zshrc }
 
+# heroku aliases
+alias hl='heroku logs --remote production|less'
+alias hls='heroku logs --remote staging|less'
+alias hlt='heroku logs --tail --remote production'
+alias hlts='heroku logs --tail --remote staging'
+
 export TERM=screen-256color
 
 eval $(dircolors ~/.dircolors)
