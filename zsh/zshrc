@@ -34,13 +34,14 @@ alias gdc='git diff --cached'
 alias grm='git co master&&g rcb'
 alias pr='hub pull-request'
 alias n='nvim'
+alias nn='f -e nvim'
 alias nd='node -r ~/dotfiles/node'
 na () { n "+/\c$*" `ag --ignore yarn.lock -l "$*"` }
 nag () { n "+/\c$*" `ag --ignore yarn.lock -l "$*"` }
 nf () { n `find -name "$*" -not -path "./node_modules/*"` }
 nlint() { n `eslint --cache -f ~/code/_archive/eslint-formatter-list .` }
-alias f='ag -g'
-alias w='watch -n 0.5'
+alias ff='ag -g'
+alias w='watch -n 0.5 --color'
 alias v='viewnior'
 alias c='xclip -selection clipboard'
 alias wr='nmcli r w off&&nmcli r w on'
@@ -50,7 +51,7 @@ alias ya='yarn add'
 alias t='npm test'
 alias tw='npm run test-watch'
 alias zsh='nvim ~/.zshrc'
-alias a='ag --ignore yarn.lock'
+alias aa='ag --ignore yarn.lock'
 re() {
   rec -t wav - | lame -V 9 -h - >/tmp/record.mp3
   cloudapp /tmp/record.mp3
@@ -62,7 +63,7 @@ tmp() {
   npm init --yes
 }
 alias ng='killall ngrok 2>/dev/null;ngrok http -subdomain=invisible-dev-2 3000 >/dev/null &!'
-alias ln='nvim `eslint --cache -f ~/code/_archive/eslint-formatter-list --ignore-path .gitignore .`'
+alias lint='nvim `eslint --cache -f ~/code/_archive/eslint-formatter-list --ignore-path .gitignore .`'
 alias performance='for i in `ls -d /sys/devices/system/cpu/cpu*|grep -v cpufreq|grep -v cpuidle`; do echo performance | sudo tee --append $i/cpufreq/scaling_governor >/dev/null; done'
 alias powersave='for i in `ls -d /sys/devices/system/cpu/cpu*|grep -v cpufreq|grep -v cpuidle`; do sudo echo powersave  | sudo tee --append $i/cpufreq/scaling_governor >/dev/null; done; xbacklight -set 7'
 alias hibernate='echo disk | sudo tee /sys/power/state'
@@ -123,7 +124,7 @@ function append-exit {
   BUFFER="$BUFFER && exit"
 }
 zle -N append-exit
-bindkey "^X" append-exit
+bindkey "^S" append-exit
 
 
 # alt+l for "ls"
@@ -134,3 +135,18 @@ function call-ls {
 }
 zle -N call-ls
 bindkey "^[l" call-ls
+
+# fasd ---------------
+#
+# commented out because nvim does not have viminfo file
+# https://github.com/neovim/neovim/issues/999
+# export _FASD_BACKENDS="current viminfo"
+# export _FASD_VIMINFO=""
+#
+eval "$(fasd --init posix-alias zsh-hook zsh-ccomp zsh-ccomp-install zsh-wcomp zsh-wcomp-install)"
+bindkey "^X^X" fasd-complete    # C-x C-a to do fasd-complete (files and directories)
+bindkey "^X^F" fasd-complete-f  # C-x C-f to do fasd-complete-f (only files)
+bindkey "^X^D" fasd-complete-d  # C-x C-d to do fasd-complete-d (only directories)
+
+# nvm (node version manager)
+source /usr/share/nvm/init-nvm.sh
