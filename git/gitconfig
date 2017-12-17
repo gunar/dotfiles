@@ -86,7 +86,7 @@
   # continue
   cont      = "!f() { git add . && git rebase --continue; }; f"
   resetm   = "!resetm() { git pom && git reset origin/master; }; resetm"
-  pom      = "!pom() { export tmp_branch=`git branch | grep '* ' | tr -d '* '` && git branch -D master && git checkout master && git pull && git checkout $tmp_branch; unset tmp_branch; }; pom"
+  pom      = "!pom() { git branch -D master;git checkout -b master && git rcb && git checkout -; }; pom"
   meld     = mergetool
   # merge-to = "!gitmergeto() { export tmp_branch=`git branch | grep '* ' | tr -d '* '` && git checkout $1 && git merge $tmp_branch && git checkout $tmp_branch; unset tmp_branch; }; gitmergeto"
   # mpush    = "! export tmp_branch=`git branch | grep '* ' | tr -d '* '` && git push origin && git merge master && git checkout master && git merge --no-ff $tmp_branch && git push origin && git branch -d $tmp_branch && git push origin :$tmp_branch"
