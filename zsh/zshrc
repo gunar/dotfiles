@@ -3,7 +3,7 @@ export ZSH=/home/gcg/.oh-my-zsh
 
 ZSH_THEME="agnoster"
 HIST_STAMPS="yyyy-mm-dd"
-plugins=(git jsontools sudo cloudapp jump)
+plugins=(jsontools sudo cloudapp jump)
 
 export PATH="/home/gcg/.gem/ruby/2.3.0/bin:/opt/android-sdk-linux/tools:/opt/android-sdk-linux/platform-tools:/usr/local/sbin:/usr/local/bin:/usr/bin:/usr/lib/jvm/default/bin:/usr/bin/site_perl:/usr/bin/vendor_perl:/usr/bin/core_perl"
 export PATH="$PATH:./node_modules/.bin:../node_modules/.bin:../../node_modules/.bin:../../../node_modules/.bin:../../../../node_modules/.bin"
@@ -19,8 +19,20 @@ alias vincenza='ssh -o PubKeyAuthentication=no -p 2222 vincenza@maisonvincenza.c
 export VISUAL=nvim
 export EDITOR="$VISUAL"
 alias webcam='guvcview'
+
+# Git
+alias g='git'
+alias ga='git add'
+alias gp='git push'
+alias gpf='git push --force-with-lease'
+alias gcm='git commit -m'
+alias gcam='git commit -a -m'
+alias gst='git status'
 alias griom='git rebase -i origin/master'
+alias gd='git diff --minimal'
 alias gdc='git diff --cached'
+alias grm='git co master&&g rcb'
+alias pr='hub pull-request'
 alias n='nvim'
 alias nd='node -r ~/dotfiles/node'
 na () { n "+/\c$*" `ag --ignore yarn.lock -l "$*"` }
