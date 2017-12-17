@@ -61,6 +61,7 @@ NeoBundle 'metakirby5/codi.vim'
 " --- }}}
 
 " markdown {{{
+NeoBundle 'junegunn/goyo.vim' " :Goyo for distraction free writing
 NeoBundle 'godlygeek/tabular'
 NeoBundle 'plasticboy/vim-markdown'
 NeoBundle 'nelstrom/vim-markdown-folding' "Use :FoldToggle for nested folding
@@ -127,7 +128,6 @@ NeoBundle 'junegunn/fzf.vim'
 " NeoBundle 'vim-lua-ftplugin', {'depends': 'xolox/vim-misc'}
 " NeoBundle 'mattn/gist-vim', {'depends': 'mattn/webapi-vim'}
 " NeoBundle 'rhysd/github-complete.vim'
-" NeoBundle 'junegunn/goyo.vim'
 " NeoBundle 'junegunn/limelight.vim'
 " NeoBundle 'https://github.com/danielmiessler/VimBlog'
 NeoBundle 'https://github.com/neovim/node-host'
