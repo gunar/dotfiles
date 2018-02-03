@@ -76,7 +76,7 @@ alias hibernate='echo disk | sudo tee /sys/power/state'
 alias suspend='echo mem | sudo tee /sys/power/state'
 alias wf='chromium --app="https://workflowy.com" --enable-apps --enable-extension-apps'
 
-alias curlpost='curl -v -H "Content-Type: application/json" -d -'
+alias curlpost='curl -v -H "Content-Type: application/json" -d @-'
 gif() { ffmpeg -i $1 $1.gif }
 gifhq() {
   palette="/tmp/palette.png"
