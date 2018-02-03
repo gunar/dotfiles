@@ -53,6 +53,7 @@
 [alias]
   delete-all-branches = "!f(){git branch | grep -v "master" | xargs git branch -D};f"
   c = clone
+  cl = clean -fd
   amend = commit -a --amend --no-edit
   # changelog = !"git log --pretty=format:'- %s%n%b' --since='$(git show -s --format=%ad `git rev-list --tags --max-count=1`)'"
   # lg = log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%ci%x08%x08%x08%x08%x08%x08%x08%x08%x08)%Creset' --abbrev-commit --date=iso --decorate
