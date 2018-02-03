@@ -7,7 +7,12 @@ plugins=(jsontools sudo cloudapp jump)
 
 export PATH="/home/gcg/.gem/ruby/2.3.0/bin:/opt/android-sdk-linux/tools:/opt/android-sdk-linux/platform-tools:/usr/local/sbin:/usr/local/bin:/usr/bin:/usr/lib/jvm/default/bin:/usr/bin/site_perl:/usr/bin/vendor_perl:/usr/bin/core_perl"
 export PATH="$PATH:./node_modules/.bin:../node_modules/.bin:../../node_modules/.bin:../../../node_modules/.bin:../../../../node_modules/.bin"
-export PATH="$PATH:$(yarn global bin 2>/dev/null)"
+
+# this slows down startup because nodejs
+# export PATH="$PATH:$(yarn global bin 2>/dev/null)"
+# so use this instead
+export PATH="$PATH:$HOME/.config/yarn/global/node_modules/.bin"
+
 # export MANPATH="/usr/local/man:$MANPATH"
 
 source $ZSH/oh-my-zsh.sh
