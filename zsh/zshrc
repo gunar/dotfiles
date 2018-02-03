@@ -94,6 +94,8 @@ alias hl='heroku logs --remote production|less'
 alias hls='heroku logs --remote staging|less'
 alias hlt='heroku logs --tail --remote production'
 alias hlts='heroku logs --tail --remote staging'
+alias hlst='heroku logs --tail --remote staging'
+alias hrel='heroku releases --remote production'
 
 export TERM=screen-256color
 
