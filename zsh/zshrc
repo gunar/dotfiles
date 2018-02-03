@@ -55,7 +55,7 @@ alias y='yarn'
 alias ya='yarn add'
 alias t='npm test'
 alias tw='npm run test-watch'
-alias zsh='nvim ~/.zshrc'
+alias zsh='nvim ~/.zshrc&&reload'
 alias aa='ag --ignore yarn.lock'
 re() {
   rec -t wav - | lame -V 9 -h - >/tmp/record.mp3
