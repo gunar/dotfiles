@@ -40,7 +40,12 @@ end
 -- Xcompmgr Composition Manager for transparency
 -- TODO: I should remove this if my theme doesn't use transparency
 -- xcompmgr removed because widgets' buttons weren't working
--- awful.spawn_with_shell("xcompmgr &")
+-- awful.spawn.with_shell("xcompmgr &")
+
+-- start session
+awful.spawn.with_shell("lxsession 2>/dev/null &")
+awful.spawn.with_shell("pulseaudio --start")
+
 
 -- Simple function to load additional LUA files from rc/.
 function loadrc(name, mod)
@@ -128,12 +133,13 @@ end
 
 -- {{{ Prompts
 loadrc("prompt")
-loadrc("xrandr")
+-- disabled in favor of xfce4-display-settings
+-- loadrc("xrandr")
 local refreshWallpaper = loadrc("wallpaper")
 -- }}}
 
 -- {{{ Widgets
-mytextclock = wibox.widget.textclock("%H:%M | %d ", 60)
+mytextclock = wibox.widget.textclock("%H:%M | %d", 60)
 
 require("widgets/heatmon")
 heatmon_widget = create_heatmon_widget()
@@ -143,16 +149,21 @@ kbdswitcher_widget = create_kbdswitcher_widget()
 
 local assault = require('widgets/assault')
 myassault = assault({
-  battery = "BAT1",
-  adapter = "ADP1",
-  width = 15,
-  height = 7,
+  -- need to update these if replacing hardware
+  -- too costly to automate
+  battery = "BAT0",
+  adapter = "AC",
+  width = 25,
+  stroke_width = 1,
+  -- font = "monospace 11",
+  font = "DejaVu Sans 9",
+  height = 9,
   bolt_width = 0,
   bolt_weight = 0,
   critical_level = 0.2,
-  normal_color= "#00000033",
+  normal_color= "#FFFFFFFF",
   critical_color = "#ff0000",
-  charging_color = "#0000ff33"
+  charging_color = "#FFFFFFFF"
 })
 
 -- }}}
@@ -183,6 +194,7 @@ mymainmenu = awful.menu({ items = { { "awesome", myawesomemenu, beautiful.awesom
 
 -- Menubar configuration
 menubar.utils.terminal = terminal -- Set the terminal for applications that require it
+app_folders = { "/usr/share/applications/", "~/.local/share/applications/" }
 -- }}}
 
 -- {{{ Wibox
@@ -309,6 +321,21 @@ function sendToSpotify(command)
 end
 -- }}}
 
+-- {{{ amixer
+function incVol()
+  awful.spawn.with_shell("amixer set Master 1+&& sleep .1 && amixer set Master 1+&& sleep .1 && amixer set Master 1+&& sleep .1 && amixer set Master 1+&& sleep .1 && amixer set Master 1+&& sleep .1 && amixer set Master 1+&& sleep .1 && amixer set Master 1+")
+end
+function decVol()
+  awful.spawn.with_shell("amixer set Master 1-&& sleep .1 && amixer set Master 1-&& sleep .1 && amixer set Master 1-&& sleep .1 && amixer set Master 1-&& sleep .1 && amixer set Master 1-&& sleep .1 && amixer set Master 1-&& sleep .1 && amixer set Master 1-")
+end
+function toggleMute()
+  awful.spawn.with_shell("~/dotfiles/scripts/toggleMute ")
+end
+function toggleMicMute()
+  awful.spawn.with_shell("amixer set Capture toggle")
+end
+-- }}}
+
 --- {{{ Revelation
 local revelation = require('revelation')
 revelation.init() -- must come after beautiful.init
@@ -328,19 +355,25 @@ globalkeys = awful.util.table.join(globalkeys,
     awful.key({ modkey }, "d", sendToSpotify("Next")), -- XF86AudioNext
     awful.key({ modkey }, "a", sendToSpotify("Previous")), -- XF86AudioPrev
     -- }}}
+    -- {{{ Display
+    -- this makes xrandr.lua unnecessary
+    awful.key({ }, "XF86Display",             function () awful.spawn("xfce4-display-settings") end),
+    -- }}}
     -- {{{ Audio
-    awful.key({ }, "XF86AudioRaiseVolume",    function () awful.spawn("amixer set Master 4000+") end),
-    awful.key({ }, "XF86AudioLowerVolume",    function () awful.spawn("amixer set Master 4000-") end),
-    awful.key({ }, "XF86AudioMute",           function () awful.spawn("amixer set Master toggle") end),
-    awful.key({ modkey, "Control" }, "Up",    function () awful.spawn("amixer set Master 4000+") end),
-    awful.key({ modkey, "Control" }, "Down",  function () awful.spawn("amixer set Master 4000-") end),
+    awful.key({ }, "XF86AudioRaiseVolume",    function () incVol() end),
+    awful.key({ }, "XF86AudioLowerVolume",    function () decVol() end),
+    awful.key({ }, "XF86AudioMute",           function () toggleMute() end),
+    awful.key({ }, "XF86AudioMicMute",           function () toggleMicMute() end),
+    awful.key({ }, "XF86Favorites",           function () awful.spawn.with_shell("xlock") end),
+    awful.key({ modkey, "Control" }, "Up",    function () incVol() end),
+    awful.key({ modkey, "Control" }, "Down",  function () decVol() end),
     -- }}}
-    -- {{{ Brightness
-    awful.key({ }, "XF86MonBrightnessDown",   function () awful.spawn("xbacklight -dec 15") end),
-    awful.key({ }, "XF86MonBrightnessUp",     function () awful.spawn("xbacklight -inc 15") end),
-    awful.key({ modkey, "Control" }, "Left",  function () awful.spawn("xbacklight -dec 15") end),
-    awful.key({ modkey, "Control" }, "Right", function () awful.spawn("xbacklight -inc 15") end),
-    -- }}}
+    -- {{{ Brightnesshttps://open.spotify.com/track/2YM0kfevj552icN9DisbT9
+    awful.key({ }, "XF86MonBrightnessDown",   function () awful.spawn("xbacklight -dec 5") end),
+    awful.key({ }, "XF86MonBrightnessUp",     function () awful.spawn("xbacklight -inc 5") end),
+    awful.key({ modkey, "Control" }, "Left",  function () awful.spawn("xbacklight -dec 5") end),
+    awful.key({ modkey, "Control" }, "Right", function () awful.spawn("xbacklight -inc 5") end),
+    -- }}}https://open.spotify.com/track/2YM0kfevj552icN9DisbT9
     -- {{{ Software
     awful.key({ modkey,           }, "e", function () awful.spawn("thunar") end),
     awful.key({ "Control"         }, "q", function () awful.spawn("catfish") end),
@@ -398,6 +431,7 @@ globalkeys = awful.util.table.join(globalkeys,
     -- Standard program
     awful.key({ modkey,           }, "Return", function () awful.spawn(terminal) end),
     awful.key({ modkey, "Control" }, "r", awesome.restart),
+    -- what will this do now?
   	awful.key({ modkey, "Shift"   }, "q", function () awful.spawn("xfce4-session-logout -lf") end),
 
     awful.key({ modkey,           }, "l",     function () awful.tag.incmwfact( 0.05)    end),
@@ -432,7 +466,7 @@ clientkeys = awful.util.table.join(
     awful.key({ modkey, "Shift"   }, "c",      function (c) c:kill()                         end),
     awful.key({ modkey, "Control" }, "space",  awful.client.floating.toggle                     ),
     awful.key({ modkey, "Control" }, "Return", function (c) c:swap(awful.client.getmaster()) end),
-    awful.key({ modkey,           }, "o",      awful.client.movetoscreen                        ),
+    -- awful.key({ modkey,           }, "o",      awful.client.movetoscreen                        ),
     awful.key({ modkey, "Control" }, "t",      function (c) c.ontop = not c.ontop            end),
     awful.key({ modkey,           }, "n",
         function (c)
@@ -565,9 +599,6 @@ awful.rules.rules = {
       properties = { floating = true } },
     { rule = { class = "gimp" },
       properties = { floating = true } },
-    -- Set Firefox to always map on tags number 2 of screen 1.
-    -- { rule = { class = "Firefox" },
-    --   properties = { tag = tags[1][2] } },
 }
 -- }}}
 

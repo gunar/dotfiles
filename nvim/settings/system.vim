@@ -1,4 +1,3 @@
-source ~/.local.vim
 " Neovim Settings
 if (has("termguicolors"))
   set termguicolors

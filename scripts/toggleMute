@@ -1,0 +1,21 @@
+#!/bin/bash
+
+CURRENT_STATE=`amixer get Master | egrep 'Playback.*?\[o' | egrep -o '\[o.+\]' | head -1`
+
+if [[ $CURRENT_STATE == '[on]' ]]; then
+  echo "mute"
+  if [[ $1 == 'readonly' ]]; then
+    exit
+  fi
+  amixer set Master mute>/dev/null
+  amixer set Speaker mute>/dev/null
+  amixer set Headphone mute>/dev/null
+else
+  echo "unmute"
+  if [[ $1 == 'readonly' ]]; then
+    exit
+  fi
+  amixer set Master unmute>/dev/null
+  amixer set Speaker unmute>/dev/null
+  amixer set Headphone unmute>/dev/null
+fi

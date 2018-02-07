@@ -1,2 +1,3 @@
 #!/bin/sh
-ln -fs "$(readlink -f .)" ~/.config/awesome
+mkdir -p ~/.config
+ln -fs "$(readlink -f .)" ~/.config/
