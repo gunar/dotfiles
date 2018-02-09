@@ -1,41 +1,20 @@
 # Gunar's dotfiles
 
-## Manjaro
+TODO:
+- how to automate downloading commercial fonts I've bought?
 
-## awesome wm
 
-- [ ] Add bandwidth widget
-- [ ] Add awmodoro widget
 
-## Termite
+## How to set up wifi 
 
-## tmux
-
-- Seamless navigation between vim buffers and tmux panels (C-hjkl)
-- Scrolling works [plugin](https://github.com/NHDaly/tmux-scroll-copy-mode)
-- Join (C-a + j), Send (s), Break (b) panes
-
-## zsh
-
-### oh-my-zsh
-
-## Neovim
-
-- [ ] <C-h> not working to switch panes
-- [ ] Finish configuration
-- [ ] Import useful configs from my old .vimrc
-
-- Based on [Mike Hartington's dotfiles](https://github.com/mhartington/dotfiles) [video](https://www.youtube.com/watch?v=xZTkrB_tEoY)
-- Seamless navigation between vim buffers and tmux panels
-
-Keymaps:
-
-- <C-\> Toggle NERDtree
-- <C-p> Fuzzy file search
-- ,, next buffer
-- ,. prev buffer
-- ,g Fugitive (Git) in Unite
-- <C-d> Delete line in insert mode
-- ,a Ag (silver bullet)
-- gf go to file (think import('file.js'))
-- <F2> Jump to first error
+root@kali:~# iw dev
+root@kali:~# ip link set wlan0 up
+root@kali:~# iw wlan0 scan
+root@kali:~# wpa_passphrase <network name> >> /etc/wpa_supplicant.conf
+root@kali:~# wpa_supplicant -i wlan0 -c /etc/wpa_supplicant.conf
+root@kali:~# iw wlan0 link
+root@kali:~# dhclient wlan0
+root@kali:~# ping 8.8.8.8
+(Where wlan0 is wifi adapter and <network name> is SSID)
+(Add Routing manually)
+root@kali:~# ip route add default via 10.0.0.138 dev wlan0
