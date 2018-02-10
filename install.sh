@@ -1,3 +1,5 @@
+yaourt -Syy aur/zoom
+sudo pacman -Syy extra/xorg-xclipboard extra/xclip
 (cd awesome;./install.sh)
 (cd git;./install.sh)
 (cd manjaro;./install.sh)

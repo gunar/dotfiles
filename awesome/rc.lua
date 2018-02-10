@@ -139,7 +139,7 @@ local refreshWallpaper = loadrc("wallpaper")
 -- }}}
 
 -- {{{ Widgets
-mytextclock = wibox.widget.textclock("%H:%M | %d", 60)
+mytextclock = wibox.widget.textclock("%H:%M | %d", 10)
 
 require("widgets/heatmon")
 heatmon_widget = create_heatmon_widget()
@@ -322,13 +322,35 @@ end
 -- }}}
 
 -- {{{ amixer
+local getVol = [[amixer|grep -e "[0-9]\%"|head -n 1|grep --only-matching -e "[0-9]\?[0-9]\?[0-9]\%"]]
 function incVol()
-  awful.spawn.with_shell("amixer set Master 1+&& sleep .1 && amixer set Master 1+&& sleep .1 && amixer set Master 1+&& sleep .1 && amixer set Master 1+&& sleep .1 && amixer set Master 1+&& sleep .1 && amixer set Master 1+&& sleep .1 && amixer set Master 1+")
+  awful.spawn.with_shell("amixer set Master 1000+")
+  notifyCmd(getVol, "Volume")
 end
 function decVol()
-  awful.spawn.with_shell("amixer set Master 1-&& sleep .1 && amixer set Master 1-&& sleep .1 && amixer set Master 1-&& sleep .1 && amixer set Master 1-&& sleep .1 && amixer set Master 1-&& sleep .1 && amixer set Master 1-&& sleep .1 && amixer set Master 1-")
+  awful.spawn.with_shell("amixer set Master 1000-")
+  notifyCmd(getVol, "Volume")
 end
 function toggleMute()
+  local cmd  = [[amixer get Master | egrep 'Playback.*?\[o' | egrep -o '\[o.+\]' | head -1]]
+  awful.spawn.easy_async_with_shell(cmd, function(stdout, stderr, reason, exit_code) 
+    -- % is escape
+    if (string.match(stdout, "%[on%]")) then
+      notify('mute', 'Volume', 'OFF')
+      awful.spawn.with_shell([[
+        amixer set Master mute>/dev/null ;
+        amixer set Speaker mute>/dev/null ;
+        amixer set Headphone mute>/dev/null ;
+      ]])
+    else
+      notify('mute', 'Volume', 'ON')
+      awful.spawn.with_shell([[
+        amixer set Master unmute>/dev/null ;
+        amixer set Speaker unmute>/dev/null ;
+        amixer set Headphone unmute>/dev/null ;
+      ]])
+    end
+  end)
   awful.spawn.with_shell("~/dotfiles/scripts/toggleMute ")
 end
 function toggleMicMute()
@@ -340,6 +362,30 @@ end
 local revelation = require('revelation')
 revelation.init() -- must come after beautiful.init
 --- }}}
+
+local notifications = {}
+function notify(id, title, text) 
+  if (notifications[id] == nil) then
+    notifications[id] = naughty.notify({ 
+      title = title,
+      text = text,
+      timeout = 1,
+      destroy = function() notifications[id] = nil end,
+    })
+  else
+    naughty.reset_timeout(notifications[id])
+    naughty.replace_text(notifications[id], title, text)
+  end
+end
+function notifyCmd(cmd, title)
+  awful.spawn.easy_async_with_shell(cmd, function(stdout, stderr, reason, exit_code)
+    notify(cmd, title, stdout)
+  end)
+end
+function brightness(x)
+  awful.spawn("xbacklight " .. x)
+  notifyCmd("xbacklight|cut -d. -f 1", "Brightness")
+end
 
 -- {{{ Key bindings
 globalkeys = awful.util.table.join(globalkeys,
@@ -369,10 +415,10 @@ globalkeys = awful.util.table.join(globalkeys,
     awful.key({ modkey, "Control" }, "Down",  function () decVol() end),
     -- }}}
     -- {{{ Brightnesshttps://open.spotify.com/track/2YM0kfevj552icN9DisbT9
-    awful.key({ }, "XF86MonBrightnessDown",   function () awful.spawn("xbacklight -dec 5") end),
-    awful.key({ }, "XF86MonBrightnessUp",     function () awful.spawn("xbacklight -inc 5") end),
-    awful.key({ modkey, "Control" }, "Left",  function () awful.spawn("xbacklight -dec 5") end),
-    awful.key({ modkey, "Control" }, "Right", function () awful.spawn("xbacklight -inc 5") end),
+    awful.key({ }, "XF86MonBrightnessDown",   function () brightness("-dec 5") end),
+    awful.key({ }, "XF86MonBrightnessUp",     function () brightness("-inc 5") end),
+    awful.key({ modkey, "Control" }, "Left",  function () brightness("-dec 5") end),
+    awful.key({ modkey, "Control" }, "Right", function () brightness("-inc 5") end),
     -- }}}https://open.spotify.com/track/2YM0kfevj552icN9DisbT9
     -- {{{ Software
     awful.key({ modkey,           }, "e", function () awful.spawn("thunar") end),
