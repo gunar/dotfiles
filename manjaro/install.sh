@@ -34,3 +34,4 @@ sudo pacman -Syy extra/pepper-flash
 sudo pacman -Syy extra/xorg-xkill
 sudo pacman -Syy extra/xfce4-screenshooter
 sudo pacman -Syy xorg-xev
+sudo pacman -Syy gpick

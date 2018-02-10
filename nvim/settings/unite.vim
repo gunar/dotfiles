@@ -8,7 +8,7 @@ call unite#custom#source('file_rec/neovim', 'matchers', ['converter_relative_wor
 call unite#custom#source('file_rec/neovim', 'sorters', 'sorter_rank')
 
 " nnoremap <silent> <c-p> :Unite -auto-resize -start-insert -direction=botright -ignorecase file_rec/neovim<CR>
-nnoremap <silent> <c-p> :Unite -no-split -buffer-name=files   -start-insert -ignorecase -force-redraw file_rec/neovim<cr>
+nnoremap <silent> <c-p> :Unite -no-split -buffer-name=files -start-insert -ignorecase -force-redraw file_rec/neovim<cr>
 nnoremap <silent> <leader>c :Unite -auto-resize -start-insert -direction=botright colorscheme<CR>
 nnoremap <silent> <leader>u :Unite neobundle/update<CR>
 

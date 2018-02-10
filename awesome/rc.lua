@@ -38,7 +38,7 @@ end
 -- }}}
 
 -- Xcompmgr Composition Manager for transparency
--- TODO: I should remove this if my theme doesn't use transparency
+-- TODO: add this back
 -- xcompmgr removed because widgets' buttons weren't working
 -- awful.spawn.with_shell("xcompmgr &")
 
