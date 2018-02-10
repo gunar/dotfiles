@@ -1,0 +1,5 @@
+! ------------- switch PgUp/PgDown with Home/End
+keycode 112 = Home NoSymbol Home
+keycode 117 = End NoSymbol End
+keycode 110 = Prior NoSymbol Prior
+keycode 115 = Next NoSymbol Next

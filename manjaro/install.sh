@@ -1,5 +1,6 @@
 #!/bin/sh
 sudo ln -fs "$(readlink -f xinitrc)" ~/.xinitrc
+sudo ln -fs "$(readlink -f Xmodmap)" ~/.Xmodmap
 
 # timesync
 timedatectl set-ntp true
@@ -32,3 +33,4 @@ yaourt -Syy aur/chromium-widevine
 sudo pacman -Syy extra/pepper-flash
 sudo pacman -Syy extra/xorg-xkill
 sudo pacman -Syy extra/xfce4-screenshooter
+sudo pacman -Syy xorg-xev
