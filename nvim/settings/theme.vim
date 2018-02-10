@@ -20,3 +20,11 @@ augroup term_open
   autocmd!
   autocmd TermOpen * set bufhidden=hide
 augroup END
+
+" transparent background
+hi Normal guibg=NONE ctermbg=NONE
+hi EndOfBuffer guibg=NONE ctermbg=NONE
+
+if &term =~ '256color'
+    set t_ut=
+endif

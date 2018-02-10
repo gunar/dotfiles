@@ -20,7 +20,7 @@ set virtualedit=
 set wildmenu
 set laststatus=2
 
-set colorcolumn=81
+" set colorcolumn=81
 set textwidth=80
 autocmd FileType gitcommit set colorcolumn=73
 autocmd FileType gitcommit set textwidth=73

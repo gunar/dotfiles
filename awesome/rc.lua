@@ -38,9 +38,7 @@ end
 -- }}}
 
 -- Xcompmgr Composition Manager for transparency
--- TODO: add this back
--- xcompmgr removed because widgets' buttons weren't working
--- awful.spawn.with_shell("xcompmgr &")
+awful.spawn.with_shell("xcompmgr")
 
 -- start session
 awful.spawn.with_shell("lxsession 2>/dev/null &")

@@ -35,3 +35,5 @@ sudo pacman -Syy extra/xorg-xkill
 sudo pacman -Syy extra/xfce4-screenshooter
 sudo pacman -Syy xorg-xev
 sudo pacman -Syy gpick
+sudo pacman -Syy xorg-xdpyinfo
+sudo pacman -Syy xcompmgr
