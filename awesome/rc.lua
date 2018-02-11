@@ -1,5 +1,6 @@
 -- Standard awesome library
 local gears = require("gears")
+local cairo = require("lgi").cairo
 local awful = require("awful")
 awful.rules = require("awful.rules")
 require("awful.autofocus")
@@ -38,7 +39,7 @@ end
 -- }}}
 
 -- Composition Manager for transparency
-awful.spawn.with_shell("compton -i 0.8 -c --blur-background")
+awful.spawn.with_shell("compton -b -i 0.8 -c --blur-background --blur-kern '5,5,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,' --blur-background-frame --blur-background-fixed")
 
 -- start session
 awful.spawn.with_shell("lxsession 2>/dev/null &")
@@ -720,3 +721,53 @@ end)
 client.connect_signal("focus", function(c) c.border_color = beautiful.border_focus end)
 client.connect_signal("unfocus", function(c) c.border_color = beautiful.border_normal end)
 -- }}}
+local function apply_shape(draw, shape, ...)
+  local geo = draw:geometry()
+  local shape_args = ...
+
+  local img = cairo.ImageSurface(cairo.Format.A1, geo.width, geo.height)
+  local cr = cairo.Context(img)
+
+  cr:set_operator(cairo.Operator.CLEAR)
+  cr:set_source_rgba(0,0,0,1)
+  cr:paint()
+  cr:set_operator(cairo.Operator.SOURCE)
+  cr:set_source_rgba(1,1,1,1)
+
+  shape(cr, geo.width, geo.height, shape_args)
+
+  cr:fill()
+
+  draw.shape_bounding = img._native
+
+  cr:set_operator(cairo.Operator.CLEAR)
+  cr:set_source_rgba(0,0,0,1)
+  cr:paint()
+  cr:set_operator(cairo.Operator.SOURCE)
+  cr:set_source_rgba(1,1,1,1)
+
+  local border = beautiful.base_border_width
+  --local titlebar_height = titlebar.is_enabled(draw) and beautiful.titlebar_height or border
+  local titlebar_height = border
+  gears.shape.transform(shape):translate(
+    border, titlebar_height
+  )(
+    cr,
+    geo.width-border*2,
+    geo.height-titlebar_height-border,
+    --shape_args
+    8
+  )
+
+  cr:fill()
+
+  draw.shape_clip = img._native
+
+  img:finish()
+end
+
+client.connect_signal("property::geometry", function (c)
+  if not c.fullscreen then
+    gears.timer.delayed_call(apply_shape, c, gears.shape.rounded_rect, 5)
+  end
+end)
