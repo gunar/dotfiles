@@ -39,7 +39,7 @@ end
 -- }}}
 
 -- Composition Manager for transparency
-awful.spawn.with_shell("compton -b -i 0.8 -c --blur-background --blur-kern '5,5,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,' --blur-background-frame --blur-background-fixed")
+awful.spawn.with_shell("compton -b -i 0.8 -c --blur-background --blur-kern '5,5,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,' --blur-background-frame --blur-background-fixed --backend glx")
 
 -- start session
 awful.spawn.with_shell("lxsession 2>/dev/null &")
