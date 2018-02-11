@@ -43,7 +43,8 @@ awful.spawn.with_shell("xcompmgr")
 -- start session
 awful.spawn.with_shell("lxsession 2>/dev/null &")
 awful.spawn.with_shell("pulseaudio --start")
-awful.spawn.with_shell("[[ -f ~/.Xmodmap ]] && xmodmap ~/.Xmodmap")
+awful.spawn.with_shell("xmodmap ~/.Xmodmap")
+awful.spawn.with_shell("xss-lock xlock")
 
 
 -- Simple function to load additional LUA files from rc/.
@@ -180,7 +181,7 @@ end
 -- Create a laucher widget and a main menu
 myawesomemenu = {
 	{ "restart", awesome.restart },
-	{ "logout", function () awful.spawn("xfce4-session-logout -lf") end},
+	{ "quit", awesome.quit },
 	{ "shutdown", terminal .. " -e shutdown" }
 }
 

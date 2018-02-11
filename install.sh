@@ -1,3 +1,4 @@
+# TODO vlock when closing lid
 yaourt -Syy aur/zoom
 sudo pacman -Syy extra/xorg-xclipboard extra/xclip
 (cd awesome;./install.sh)

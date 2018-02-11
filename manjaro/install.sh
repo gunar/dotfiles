@@ -37,3 +37,5 @@ sudo pacman -Syy xorg-xev
 sudo pacman -Syy gpick
 sudo pacman -Syy xorg-xdpyinfo
 sudo pacman -Syy xcompmgr
+sudo pacman -Syy thunar
+sudo pacman -Syy xss-lock
