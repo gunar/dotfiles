@@ -37,13 +37,12 @@ do
 end
 -- }}}
 
--- Xcompmgr Composition Manager for transparency
-awful.spawn.with_shell("xcompmgr")
+-- Composition Manager for transparency
+awful.spawn.with_shell("compton -i 0.8 -c --blur-background")
 
 -- start session
 awful.spawn.with_shell("lxsession 2>/dev/null &")
 awful.spawn.with_shell("pulseaudio --start")
-awful.spawn.with_shell("xmodmap ~/.Xmodmap")
 awful.spawn.with_shell("xss-lock xlock")
 
 

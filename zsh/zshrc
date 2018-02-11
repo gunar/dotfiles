@@ -37,6 +37,13 @@ alias griom='git rebase -i origin/master'
 alias gd='git diff --minimal'
 alias gdc='git diff --cached'
 alias grm='git co master&&g rcb'
+gitinv() {
+  cd ~/inv
+  if [ ! -d "$1" ]; then
+    git clone git@github.com:invisible-tech/$1.git
+  fi
+  cd $1
+}
 alias pr='hub pull-request'
 alias n='nvim'
 alias nn='f -e nvim'
@@ -216,3 +223,4 @@ function mdcat () {
   pandoc -s -f markdown -t man $mdfile | groff -T utf8 -man
 }
  
+xmodmap ~/.Xmodmap

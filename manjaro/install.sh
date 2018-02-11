@@ -17,6 +17,7 @@ timedatectl set-ntp true
 sudo pacman -Syy community/redshift
 sudo ln -fs "$(readlink -f redshift.service)" /etc/systemd/system/redshift.service
 sudo ln -fs "$(readlink -f redshift.conf)" ~/.config/redshift.conf
+sudo systemctl daemon-reload
 sudo systemctl start redshift
 sudo systemctl enable redshift
 
@@ -36,6 +37,7 @@ sudo pacman -Syy extra/xfce4-screenshooter
 sudo pacman -Syy xorg-xev
 sudo pacman -Syy gpick
 sudo pacman -Syy xorg-xdpyinfo
-sudo pacman -Syy xcompmgr
 sudo pacman -Syy thunar
 sudo pacman -Syy xss-lock
+sudo pacman -Syy compton
+# sudo pacman -Syy xcompmgr

@@ -20,7 +20,8 @@ theme.fg_focus      = "#ffffff"
 theme.fg_urgent     = "#ffffff"
 theme.fg_minimize   = "#ffffff"
 
-theme.border_width  = 2
+-- disabled because compton
+theme.border_width  = 0
 -- Border transparency requires a compositor
 theme.border_normal = "#aaaaaa00"
 theme.border_focus  = "#ff000000"
