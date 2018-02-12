@@ -7,10 +7,15 @@ config_path = os.getenv("HOME") .. "/.config/awesome/"
 
 theme = {}
 
-theme.font          = "DejaVu Sans 9"
+theme.font          = "Essential PragmataPro regular 12"
 
-theme.bg_normal     = "#22222200"
-theme.bg_focus      = "#535d6c00"
+
+theme.bg_normal     = "#00000044"
+theme.taglist_bg_empty      = "#00000022"
+theme.taglist_bg_occupied      = "#00000044"
+theme.taglist_bg_focus      = "#00000000"
+
+theme.bg_focus      = "#00000022"
 theme.bg_urgent     = "#ff0000"
 theme.bg_minimize   = "#44444400"
 theme.bg_systray    = theme.bg_normal

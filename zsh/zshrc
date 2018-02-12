@@ -83,8 +83,8 @@ tmp() {
 cc() { readlink -f $1 | c }
 alias ng='killall ngrok 2>/dev/null;ngrok http -subdomain=invisible-dev-2 3000 >/dev/null &!'
 alias lint='nvim `eslint --cache -f ~/code/_archive/eslint-formatter-list --ignore-path .gitignore .`'
-alias performance='for i in `ls -d /sys/devices/system/cpu/cpu*|grep -v cpufreq|grep -v cpuidle`; do echo performance | sudo tee --append $i/cpufreq/scaling_governor >/dev/null; done'
-alias powersave='for i in `ls -d /sys/devices/system/cpu/cpu*|grep -v cpufreq|grep -v cpuidle`; do sudo echo powersave  | sudo tee --append $i/cpufreq/scaling_governor >/dev/null; done; xbacklight -set 7'
+alias performance='compton -b;for i in `ls -d /sys/devices/system/cpu/cpu*|grep -v cpufreq|grep -v cpuidle`; do echo performance | sudo tee --append $i/cpufreq/scaling_governor >/dev/null; done'
+alias powersave='killall compton;for i in `ls -d /sys/devices/system/cpu/cpu*|grep -v cpufreq|grep -v cpuidle`; do sudo echo powersave  | sudo tee --append $i/cpufreq/scaling_governor >/dev/null; done; xbacklight -set 7'
 alias hibernate='sudo echo "ok" && xlock 2>/dev/null & echo disk | sudo tee /sys/power/state'
 alias suspend='sudo echo "ok" && xlock 2>/dev/null & echo mem | sudo tee /sys/power/state'
 alias wf='chromium --app="https://workflowy.com" --enable-apps --enable-extension-apps'

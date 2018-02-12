@@ -38,14 +38,6 @@ do
 end
 -- }}}
 
--- Composition Manager for transparency
-awful.spawn.with_shell("compton -b -i 0.8 -c --blur-background --blur-kern '5,5,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,' --blur-background-frame --blur-background-fixed --backend glx")
-
--- start session
-awful.spawn.with_shell("lxsession 2>/dev/null &")
-awful.spawn.with_shell("pulseaudio --start")
-awful.spawn.with_shell("xss-lock xlock")
-
 
 -- Simple function to load additional LUA files from rc/.
 function loadrc(name, mod)
@@ -139,7 +131,7 @@ local refreshWallpaper = loadrc("wallpaper")
 -- }}}
 
 -- {{{ Widgets
-mytextclock = wibox.widget.textclock("%H:%M | %d", 10)
+mytextclock = wibox.widget.textclock("%H:%M | %d ", 10)
 
 require("widgets/heatmon")
 heatmon_widget = create_heatmon_widget()
@@ -353,6 +345,9 @@ function toggleMute()
     end
   end)
   awful.spawn.with_shell("~/dotfiles/scripts/toggleMute ")
+end
+function muteMic() 
+  awful.spawn.with_shell("amixer set Capture nocap")
 end
 function toggleMicMute()
   awful.spawn.with_shell("amixer set Capture toggle")
@@ -771,3 +766,18 @@ client.connect_signal("property::geometry", function (c)
     gears.timer.delayed_call(apply_shape, c, gears.shape.rounded_rect, 5)
   end
 end)
+
+
+
+
+
+
+
+-- Composition Manager for transparency
+awful.spawn.with_shell("killall compton ; compton -b")
+
+-- start session
+awful.spawn.with_shell("lxsession 2>/dev/null &")
+awful.spawn.with_shell("pulseaudio --start")
+awful.spawn.with_shell("xss-lock xlock")
+muteMic()
