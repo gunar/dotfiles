@@ -771,7 +771,7 @@ end
 
 client.connect_signal("property::geometry", function (c)
   if not c.fullscreen then
-    gears.timer.delayed_call(apply_shape, c, gears.shape.rounded_rect, 5)
+    gears.timer.delayed_call(apply_shape, c, gears.shape.rounded_rect, 10)
   end
 end)
 
