@@ -506,13 +506,11 @@ globalkeys = awful.util.table.join(globalkeys,
 clientkeys = awful.util.table.join(
     awful.key({ modkey,           }, "f",      function (c) c.fullscreen = not c.fullscreen  end),
     awful.key({ modkey, "Shift"   }, "c",      function (c)
+      c:kill()
+
       -- Hack to kill whatever we had in the terminal
       cmd = "tmux list-sessions | grep -v attached | cut -d: -f1 |  xargs -t -n1 tmux kill-session -t"
-      awful.spawn.easy_async_with_shell(cmd, function(stdout, stderr, reason, exit_code)
-        notify(cmd, title, stdout)
-      end)
-
-      c:kill()
+      awful.spawn.with_shell(cmd)
     end),
     awful.key({ modkey, "Control" }, "space",  awful.client.floating.toggle                     ),
     awful.key({ modkey, "Control" }, "Return", function (c) c:swap(awful.client.getmaster()) end),
