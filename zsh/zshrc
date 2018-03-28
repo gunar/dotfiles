@@ -72,7 +72,7 @@ m() {
   [ -f "../../../../../../mocha.opts" ] && (cd ../../../../../../../ && mocha $file)
 }
 alias tw='npm run test-watch'
-alias zsh='nvim ~/.zshrc&&reload'
+alias zshrc='nvim ~/.zshrc&&reload'
 alias aa='ag --ignore yarn.lock'
 nrc() {
   cd ~/dotfiles/
