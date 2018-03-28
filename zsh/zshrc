@@ -38,7 +38,7 @@ alias gd='git diff --minimal'
 alias gdc='git diff --cached'
 alias master='git co master&&g rcb'
 gitinv() {
-  cd ~/inv
+  cd ~/inv/repos/
   if [ ! -d "$1" ]; then
     git clone git@github.com:invisible-tech/$1.git
   fi
