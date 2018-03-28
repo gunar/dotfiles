@@ -136,7 +136,7 @@ export TERM=screen-256color-bce
 
 eval $(dircolors ~/.dircolors)
 
-eval $(keychain --eval --quiet id_rsa)
+(eval "$(keychain --eval --quiet id_rsa)" &)
 
 if [[ $TERM == xterm-termite ]]; then
   . /etc/profile.d/vte.sh
