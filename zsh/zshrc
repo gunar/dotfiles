@@ -61,6 +61,16 @@ alias ww='watch nmcli d w'
 alias y='yarn'
 alias ya='yarn add'
 alias t='npm test'
+m() {
+  # mocha default path is test/mocha.opts
+  file=$(readlink -f $1)
+  [ -f "test/mocha.opts" ] && (mocha $file)
+  [ -f "../../mocha.opts" ] && (cd ../../../ && mocha $file)
+  [ -f "../../../mocha.opts" ] && (cd ../../../../ && mocha $file)
+  [ -f "../../../../mocha.opts" ] && (cd ../../../../../ && mocha $file)
+  [ -f "../../../../../mocha.opts" ] && (cd ../../../../../../ && mocha $file)
+  [ -f "../../../../../../mocha.opts" ] && (cd ../../../../../../../ && mocha $file)
+}
 alias tw='npm run test-watch'
 alias zsh='nvim ~/.zshrc&&reload'
 alias aa='ag --ignore yarn.lock'
