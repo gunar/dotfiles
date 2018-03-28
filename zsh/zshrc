@@ -36,7 +36,7 @@ alias gst='git status'
 alias griom='git rebase -i origin/master'
 alias gd='git diff --minimal'
 alias gdc='git diff --cached'
-alias grm='git co master&&g rcb'
+alias master='git co master&&g rcb'
 gitinv() {
   cd ~/inv
   if [ ! -d "$1" ]; then
