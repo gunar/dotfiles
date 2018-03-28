@@ -130,6 +130,7 @@ alias hlt='heroku logs --tail --remote production'
 alias hlts='heroku logs --tail --remote staging'
 alias hlst='heroku logs --tail --remote staging'
 alias hrel='heroku releases --remote production'
+alias sta='git push -f staging HEAD:master'
 
 export TERM=screen-256color-bce
 
