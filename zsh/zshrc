@@ -99,10 +99,16 @@ alias hibernate='sudo echo "ok" && xlock 2>/dev/null & echo disk | sudo tee /sys
 alias suspend='sudo echo "ok" && xlock 2>/dev/null & echo mem | sudo tee /sys/power/state'
 alias wf='chromium --app="https://workflowy.com" --enable-apps --enable-extension-apps'
 alias mictest='arecord -vvv -f dat /dev/null'
+# pacman
 pi() {
   sudo pacman -Syy $* && echo "sudo pacman -Syy $*">>~/dotfiles/manjaro/install.sh
 }
 alias pacs='pacman -Ss'
+# yaourt
+yi() {
+  yaourt -Syy --noconfirm $* && echo "yaourt --noconfirm -Syy $*">>~/dotfiles/manjaro/install.sh
+}
+alias yars='yaourt -Ss'
 
 alias curlpost='curl -v -H "Content-Type: application/json" -d @-'
 gif() { ffmpeg -i $1 $1.gif }
