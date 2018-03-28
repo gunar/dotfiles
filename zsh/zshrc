@@ -242,4 +242,4 @@ function mdcat () {
   pandoc -s -f markdown -t man $mdfile | groff -T utf8 -man
 }
  
-# xmodmap ~/.Xmodmap
+(nohup xmodmap ~/.Xmodmap </dev/null >/dev/null 2>&1 &)
