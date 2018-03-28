@@ -126,7 +126,7 @@ end
 -- {{{ Prompts
 loadrc("prompt")
 -- disabled in favor of xfce4-display-settings
--- loadrc("xrandr")
+loadrc("xrandr")
 local refreshWallpaper = loadrc("wallpaper")
 -- }}}
 
@@ -400,7 +400,7 @@ globalkeys = awful.util.table.join(globalkeys,
     -- }}}
     -- {{{ Display
     -- this makes xrandr.lua unnecessary
-    awful.key({ }, "XF86Display",             function () awful.spawn("xfce4-display-settings") end),
+    -- awful.key({ }, "XF86Display",             function () awful.spawn("xfce4-display-settings") end),
     -- }}}
     -- {{{ Audio
     awful.key({ }, "XF86AudioRaiseVolume",    function () incVol() end),
@@ -420,9 +420,9 @@ globalkeys = awful.util.table.join(globalkeys,
     -- {{{ Software
     awful.key({ modkey,           }, "e", function () awful.spawn("thunar") end),
     awful.key({ "Control"         }, "q", function () awful.spawn("catfish") end),
-    awful.key({ modkey,           }, "o", function () awful.spawn("chromium --profile-directory=Default") end),
-    awful.key({ modkey, "Control" }, "o", function () awful.spawn("chromium --profile-directory=\"Profile 1\"") end),
-    awful.key({ modkey,           }, ".", function () awful.spawn("chromium --profile-directory=Default https://web.telegram.org") end),
+    awful.key({ modkey,           }, "o", function () awful.spawn("chromium --disk-cache-dir=/tmp/cache --profile-directory=Default") end),
+    awful.key({ modkey, "Control" }, "o", function () awful.spawn("chromium --disk-cache-dir=/tmp/cache --profile-directory=\"Profile 1\"") end),
+    awful.key({ modkey,           }, ".", function () awful.spawn("chromium --disk-cache-dir=/tmp/cache --profile-directory=Default https://web.telegram.org") end),
     -- awful.key({                   }, "Print",       function () awful.spawn("xfce4-screenshooter") end),
     awful.key({                   }, "Print",       function () awful.spawn("shutter") end),
     awful.key({ modkey,           }, "Print",       function () awful.spawn(terminal.." -e /home/gcg/dotfiles/scripts/clipboardImageToCloudApp.rb") end),

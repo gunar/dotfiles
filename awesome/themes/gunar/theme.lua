@@ -9,10 +9,9 @@ theme = {}
 
 theme.font          = "Essential PragmataPro regular 12"
 
-
-theme.bg_normal     = "#00000044"
+theme.bg_normal             = "#00000044"
 theme.taglist_bg_empty      = "#00000022"
-theme.taglist_bg_occupied      = "#00000044"
+theme.taglist_bg_occupied   = "#00000044"
 theme.taglist_bg_focus      = "#00000000"
 
 theme.bg_focus      = "#00000022"
@@ -25,7 +24,7 @@ theme.fg_focus      = "#ffffff"
 theme.fg_urgent     = "#ffffff"
 theme.fg_minimize   = "#ffffff"
 
--- disabled because compton
+-- disabled because compton provides transparency to inactive windows
 theme.border_width  = 0
 -- Border transparency requires a compositor
 theme.border_normal = "#aaaaaa00"

@@ -1,7 +1,8 @@
 # Gunar's dotfiles
 
-TODO:
-- how to automate downloading commercial fonts I've bought?
+## TODO
+
+- disable compton when on battery
 
 
 

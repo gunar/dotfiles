@@ -13,13 +13,7 @@ timedatectl set-ntp true
 #sudo systemctl start cgrules
 #sudo systemctl enable cgrules
 
-# redshift
-sudo pacman -Syy community/redshift
-sudo ln -fs "$(readlink -f redshift.service)" /etc/systemd/system/redshift.service
-sudo ln -fs "$(readlink -f redshift.conf)" ~/.config/redshift.conf
-sudo systemctl daemon-reload
-sudo systemctl start redshift
-sudo systemctl enable redshift
+./redshift.sh
 
 #packages
 sudo pacman -Syy fasd yaourt zip extra/unzip community/tldr extra/keychain extra/lxsession upower community/the_silver_searcher extra/imagemagick community/fzf extra/alsa-utils extra/pavucontrol extra/xorg-xinput community/npm community/xautolock openssh net-tools extra/python-pip extra/python2-pip extra/graphviz extra/gnu-netcat extra/vlc ruby qt4 xdot aria2 aria2 xf86-video-fbdev
@@ -41,3 +35,21 @@ sudo pacman -Syy thunar
 sudo pacman -Syy xss-lock
 sudo pacman -Syy compton
 # sudo pacman -Syy xcompmgr
+sudo pacman -Syy viewnior
+sudo pacman -Syy xfce4-taskmanager
+sudo pacman -Syy tree
+sudo pacman -Syy hub
+yaourt --noconfirm -Syy shutter
+sudo pacman -Syy youtube-dl
+sudo pacman -Syy galculator
+sudo pacman -Syy pandoc
+sudo pacman -Syy libmcrypt
+sudo pacman -Syy xfce4-settings
+sudo pacman -Syy autofs
+sudo pacman -Syy calibre
+sudo pacman -Syy subdl
+sudo pacman -Syy lsof
+sudo pacman -Syy libva-intel-driver libvdpau-va-gl mesa lib32-mesa vulkan-intel lib32-vulkan-intel
+sudo pacman -Syy libva-utils
+sudo pacman -Syy vdpauinfo
+sudo pacman -Syy xorg-xmodmap
