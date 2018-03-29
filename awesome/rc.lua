@@ -384,6 +384,13 @@ function brightness(x)
   notifyCmd("xbacklight|cut -d. -f 1", "Brightness")
 end
 
+function changeFocus(x)
+  return function ()
+    awful.client.focus.byidx(x)
+    if client.focus then client.focus:raise() end
+  end
+end
+
 -- {{{ Key bindings
 globalkeys = awful.util.table.join(globalkeys,
     --- {{{ Useless gap
@@ -429,6 +436,8 @@ globalkeys = awful.util.table.join(globalkeys,
     awful.key({ modkey, "Control" }, "m", function () awful.spawn("xfce4-taskmanager") end),
     -- }}}
     awful.key({ modkey,           }, "Left",   awful.tag.viewprev       ),
+    awful.key({ modkey,           }, "Up",     changeFocus(1)           ),
+    awful.key({ modkey,           }, "Down",   changeFocus(-1)          ),
     awful.key({ modkey,           }, "Right",  awful.tag.viewnext       ),
     awful.key({ modkey,           }, "Escape", awful.tag.history.restore),
 
@@ -446,16 +455,8 @@ globalkeys = awful.util.table.join(globalkeys,
     --- }}}
 
 
-    awful.key({ modkey,           }, "j",
-        function ()
-            awful.client.focus.byidx( 1)
-            if client.focus then client.focus:raise() end
-        end),
-    awful.key({ modkey,           }, "k",
-        function ()
-            awful.client.focus.byidx(-1)
-            if client.focus then client.focus:raise() end
-        end),
+    awful.key({ modkey,           }, "j", changeFocus(1)),
+    awful.key({ modkey,           }, "k", changeFocus(-1)),
     awful.key({ modkey,           }, "w", function () mymainmenu:show() end),
 
     -- Layout manipulation
