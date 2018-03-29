@@ -2,6 +2,8 @@
 sudo ln -fs "$(readlink -f xinitrc)" ~/.xinitrc
 sudo ln -fs "$(readlink -f Xmodmap)" ~/.Xmodmap
 
+sudo loginctl enable-linger "$(whoami)"
+
 # timesync
 timedatectl set-ntp true
 
@@ -53,3 +55,7 @@ sudo pacman -Syy libva-intel-driver libvdpau-va-gl mesa lib32-mesa vulkan-intel 
 sudo pacman -Syy libva-utils
 sudo pacman -Syy vdpauinfo
 sudo pacman -Syy xorg-xmodmap
+yaourt --noconfirm -Syy pstate-frequency
+yaourt --noconfirm -Syy fancontrol-gui
+sudo pacman -Syy stress
+yaourt --noconfirm -Syy thinkfan

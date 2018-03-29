@@ -9,3 +9,5 @@ sudo pacman -Syy extra/xorg-xbacklight
 sudo pacman -Syy extra/pamac
 yaourt -Syy aur/teamviewer11
 yaourt -Syy aur/spotify
+
+./thinkfan.sh
