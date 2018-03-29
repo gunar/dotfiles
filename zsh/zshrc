@@ -15,6 +15,7 @@ export PATH="$PATH:$HOME/.config/yarn/global/node_modules/.bin"
 
 # export MANPATH="/usr/local/man:$MANPATH"
 
+# costly call
 source $ZSH/oh-my-zsh.sh
 
 debug() {
@@ -149,6 +150,7 @@ export TERM=screen-256color-bce
 
 eval $(dircolors ~/.dircolors)
 
+# costly call
 (eval "$(keychain --eval --quiet id_rsa)" &)
 
 if [[ $TERM == xterm-termite ]]; then
@@ -201,6 +203,7 @@ bindkey "^[l" call-ls
 # export _FASD_BACKENDS="current viminfo"
 # export _FASD_VIMINFO=""
 #
+# costly call
 eval "$(fasd --init posix-alias zsh-hook zsh-ccomp zsh-ccomp-install zsh-wcomp zsh-wcomp-install)"
 bindkey "^X^X" fasd-complete    # C-x C-a to do fasd-complete (files and directories)
 bindkey "^X^F" fasd-complete-f  # C-x C-f to do fasd-complete-f (only files)
