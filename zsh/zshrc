@@ -17,6 +17,12 @@ export PATH="$PATH:$HOME/.config/yarn/global/node_modules/.bin"
 
 source $ZSH/oh-my-zsh.sh
 
+debug() {
+  zsh -xv -i -c "print -n" 2>&1 | ts -i "%.s" > zsh_startup.log
+  n zsh_startup.log
+  rm zsh_startup.log
+}
+
 # You may need to manually set your language environment
 # export LANG=en_US.UTF-8
 #
