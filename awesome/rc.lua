@@ -391,6 +391,21 @@ function changeFocus(x)
   end
 end
 
+function moveToTag(client, operation)
+  if client.focus then
+    local currentTagNumber = tonumber(awful.screen.focused().selected_tag.name)
+    if (operation > 0) then
+      local nextTagNumber = (currentTagNumber < 8) and currentTagNumber + operation or 0
+      local nextTag = client.focus.screen.tags[nextTagNumber]
+      client.focus:move_to_tag(nextTag)
+    else
+      local nextTagNumber = (currentTagNumber < 8) and currentTagNumber + operation or 0
+      local nextTag = client.focus.screen.tags[nextTagNumber]
+      client.focus:move_to_tag(nextTag)
+    end
+  end
+end
+
 -- {{{ Key bindings
 globalkeys = awful.util.table.join(globalkeys,
     --- {{{ Useless gap
@@ -452,6 +467,8 @@ globalkeys = awful.util.table.join(globalkeys,
     awful.key({ modkey, "Shift" }, "Up",   function () client.focus:move_to_screen() end),
     awful.key({ modkey, "Shift" }, "n",    function () client.focus:move_to_screen() end),
     awful.key({ modkey, "Shift" }, "Down", function () client.focus:move_to_screen() end),
+    awful.key({ modkey, "Shift" }, "l",    function () moveToTag(client, 1) end),
+    awful.key({ modkey, "Shift" }, "h",    function () moveToTag(client, -1) end),
     --- }}}
 
 
