@@ -11,14 +11,10 @@ function update_heatmon (widget)
   local line = h:read()
   local temp = 0;
   while line do
-    for key, value in string.gmatch(line, "(%w+):[ ]+[+](%d+).*") do
-      temp = value
-      -- if key == "temp1" then
-      --     table.insert(output, "<span color=\"#"
-      --         .. hex(math.ceil(255 * tonumber(value) / 105))
-      --         .. hex(math.ceil(255 * (105 - tonumber(value)) / 105))
-      --         .. "00\">" .. value .. "&#8451;</span>")
-      -- end
+    for key, value in string.gmatch(line, "(.+):[ ]+[+](%d+).*") do
+      if key == "Package id 0" then
+        temp = value
+      end
     end
     line = h:read()
   end
@@ -38,7 +34,7 @@ function create_heatmon_widget()
   -- init the widget
   update_heatmon(heatmon)
 
-  local timer = gears.timer({ timeout = 10 })
+  local timer = gears.timer({ timeout = 1 })
   timer:connect_signal("timeout", function()
     update_heatmon( heatmon )
   end)
