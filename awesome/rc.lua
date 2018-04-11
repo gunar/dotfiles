@@ -454,7 +454,6 @@ globalkeys = awful.util.table.join(globalkeys,
     awful.key({ modkey,           }, "Up",     changeFocus(1)           ),
     awful.key({ modkey,           }, "Down",   changeFocus(-1)          ),
     awful.key({ modkey,           }, "Right",  awful.tag.viewnext       ),
-    awful.key({ modkey,           }, "Escape", awful.tag.history.restore),
 
     --- {{{ Screen movement
     -- Switch screen
@@ -518,7 +517,15 @@ globalkeys = awful.util.table.join(globalkeys,
                   awful.util.getdir("cache") .. "/history_eval")
               end),
     -- Menubar
-    awful.key({ modkey }, "p", function() menubar.show() end)
+    awful.key({ modkey }, "p", function() menubar.show() end),
+
+    -- Modal awesome
+    awful.key({                }, "XF86WakeUp", function ()
+      awful.spawn.with_shell('setxkbmap -layout gunar -variant visual')
+    end),
+    awful.key({                }, "XF86AddFavorite", function ()
+      awful.spawn.with_shell('setxkbmap -layout gunar -variant basic')
+    end)
 )
 
 clientkeys = awful.util.table.join(

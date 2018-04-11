@@ -1,6 +1,6 @@
 #!/bin/sh
 sudo ln -fs "$(readlink -f xinitrc)" ~/.xinitrc
-sudo ln -fs "$(readlink -f Xmodmap)" ~/.Xmodmap
+sudo ln -fs "$(readlink -f xkb)" /usr/share/X11/xkb/symbols/gunar
 
 sudo loginctl enable-linger "$(whoami)"
 

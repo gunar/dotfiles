@@ -1,0 +1,48 @@
+default
+partial alphanumeric_keys
+xkb_symbols "basic" {
+
+    include "de(basic)"
+
+    name[Group1] = "German (insert)";
+
+    // Swap PgUp/PgDown with Home/End
+    key <PGUP>	{ [         Home,         Home,      Home,      Home ]	};
+    key <PGDN>	{ [         End,          End,       End,       End ]	};
+    key <HOME>	{ [         Page_Up,      Page_Up,   Page_Up,   Page_Up ]	};
+    key <END>	  { [         Page_Down,    Page_Down, Page_Down, Page_Down ]	};
+
+    // Swap caps lock and escape
+    key <CAPS>	{ [         Escape,          Escape,     Escape,    Escape ]	};
+    key <ESC>	  { [         Caps_Lock,       Caps_Lock,  Caps_Lock, Caps_Lock]	};
+};
+
+partial alphanumeric_keys
+xkb_symbols "visual" {
+
+    include "gunar"
+
+    name[Group1] = "German (visual)";
+
+    // Make HJKL be direction
+    // AC0X codes come from using xev + /usr/share/X11/xkb/keycodes/evdev
+    key <AC06>	  { [         Left,       Left,  NoSymbol, NoSymbol]	};
+    key <AC07>	  { [         Down,       Page_Down,  NoSymbol, NoSymbol]	};
+    key <AC08>	  { [         Up,       Page_Up,  NoSymbol, NoSymbol]	};
+    key <AC09>	  { [         Right,       Right,  NoSymbol, NoSymbol]	};
+
+    // Make CAPS exit Visual mode
+    key <CAPS>	  { [         Right,       Right,  Right, Right]	};
+
+    // shift+A = End
+    // key <AC01> { [ NoSymbol, End, NoSymbol, NoSymbol, NoSymbol,  NoSymbol,  NoSymbol,  NoSymbol  ] };
+
+    // $ = End
+    key <AE04>	{ [ NoSymbol, End, NoSymbol, NoSymbol ]	};
+
+    // 0 = Home
+    key <AE10>	{ [  Home, NoSymbol, NoSymbol,  NoSymbol ]	};
+
+    // i => Insert Mode
+    key <AD08>	{ [         XF86AddFavorite,          NoSymbol ]	};
+};
