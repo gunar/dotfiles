@@ -2,6 +2,7 @@
 
 local wibox = require("wibox")
 local awful = require("awful")
+local gears = require("gears")
 
 function create_kbdswitcher_widget()
   kbdcfg = {}
@@ -10,7 +11,6 @@ function create_kbdswitcher_widget()
   kbdcfg.switch = function ()
     kbdcfg.current = kbdcfg.current % #(kbdcfg.layout) + 1
     local t = kbdcfg.layout[kbdcfg.current]
-    kbdcfg.widget.text = " " .. t[3] .. " "
     os.execute(kbdcfg.cmd .. " " .. t[1] .. " " .. t[2])
   end
   -- default
@@ -24,6 +24,22 @@ function create_kbdswitcher_widget()
   kbdcfg.widget:buttons(
   awful.util.table.join(awful.button({ }, 1, function () kbdcfg.switch() end))
   )
+
+  local update_kbdswitcher = function ()
+    local cmd = "setxkbmap -print | grep xkb_symbols | awk '{print $4}' | awk -F\"+\" '{print $2}'"
+    awful.spawn.easy_async_with_shell(cmd, function(stdout, stderr, reason, exit_code)
+      local current = stdout
+      kbdcfg.widget.text = " " .. current .. " "
+    end)
+  end
+
+  update_kbdswitcher(kbdcfg)
+
+  local timer = gears.timer({ timeout = 1 })
+  timer:connect_signal("timeout", function()
+    update_kbdswitcher(kbdcfg)
+  end)
+  timer:start()
 
   return kbdcfg.widget
 
