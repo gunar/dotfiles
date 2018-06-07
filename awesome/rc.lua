@@ -328,6 +328,10 @@ function decVol()
   awful.spawn.with_shell("amixer set Master 1000-")
   notifyCmd(getVol, "Volume")
 end
+function setVol(x)
+  awful.spawn.with_shell("amixer set Master " .. x)
+  notifyCmd(getVol, "Volume")
+end
 function toggleMute()
   local cmd  = [[amixer get Master | egrep 'Playback.*?\[o' | egrep -o '\[o.+\]' | head -1]]
   awful.spawn.easy_async_with_shell(cmd, function(stdout, stderr, reason, exit_code) 
@@ -444,13 +448,17 @@ globalkeys = awful.util.table.join(globalkeys,
     awful.key({ }, "XF86AudioMicMute",           function () toggleMicMute() end),
     awful.key({ }, "XF86Favorites",           function () awful.spawn.with_shell("xlock") end),
     awful.key({ modkey, "Control" }, "Up",    function () incVol() end),
+    awful.key({ modkey, "Control", "Shift" }, "Up",  function () setVol(65536) end),
     awful.key({ modkey, "Control" }, "Down",  function () decVol() end),
+    awful.key({ modkey, "Control", "Shift" }, "Down", function () setVol(0) end),
     -- }}}
     -- {{{ Brightnesshttps://open.spotify.com/track/2YM0kfevj552icN9DisbT9
     awful.key({ }, "XF86MonBrightnessDown",   function () brightness("-dec 5") end),
     awful.key({ }, "XF86MonBrightnessUp",     function () brightness("-inc 5") end),
     awful.key({ modkey, "Control" }, "Left",  function () brightness("-dec 5") end),
     awful.key({ modkey, "Control" }, "Right", function () brightness("-inc 5") end),
+    awful.key({ modkey, "Control", "Shift" }, "Left",  function () brightness("-set 1") end),
+    awful.key({ modkey, "Control", "Shift" }, "Right", function () brightness("-set 100") end),
     -- }}}https://open.spotify.com/track/2YM0kfevj552icN9DisbT9
     -- {{{ Software
     awful.key({ modkey,           }, "e", function () awful.spawn("thunar") end),
