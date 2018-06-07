@@ -27,8 +27,8 @@ xkb_symbols "visual" {
     // Make HJKL be direction
     // AC0X codes come from using xev + /usr/share/X11/xkb/keycodes/evdev
     key <AC06>	  { [         Left,       Left,  NoSymbol, NoSymbol]	};
-    key <AC07>	  { [         Down,       Page_Down,  NoSymbol, NoSymbol]	};
-    key <AC08>	  { [         Up,       Page_Up,  NoSymbol, NoSymbol]	};
+    key <AC07>	  { [         Down,       Down,  NoSymbol, NoSymbol]	};
+    key <AC08>	  { [         Up,       Up,  NoSymbol, NoSymbol]	};
     key <AC09>	  { [         Right,       Right,  NoSymbol, NoSymbol]	};
 
     // Make CAPS exit Visual mode
@@ -45,4 +45,7 @@ xkb_symbols "visual" {
 
     // i => Insert Mode
     key <AD08>	{ [         XF86AddFavorite,          NoSymbol ]	};
+
+    // x => Delete
+    key <AB02>	{ [         Delete,          NoSymbol ]	};
 };

@@ -542,10 +542,10 @@ globalkeys = awful.util.table.join(globalkeys,
 
     -- Modal awesome
     awful.key({                }, "XF86WakeUp", function ()
-      awful.spawn.with_shell('setxkbmap -layout gunar -variant visual')
+      awful.spawn.with_shell('setxkbmap -layout gunar -variant visual&&xrandr --output eDP1 --gamma 1:1:0.5')
     end),
     awful.key({                }, "XF86AddFavorite", function ()
-      awful.spawn.with_shell('setxkbmap -layout gunar -variant basic')
+      awful.spawn.with_shell('setxkbmap -layout gunar -variant basic&&xrandr --output eDP1 --gamma 1:1:1')
     end)
 )
 
@@ -855,5 +855,6 @@ awful.spawn.with_shell("killall compton ; compton -b")
 -- start session
 awful.spawn.with_shell("lxsession 2>/dev/null &")
 awful.spawn.with_shell("pulseaudio --start")
-awful.spawn.with_shell("xss-lock xlock")
+awful.spawn.with_shell("killall xautolock ; xautolock -time 5 -locker ~/dotfiles/manjaro/lock.sh -detectsleep")
+awful.spawn.with_shell('setxkbmap -layout gunar -variant basic')
 muteMic()
