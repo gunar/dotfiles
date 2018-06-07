@@ -58,7 +58,8 @@ theme.menu_width  = 100
 -- beautiful.variable in your rc.lua
 theme.notification_bg = "#000000CC"
 theme.notification_fg = "#FFFFFFCC"
-theme.notification_font = "DejaVu Sans 16"
+theme.notification_font = "DejaVu Sans 10"
+theme.notification_font = "DejaVu Sans 10"
 --theme.bg_widget = "#cc0000"
 
 -- Define the image to load

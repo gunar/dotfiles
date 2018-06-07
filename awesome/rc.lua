@@ -71,6 +71,8 @@ function loadrc(name, mod)
    return result
 end
 
+naughty.config.defaults.timeout = 2
+naughty.config.defaults['icon_size'] = 32
 
 -- {{{ Variable definitions
 -- Themes define colours, icons, font and wallpapers.
