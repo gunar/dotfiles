@@ -64,6 +64,8 @@ alias w='watch -n 0.5 --color'
 alias v='viewnior'
 alias c='xclip -selection clipboard'
 alias wr='nmcli r w off&&nmcli r w on'
+alias won='nmcli r w on'
+alias woff='nmcli r w off'
 alias ww='watch nmcli d w'
 alias y='yarn'
 alias ya='yarn add'
@@ -102,7 +104,7 @@ alias ng='killall ngrok 2>/dev/null;ngrok http -subdomain=gunar 3000 >/dev/null 
 alias lint='nvim `eslint --cache -f ~/code/_archive/eslint-formatter-list --ignore-path .gitignore .`'
 perf() {
   compton -b
-  sudo pstate-frequency --set --plan powersave                                                                                             
+  sudo pstate-frequency --set --plan performance
 }
 powersave() {
   killall compton
@@ -113,16 +115,19 @@ alias hibernate='sudo echo "ok" && xlock 2>/dev/null & echo disk | sudo tee /sys
 alias suspend='sudo echo "ok" && xlock 2>/dev/null & echo mem | sudo tee /sys/power/state'
 alias wf='chromium --app="https://workflowy.com" --enable-apps --enable-extension-apps'
 alias mictest='arecord -vvv -f dat /dev/null'
+alias p='ping 8.8.8.8'
 # pacman
 pi() {
   sudo pacman -Syy $* && echo "sudo pacman -Syy $*">>~/dotfiles/manjaro/install.sh
 }
-alias pacs='pacman -Ss'
-# yaourt
-yi() {
-  yaourt -Syy --noconfirm $* && echo "yaourt --noconfirm -Syy $*">>~/dotfiles/manjaro/install.sh
+pacs() {
+  pacman -Ss $* | less
 }
-alias yars='yaourt -Ss'
+# yaourt
+yi() { yaourt -Syy --noconfirm $* && echo "yaourt --noconfirm -Syy $*">>~/dotfiles/manjaro/install.sh }
+yars() {
+  yaourt -Ss $* | less
+}
 
 alias curlpost='curl -v -H "Content-Type: application/json" -d @-'
 gif() { ffmpeg -i $1 $1.gif }
@@ -150,8 +155,14 @@ export TERM=screen-256color-bce
 
 eval $(dircolors ~/.dircolors)
 
+# imagemagik aliases
+shadow() {
+  # http://www.imagemagick.org/script/command-line-options.php?#shadow
+  convert $1 \( -clone 0 -background black -shadow 60x4+0+0 \) -reverse -background none -layers merge +repage $2
+}
+
 # costly call
-(eval "$(keychain --eval --quiet id_rsa)" &)
+eval "$(keychain --eval --quiet id_rsa)"
 
 if [[ $TERM == xterm-termite ]]; then
   . /etc/profile.d/vte.sh
@@ -234,17 +245,29 @@ alias bat='upower -i /org/freedesktop/UPower/devices/battery_BAT0|grep -E "state
 if [[ ! ${DISPLAY} && ${XDG_VTNR} == 1 ]]; then
   # mute microphone on startup
   amixer set Capture nocap
-  exec startx 
+  exec ssh-agent startx 
 fi
 
 # not working
 webcamrecord() {
   vlc v4l2:// :input-slave=alsa:// :v4l-vdev="/dev/video0" :v4l-norm=3 :v4l-frequency=-1 :v4l-caching=300 :v4l-chroma="" :v4l-fps=-1.000000 :v4l-samplerate=44100 :v4l-channel=0 :v4l-tuner=-1 :v4l-audio=-1 :v4l-stereo :v4l-width=480 :v4l-height=360 :v4l-brightness=-1 :v4l-colour=-1 :v4l-hue=-1 :v4l-contrast=-1 :no-v4l-mjpeg :v4l-decimation=1 :v4l-quality=100 --sout="#transcode{vcodec=theo,vb=2000,fps=12,scale=0.67,acodec=vorb,ab=90,channels=1,samplerate=44100}:standard{access=file,mux=ogg,dst=output.ogg}"
 }
+alias ss='systemctl status'
+alias sdr='sudo systemctl daemon-reload'
+alias sstart='sudo systemctl start'
+alias blue='bluetoothctl'
+function jbl {
+  blue power on
+  blue connect 04:FE:A1:B3:FF:47 
+}
+function ed {
+  blue power on
+  blue connect 04:FE:A1:E8:D9:20
+}
 
 alias keys='xmodmap -pke|less'
 alias np='n -c :Unite\ -no-split\ -buffer-name=files\ -start-insert\ -ignorecase\ -force-redraw\ file_rec/neovim'
-alias dot='cd ~/dotfiles'
+alias dotf='cd ~/dotfiles'
 
 
 
