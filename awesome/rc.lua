@@ -167,7 +167,8 @@ myassault = assault({
 tags = {}
 for s = 1, screen.count() do
     -- Each screen has its own tag table.
-    tags[s] = awful.tag({ 1, 2, 3, 4, 5, 6, 7, 8 }, s, layouts[1])
+    -- TAGS
+    tags[s] = awful.tag({ 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, "11.Todo", "12.Spotify", "13.Calendar   ", 14 }, s, layouts[1])
 end
 -- }}}
 
@@ -395,13 +396,15 @@ end
 
 function moveToTag(client, operation)
   if client.focus then
-    local currentTagNumber = tonumber(awful.screen.focused().selected_tag.name)
+    local currentTagNumber = awful.screen.focused().selected_tag.index
     if (operation > 0) then
-      local nextTagNumber = (currentTagNumber < 8) and currentTagNumber + operation or 0
+      -- TAGS
+      local nextTagNumber = (currentTagNumber < 14) and currentTagNumber + operation or 1
       local nextTag = client.focus.screen.tags[nextTagNumber]
       client.focus:move_to_tag(nextTag)
     else
-      local nextTagNumber = (currentTagNumber < 8) and currentTagNumber + operation or 0
+      -- TAGS
+      local nextTagNumber = (currentTagNumber > 1) and currentTagNumber + operation or 14
       local nextTag = client.focus.screen.tags[nextTagNumber]
       client.focus:move_to_tag(nextTag)
     end
@@ -413,6 +416,14 @@ globalkeys = awful.util.table.join(globalkeys,
     --- {{{ Useless gap
     awful.key({ modkey, "Control" }, "+", function () useless_gaps_resize(2) end),
     awful.key({ modkey, "Control" }, "-", function () useless_gaps_resize(-2) end),
+    -- }}}
+    -- {{{ Rename tab
+    awful.key({ modkey, "Shift",  }, "b",    function ()
+      awful.prompt.run(
+        { prompt = "Name tab: ", text = awful.tag.selected().name, },
+        mypromptbox[mouse.screen.index].widget,
+        function (s) awful.tag.selected().name = s end)
+    end),
     -- }}}
     --- {{{ Switcher
     awful.key({ modkey }, "+", revelation),
@@ -559,7 +570,8 @@ clientkeys = awful.util.table.join(
 -- Bind all key numbers to tags.
 -- Be careful: we use keycodes to make it works on any keyboard layout.
 -- This should map on the top row of your keyboard, usually 1 to 9.
-for i = 1, 8 do
+-- TAGS
+for i = 1, 10 do
     globalkeys = awful.util.table.join(globalkeys,
         -- View tag only.
         awful.key({ modkey }, "#" .. i + 9,
@@ -601,10 +613,12 @@ for i = 1, 8 do
                   end))
 end
 
-for i = 5, 8 do
+-- TAGS
+for i = 11, 14 do
+    local x = i - 10
     globalkeys = awful.util.table.join(globalkeys,
         -- View tag only.
-        awful.key({ modkey }, "F" .. i - 4,
+        awful.key({ modkey }, "F" .. x,
                   function ()
                         local screen = mouse.screen
                         local tag = screen.tags[i]
@@ -613,7 +627,7 @@ for i = 5, 8 do
                         end
                   end),
         -- Toggle tag.
-        awful.key({ modkey, "Control" }, "F" .. i - 4,
+        awful.key({ modkey, "Control" }, "F" .. x,
                   function ()
                       local screen = mouse.screen
                       local tag = screen.tags[i]
@@ -622,7 +636,7 @@ for i = 5, 8 do
                       end
                   end),
         -- Move client to tag.
-        awful.key({ modkey, "Shift" }, "F" .. i - 4,
+        awful.key({ modkey, "Shift" }, "F" .. x,
                   function ()
                       if client.focus then
                           local tag = client.focus.screen.tags[i]
@@ -632,7 +646,7 @@ for i = 5, 8 do
                      end
                   end),
         -- Toggle tag.
-        awful.key({ modkey, "Control", "Shift" }, "F" .. i - 4,
+        awful.key({ modkey, "Control", "Shift" }, "F" .. x,
                   function ()
                       if client.focus then
                           local tag = client.focus.screen.tags[i]
@@ -659,6 +673,7 @@ root.keys(globalkeys)
 
 -- {{{ Rules
 -- Rules to apply to new clients (through the "manage" signal).
+-- You can confirm class names with `wmctrl -lx`
 awful.rules.rules = {
     -- All clients will match this rule.
     { rule = { },
@@ -668,12 +683,32 @@ awful.rules.rules = {
                      raise = true,
                      keys = clientkeys,
                      buttons = clientbuttons } },
-    { rule = { class = "MPlayer" },
-      properties = { floating = true } },
-    { rule = { class = "pinentry" },
-      properties = { floating = true } },
-    { rule = { class = "gimp" },
-      properties = { floating = true } },
+     -- All clients will match this rule.
+     { rule = { },
+     properties = { },
+     callback = function(c)
+       awful.client.setslave(c)
+       naughty.notify({ 
+         title = c.class,
+         text = c.name })
+       if c.class == "Chromium" then
+         local f
+         f = function(_c)
+           _c:disconnect_signal("property::name", f)
+           -- if _c.name == "Spotify" then
+             awful.rules.apply(_c)
+           -- end
+         end
+         c:connect_signal("property::name", f)
+       end
+     end
+   },
+   { rule = { name = ".* - Calendar - .*" },
+     properties = { tag = tags[1][13] , switchtotag=true } },
+   { rule = { name = "Spotify" },
+     properties = { tag = tags[1][12] , switchtotag=true } },
+   { rule = { class = "Pavucontrol" },
+     properties = { tag = tags[1][12] , switchtotag=true } },
 }
 -- }}}
 
