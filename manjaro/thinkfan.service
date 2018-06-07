@@ -1,8 +1,0 @@
-[Unit]
-Description=Thinkfan
-
-[Service]
-ExecStart=/usr/sbin/thinkfan -n
-
-[Install]
-WantedBy=multi-user.target

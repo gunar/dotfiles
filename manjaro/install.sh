@@ -58,4 +58,13 @@ sudo pacman -Syy xorg-xmodmap
 yaourt --noconfirm -Syy pstate-frequency
 yaourt --noconfirm -Syy fancontrol-gui
 sudo pacman -Syy stress
-yaourt --noconfirm -Syy thinkfan
+sudo pacman -Syy namcap
+sudo pacman -Syy moreutils
+sudo pacman -Syy bluez bluez-utils
+sudo pacman -Syy pulseaudio-bluetooth
+sudo pacman -Syy bluez-libs
+yaourt --noconfirm -Syy xmacro
+sudo pacman -Syy extra/xorg-fonts-100dpi extra/xorg-fonts-75dpi
+sudo pacman -Syy extra/xorg-fonts-misc
+yaourt --noconfirm -Syy i3lock-fancy-git
+yaourt --noconfirm -Syy community/wmctrl

@@ -1,6 +1,10 @@
 #!/bin/sh
-sudo ln -fs "$(readlink -f thinkfan.conf)" /etc/thinkfan.conf
-systemctl --user daemon-reload
+yaourt --noconfirm -Syy thinkfan
+# sudo ln -fs "$(readlink -f thinkfan.conf)" /etc/thinkfan.conf
+sudo cp thinkfan.conf /etc/thinkfan.conf
+# start thinkfan as soon as thermal sensor is available
+sudo ln -fs "$(readlink -f thinkfan.rules)" /etc/udev/rules.d/thinkfan.rules
+udevadm control --reload
+
 sudo systemctl daemon-reload
-sudo sudo systemctl enable "$(readlink -f thinkfan.service)"
-sudo sudo systemctl start thinkfan
+sudo systemctl start thinkfan

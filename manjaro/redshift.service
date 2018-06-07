@@ -3,11 +3,11 @@ Description=Redshift
 After=network.target display-manager.service
 
 [Service]
-Type=simple
+Type=idle
 ExecStart=/usr/bin/redshift
 Restart=always
 Environment=DISPLAY=:0
 User=gcg
 
 [Install]
-WantedBy=graphical.target
+WantedBy=multi-user.target

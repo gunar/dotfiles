@@ -1,0 +1,1 @@
+TEST{444}=="/sys/devices/virtual/thermal/thermal_zone3/temp", ENV{SYSTEMD_WANTS}="thinkfan.service"
