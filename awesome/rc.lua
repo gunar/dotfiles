@@ -133,7 +133,7 @@ local refreshWallpaper = loadrc("wallpaper")
 -- }}}
 
 -- {{{ Widgets
-mytextclock = wibox.widget.textclock("%H:%M | %d ", 10)
+textclock = wibox.widget.textclock("%H:%M | %d ", 10)
 
 require("widgets/heatmon")
 heatmon_widget = create_heatmon_widget()
@@ -162,30 +162,31 @@ myassault = assault({
 
 -- }}}
 
--- {{{ Tags
+-- {{{ TAGS
 -- Define a tag table which hold all screen tags.
-tags = {}
+tags1 = {}
+tags2 = {}
 for s = 1, screen.count() do
-    -- Each screen has its own tag table.
-    -- TAGS
-    tags[s] = awful.tag({
-      "1.",
-      "2.",
-      "3.",
-      "4.",
-      "5.",
-      "6.",
-      "7.",
-      "8.",
-      "9.",
-      "10.",
-      "11.Todo",
-      "12.Spotify",
-      "13.Calendar   ",
-      14 },
-      s,
-      layouts[1])
-end
+  -- Each screen has its own tag table.
+  tags2[s] = awful.tag({
+    "1.",
+    "2.",
+    "3.",
+    "4.",
+    "5.",
+    "6.",
+    "7.",
+    "8.",
+    "9.",
+    "10.",
+  }, s, layouts[1])
+  tags1[s] = awful.tag({
+    "1.Todo",
+    "2.Calendar",
+    "3.Spotify",
+    "4.",
+  }, s, layouts[1])
+  end
 -- }}}
 
 -- {{{ Menu
@@ -212,17 +213,19 @@ app_folders = { "/usr/share/applications/", "~/.local/share/applications/" }
 
 -- Create a wibox for each screen and add it
 mywibox = {}
+mywibox2 = {}
 mypromptbox = {}
 mylayoutbox = {}
-mytaglist = {}
-mytaglist.buttons = awful.util.table.join(
+taglist = {}
+taglist2 = {}
+taglist.buttons = awful.util.table.join(
                     awful.button({ }, 1, awful.tag.viewonly),
                     awful.button({ modkey }, 1, awful.client.movetotag),
                     awful.button({ }, 3, awful.tag.viewtoggle),
                     awful.button({ modkey }, 3, awful.client.toggletag)
                     )
-mytasklist = {}
-mytasklist.buttons = awful.util.table.join(
+tasklist = {}
+tasklist.buttons = awful.util.table.join(
   awful.button({ }, 1, function (c)
     if c == client.focus then
       c.minimized = true
@@ -259,44 +262,49 @@ mytasklist.buttons = awful.util.table.join(
   end)
 )
 
+function filterForWibox (n)
+  if n == 1 then     return function (tag) return tag.index >  10 end
+  elseif n == 2 then return function (tag) return tag.index <= 10  end
+  end
+end
+
 for s = 1, screen.count() do
-    -- Create a promptbox for each screen
     mypromptbox[s] = awful.widget.prompt()
-    -- Create a taglist widget
-    mytaglist[s] = awful.widget.taglist(s, awful.widget.taglist.filter.all, mytaglist.buttons)
-
-    -- Create a tasklist widget
-    mytasklist[s] = awful.widget.tasklist(s, awful.widget.tasklist.filter.currenttags, mytasklist.buttons)
-
-    -- Create the wibox
+    taglist[s] = awful.widget.taglist(s, filterForWibox(1), taglist.buttons)
+    taglist2[s] = awful.widget.taglist(s, filterForWibox(2), taglist.buttons)
+    tasklist[s] = awful.widget.tasklist(s, awful.widget.tasklist.filter.currenttags, tasklist.buttons)
     mywibox[s] = awful.wibar({ position = "top", height = "28", screen = s })
 
-    -- Widgets that are aligned to the left
     local left_layout = wibox.layout {
-      mytaglist[s],
+      taglist[s],
       mypromptbox[s],
       layout = wibox.layout.fixed.horizontal()
     }
 
-    -- Widgets that are aligned to the right
-    -- if s == 1 then right_layout:add(wibox.widget.systray()) end
     local right_layout = wibox.layout {
       heatmon_widget,
       myassault,
       kbdswitcher_widget,
-      mytextclock,
+      textclock,
       layout = wibox.layout.fixed.horizontal()
     }
 
-    -- Now bring it all together (with the tasklist in the middle)
     local layout = wibox.layout {
       left_layout,
-      mytasklist[s],
+      nil,
       right_layout,
       layout = wibox.layout.align.horizontal()
     }
 
     mywibox[s].widget = layout
+
+    mywibox2[s] = awful.wibar({ position = "top", height = "28", screen = s })
+    mywibox2[s].widget = wibox.layout {
+      taglist2[s],
+      tasklist[s],
+      nil,
+      layout = wibox.layout.align.horizontal(),
+    }
 end
 -- }}}
 
@@ -414,6 +422,7 @@ function changeFocus(x)
   end
 end
 
+-- TODO fix this
 function moveToTag(client, operation)
   if client.focus then
     local currentTagNumber = awful.screen.focused().selected_tag.index
@@ -437,7 +446,7 @@ globalkeys = awful.util.table.join(globalkeys,
     awful.key({ modkey, "Control" }, "+", function () useless_gaps_resize(2) end),
     awful.key({ modkey, "Control" }, "-", function () useless_gaps_resize(-2) end),
     -- }}}
-    -- {{{ Rename tab
+    -- {{{ Rename tag
     awful.key({ modkey, "Shift",  }, "b",    function ()
       awful.prompt.run(
         { prompt = "Name tab: ", text = tostring(awful.tag.selected().index) .. "." , },
@@ -724,11 +733,11 @@ awful.rules.rules = {
    --   -- end
    -- },
    { rule = { name = ".* - Calendar - .*" },
-     properties = { tag = tags[1][13] , switchtotag=true } },
+     properties = { tag = tags1[1][2] , switchtotag=true } },
    { rule = { class = "Spotify" },
-     properties = { tag = tags[1][12] , switchtotag=true } },
+     properties = { tag = tags1[1][3] , switchtotag=true } },
    { rule = { class = "Pavucontrol" },
-     properties = { tag = tags[1][12] , switchtotag=true } },
+     properties = { tag = tags1[1][3] , switchtotag=true } },
 }
 -- }}}
 

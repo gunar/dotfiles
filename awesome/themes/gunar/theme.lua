@@ -9,10 +9,10 @@ theme = {}
 
 theme.font          = "Essential PragmataPro regular 12"
 
-theme.bg_normal             = "#00000044"
-theme.taglist_bg_empty      = "#00000022"
-theme.taglist_bg_occupied   = "#00000044"
-theme.taglist_bg_focus      = "#00000000"
+theme.bg_normal             = "#00000066"
+theme.taglist_bg_empty      = "#00000066"
+theme.taglist_bg_occupied   = "#00000066"
+theme.taglist_bg_focus      = "#FFFFFFAA"
 
 theme.bg_focus      = "#00000022"
 theme.bg_urgent     = "#ff0000"
