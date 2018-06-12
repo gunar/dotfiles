@@ -68,3 +68,4 @@ sudo pacman -Syy extra/xorg-fonts-100dpi extra/xorg-fonts-75dpi
 sudo pacman -Syy extra/xorg-fonts-misc
 yaourt --noconfirm -Syy i3lock-fancy-git
 yaourt --noconfirm -Syy community/wmctrl
+yaourt --noconfirm -Syy boot
