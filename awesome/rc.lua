@@ -168,7 +168,23 @@ tags = {}
 for s = 1, screen.count() do
     -- Each screen has its own tag table.
     -- TAGS
-    tags[s] = awful.tag({ 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, "11.Todo", "12.Spotify", "13.Calendar   ", 14 }, s, layouts[1])
+    tags[s] = awful.tag({
+      "1.",
+      "2.",
+      "3.",
+      "4.",
+      "5.",
+      "6.",
+      "7.",
+      "8.",
+      "9.",
+      "10.",
+      "11.Todo",
+      "12.Spotify",
+      "13.Calendar   ",
+      14 },
+      s,
+      layouts[1])
 end
 -- }}}
 
@@ -424,7 +440,7 @@ globalkeys = awful.util.table.join(globalkeys,
     -- {{{ Rename tab
     awful.key({ modkey, "Shift",  }, "b",    function ()
       awful.prompt.run(
-        { prompt = "Name tab: ", text = awful.tag.selected().name, },
+        { prompt = "Name tab: ", text = tostring(awful.tag.selected().index) .. "." , },
         mypromptbox[mouse.screen.index].widget,
         function (s) awful.tag.selected().name = s end)
     end),
@@ -692,28 +708,24 @@ awful.rules.rules = {
                      keys = clientkeys,
                      buttons = clientbuttons } },
      -- All clients will match this rule.
-     { rule = { },
-     properties = { },
-     callback = function(c)
-       awful.client.setslave(c)
-       naughty.notify({ 
-         title = c.class,
-         text = c.name })
-       if c.class == "Chromium" then
-         local f
-         f = function(_c)
-           _c:disconnect_signal("property::name", f)
-           -- if _c.name == "Spotify" then
-             awful.rules.apply(_c)
-           -- end
-         end
-         c:connect_signal("property::name", f)
-       end
-     end
-   },
+   --   { rule = { },
+   --   properties = { },
+   --   callback = function(c)
+   --     awful.client.setslave(c)
+   --     -- naughty.notify({ title = c.class, text = c.name })
+   --     -- if c.class == "Chromium" or c.name == "Spotify" then
+   --       local f
+   --       f = function(_c)
+   --         _c:disconnect_signal("property::name", f)
+   --         awful.rules.apply(_c)
+   --       end
+   --       c:connect_signal("property::name", f)
+   --     end
+   --   -- end
+   -- },
    { rule = { name = ".* - Calendar - .*" },
      properties = { tag = tags[1][13] , switchtotag=true } },
-   { rule = { name = "Spotify" },
+   { rule = { class = "Spotify" },
      properties = { tag = tags[1][12] , switchtotag=true } },
    { rule = { class = "Pavucontrol" },
      properties = { tag = tags[1][12] , switchtotag=true } },
