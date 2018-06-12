@@ -260,9 +260,12 @@ function jbl {
   blue power on
   blue connect 04:FE:A1:B3:FF:47 
 }
-function ed {
+function ed { # Edifier
   blue power on
   blue connect 04:FE:A1:E8:D9:20
+}
+function edoff { # Edifier
+  blue disconnect 04:FE:A1:E8:D9:20
 }
 
 alias keys='xmodmap -pke|less'
@@ -292,3 +295,8 @@ function mdcat () {
   if [ -z ${mdfile:+x} ]; then mdfile="README.md"; fi
   pandoc -s -f markdown -t man $mdfile | groff -T utf8 -man
 }
+
+
+# For boot / clojure
+# export BOOT_JVM_OPTIONS="--add-modules=java.xml.bind"
+export BOOT_JVM_OPTIONS="--add-opens=java.base/java.net=ALL-UNNAMED"
