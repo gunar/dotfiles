@@ -7,7 +7,10 @@
 sudo pacman -Syy extra/xorg-server extra/xorg-xinit network-manager net-tools
 sudo pacman -Syy extra/xorg-xbacklight
 sudo pacman -Syy extra/pamac
-yaourt -Syy aur/teamviewer11
 yaourt -Syy aur/spotify
 
 ./thinkfan.sh
+
+sudo pacman -Syy community/yarn
+yarn global add wt-cli
+yarn global add surge

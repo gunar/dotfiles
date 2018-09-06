@@ -104,12 +104,16 @@ alias ng='killall ngrok 2>/dev/null;ngrok http -subdomain=gunar 3000 >/dev/null 
 alias lint='nvim `eslint --cache -f ~/code/_archive/eslint-formatter-list --ignore-path .gitignore .`'
 perf() {
   compton -b
-  sudo pstate-frequency --set --plan performance
+  if pstate-frequency --get|grep performance; then
+    echo "already high"
+  else
+    sudo pstate-frequency --set --plan performance
+  fi
 }
 powersave() {
   killall compton
   xbacklight -set 7
-  sudo pstate-frequency --set --plan powersave                                                                                             
+  sudo pstate-frequency --set --plan powersave
 }
 alias hibernate='sudo echo "ok" && xlock 2>/dev/null & echo disk | sudo tee /sys/power/state'
 alias suspend='sudo echo "ok" && xlock 2>/dev/null & echo mem | sudo tee /sys/power/state'
@@ -158,7 +162,10 @@ eval $(dircolors ~/.dircolors)
 # imagemagik aliases
 shadow() {
   # http://www.imagemagick.org/script/command-line-options.php?#shadow
-  convert $1 \( -clone 0 -background black -shadow 60x4+0+0 \) -reverse -background none -layers merge +repage $2
+  convert $2 \( -clone 0 -background black -shadow 60x4+0+0 \) -reverse -background none -layers merge +repage $2
+}
+mergepdf() {
+  gs -dBATCH -dNOPAUSE -q -sDEVICE=pdfwrite -sOutputFile=$1 $2 $3 $4 $5
 }
 
 # costly call
@@ -246,6 +253,7 @@ if [[ ! ${DISPLAY} && ${XDG_VTNR} == 1 ]]; then
   # mute microphone on startup
   amixer set Capture nocap
   exec ssh-agent startx 
+  teamviewer
 fi
 
 # not working
@@ -300,3 +308,37 @@ function mdcat () {
 # For boot / clojure
 # export BOOT_JVM_OPTIONS="--add-modules=java.xml.bind"
 export BOOT_JVM_OPTIONS="--add-opens=java.base/java.net=ALL-UNNAMED"
+
+alias fixhdmi="xrandr --output HDMI1 --mode 800x600&&xrandr --output HDMI1 --mode 1920x1080"
+alias fixdns="echo \"nameserver 8.8.8.8\"|sudo tee /etc/resolv.conf"
+alias did="nvim -c 'normal Go' -c 'r!date' ~/did.txt"
+alias bandwidth="sudo iftop -i wlp4s0"
+function sleep_until {
+  seconds=$(( $(date -d "$*" +%s) - $(date +%s) )) # Use $* to eliminate need for quotes
+  if [ $seconds -lt 0 ] ; then ((seconds+=24*60*60)) ; fi
+  echo "Sleeping until $*"
+  echo "Sleeping for $seconds seconds"
+  sleep $seconds
+}
+alias csv='column -s, -t | less -#2 -N -S'
+
+function goodnight() {
+  powersave
+  chromium http://homepages.neiu.edu/~mtailor/cs300/images/bluecolor.jpg
+  xset s off
+  echo "---"
+  echo "--- Don't forget to move your mouse to the bottom right edge of the screen to disable the lock"
+  echo "---"
+  date
+  sleep_until 06:30
+  xbacklight -set 100%
+  echo "--- Remember to do xset s"
+}
+
+alias win="/home/gcg/win/run.sh"
+alias mac="sudo /home/gcg/mac/boot-macOS-HS.sh"
+function jj() { cat $1.json|json_pp|tee $1.json }
+alias tv="rm .config/minidlna/cache/files.db&&minidlnad -dR"
+alias serve="ifconfig|grep inet&&python3 -m http.server"
+alias servelive="browser-sync start -s -f . --no-notify --host 0.0.0.0 --port 9000&&chromium http://0.0.0.0:9000"
+

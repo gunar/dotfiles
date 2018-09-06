@@ -182,9 +182,11 @@ for s = 1, screen.count() do
   }, s, layouts[1])
   tags1[s] = awful.tag({
     "1.Todo",
-    "2.Calendar",
-    "3.Spotify",
-    "4.",
+    "2.Pomodoro",
+    "3.Notes",
+    "4.Calendar",
+    "5.Spotify",
+    "6.Slack",
   }, s, layouts[1])
   end
 -- }}}
@@ -199,7 +201,9 @@ myawesomemenu = {
 
 mymainmenu = awful.menu({ items = { { "awesome", myawesomemenu, beautiful.awesome_icon },
                                     { "open terminal", terminal },
-                                    { "refresh wallpaper", refreshWallpaper }
+                                    { "refresh wallpaper", refreshWallpaper },
+                                    { "fix HDMI1", function() awful.spawn.with_shell("xrandr --output HDMI1 --mode 800x600&&xrandr --output HDMI1 --mode 1920x1080") end },
+                                    { "fix eDP1", function() awful.spawn.with_shell("xrandr --output eDP1 --mode 800x600&&xrandr --output eDP1 --mode 1920x1080") end }
                                   }
                         })
 
@@ -269,11 +273,13 @@ function filterForWibox (n)
 end
 
 for s = 1, screen.count() do
+    local height = "26"
+
     mypromptbox[s] = awful.widget.prompt()
     taglist[s] = awful.widget.taglist(s, filterForWibox(1), taglist.buttons)
     taglist2[s] = awful.widget.taglist(s, filterForWibox(2), taglist.buttons)
     tasklist[s] = awful.widget.tasklist(s, awful.widget.tasklist.filter.currenttags, tasklist.buttons)
-    mywibox[s] = awful.wibar({ position = "top", height = "28", screen = s })
+    mywibox[s] = awful.wibar({ position = "top", height = height, screen = s })
 
     local left_layout = wibox.layout {
       taglist[s],
@@ -298,7 +304,7 @@ for s = 1, screen.count() do
 
     mywibox[s].widget = layout
 
-    mywibox2[s] = awful.wibar({ position = "top", height = "28", screen = s })
+    mywibox2[s] = awful.wibar({ position = "top", height = height, screen = s })
     mywibox2[s].widget = wibox.layout {
       taglist2[s],
       tasklist[s],
@@ -538,8 +544,9 @@ globalkeys = awful.util.table.join(globalkeys,
     -- Standard program
     awful.key({ modkey,           }, "Return", function () awful.spawn(terminal) end),
     awful.key({ modkey, "Control" }, "r", awesome.restart),
-    -- what will this do now?
-  	awful.key({ modkey, "Shift"   }, "q", function () awful.spawn("xfce4-session-logout -lf") end),
+
+    -- lock screen
+  	awful.key({ modkey, "Shift"   }, "q", function () awful.spawn.with_shell("~/dotfiles/manjaro/lock.sh") end),
 
     awful.key({ modkey,           }, "l", awful.tag.viewnext),
     awful.key({ modkey,           }, "h", awful.tag.viewprev),
@@ -646,8 +653,8 @@ for i = 1, 10 do
                   end))
 end
 
--- TAGS
-for i = 11, 14 do
+-- TAGS F1 F2 F3 F4 F5 F6
+for i = 11, 16 do
     local x = i - 10
     globalkeys = awful.util.table.join(globalkeys,
         -- View tag only.
@@ -716,28 +723,38 @@ awful.rules.rules = {
                      raise = true,
                      keys = clientkeys,
                      buttons = clientbuttons } },
-     -- All clients will match this rule.
-   --   { rule = { },
+    
+   -- { -- All clients will match this rule.
+   --   rule = { },
    --   properties = { },
    --   callback = function(c)
    --     awful.client.setslave(c)
+   --     local f
    --     -- naughty.notify({ title = c.class, text = c.name })
-   --     -- if c.class == "Chromium" or c.name == "Spotify" then
-   --       local f
-   --       f = function(_c)
-   --         _c:disconnect_signal("property::name", f)
+   --     f = function(_c)
+   --       if c.class == "Chromium" or c.class == "Spotify" then
    --         awful.rules.apply(_c)
+   --         _c:disconnect_signal("property::name", f)
    --       end
-   --       c:connect_signal("property::name", f)
    --     end
-   --   -- end
+   --     c:connect_signal("property::name", f)
+   --   end
    -- },
-   { rule = { name = ".* - Calendar - .*" },
-     properties = { tag = tags1[1][2] , switchtotag=true } },
-   { rule = { class = "Spotify" },
-     properties = { tag = tags1[1][3] , switchtotag=true } },
-   { rule = { class = "Pavucontrol" },
-     properties = { tag = tags1[1][3] , switchtotag=true } },
+   -- { rule = { name = ".*todo - Workflowy - .*" },
+   -- properties = { tag = tags1[1][1] , switchtotag=true } },
+   --
+   -- { rule = { name = "Meetings - Workflowy - .*" },
+   -- properties = { tag = tags1[1][2] , switchtotag=true } },
+   -- { rule = { name = "2018W.* - Workflowy - .*" },
+   -- properties = { tag = tags1[1][2] , switchtotag=true } },
+   --
+   -- { rule = { name = ".* - Calendar - .*" },
+   --   properties = { tag = tags1[1][3] , switchtotag=true } },
+   --
+   -- { rule = { class = "[Ss]potify" },
+   --   properties = { tag = tags1[1][4] , switchtotag=true } },
+   -- { rule = { class = "Pavucontrol" },
+   --   properties = { tag = tags1[1][4] , switchtotag=true } },
 }
 -- }}}
 
@@ -876,6 +893,6 @@ awful.spawn.with_shell("killall compton ; compton -b")
 -- start session
 awful.spawn.with_shell("lxsession 2>/dev/null &")
 awful.spawn.with_shell("pulseaudio --start")
-awful.spawn.with_shell("killall xautolock ; xautolock -time 5 -locker ~/dotfiles/manjaro/lock.sh -detectsleep")
-awful.spawn.with_shell('setxkbmap -layout gunar -variant basic')
+awful.spawn.with_shell("xautolock -corners 0+0- -time 5 -locker ~/dotfiles/manjaro/lock.sh -detectsleep")
+awful.spawn.with_shell("setxkbmap -layout gunar -variant basic")
 muteMic()
