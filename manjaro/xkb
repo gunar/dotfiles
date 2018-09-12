@@ -1,3 +1,40 @@
+partial alphanumeric_keys
+xkb_symbols "brmode" {
+
+    include "br(abnt2)"
+
+    name[Group1] = "BR (insert)";
+
+    // Swap caps lock and escape
+    key <CAPS>	{ [         Escape,          Escape,     Escape,    Escape ]	};
+    key <ESC>	  { [         Caps_Lock,       Caps_Lock,  Caps_Lock, Caps_Lock]	};
+
+    // Swap Y and Z like my german keyboard that Im used to
+    // add | to Alt+"z"
+    key <AD06>	{ [         z,          Z,    leftarrow,          yen ]	};
+    key <AB01>	{ [         y,          Y,   bar,        less ]	};
+
+    // add slash above 7, hence move ampersand to 6
+    key <AE06>	{ [         6, ampersand, threequarters, fiveeighths ] };
+    key <AE07>	{ [         7,  slash,    braceleft, seveneighths ]	};
+
+    // replace tilde for quotes
+    key <AC11>	{ [numbersign, apostrophe, rightsinglequotemark,   dead_breve ]	};
+
+    // ? questionmark
+    // key <AD11> { [   dead_acute,     dead_grave,         acute,           grave ] };
+    key <AD11>	{ [grave,  questionmark, at, at ] };
+
+    // home/end
+    key <AD12>	{ [Home,  Home, at, at ] };
+    key <BKSL>	{ [End, End, at, at]	};
+
+    // tilde at apostrophe
+    key <TLDE> { [   asciitilde,       quotedbl,       at, at ] };
+
+
+};
+
 default
 partial alphanumeric_keys
 xkb_symbols "basic" {

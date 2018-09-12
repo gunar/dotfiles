@@ -92,3 +92,5 @@ yaourt --noconfirm -Syy rnm
 sudo pacman -Syy tumbler
 yaourt --noconfirm -Syy autokey-py3
 sudo pacman -Syy filezilla
+sudo pacman -Syy inkscape
+yaourt --noconfirm -Syy shutter
