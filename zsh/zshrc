@@ -214,6 +214,15 @@ function call-ls {
 zle -N call-ls
 bindkey "^[l" call-ls
 
+# alt+s for "git status"
+function call-gst {
+  zle accept-line
+  echo ""
+  gst
+}
+zle -N call-gst
+bindkey "^[s" call-gst
+
 # fasd ---------------
 #
 # commented out because nvim does not have viminfo file
