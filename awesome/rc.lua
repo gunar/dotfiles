@@ -183,12 +183,12 @@ for s = 1, screen.count() do
     "10.",
   }, s, layouts[1])
   tags1[s] = awful.tag({
-    "1.Todo",
-    "2.Pomodoro",
-    "3.Notes",
-    "4.Calendar",
-    "5.Spotify",
-    "6.Slack",
+    "1.",
+    "2.",
+    "3.",
+    "4.",
+    "5.",
+    "6.",
   }, s, layouts[1])
   end
 -- }}}
@@ -897,5 +897,5 @@ awful.spawn.with_shell("killall compton ; compton -b")
 awful.spawn.with_shell("lxsession 2>/dev/null &")
 awful.spawn.with_shell("pulseaudio --start")
 awful.spawn.with_shell("xautolock -corners 0+0- -time 5 -locker ~/dotfiles/manjaro/lock.sh -detectsleep")
-awful.spawn.with_shell("setxkbmap -layout gunar -variant basic")
+awful.spawn.with_shell("setxkbmap -layout gunar -variant ext")
 muteMic()

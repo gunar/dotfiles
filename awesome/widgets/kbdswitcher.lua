@@ -7,7 +7,7 @@ local gears = require("gears")
 function create_kbdswitcher_widget()
   kbdcfg = {}
   kbdcfg.cmd = "setxkbmap"
-  kbdcfg.layout = { { "br", "" , "BR" }, { "en", "" , "EN" }, { "de", "" , "DE" } } 
+  kbdcfg.layout = { {"gunar", "ext", "EX"}, { "br", "" , "BR" }, { "en", "" , "EN" }, { "de", "" , "DE" } } 
   kbdcfg.switch = function ()
     kbdcfg.current = kbdcfg.current % #(kbdcfg.layout) + 1
     local t = kbdcfg.layout[kbdcfg.current]
