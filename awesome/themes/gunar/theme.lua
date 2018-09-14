@@ -25,7 +25,7 @@ theme.fg_urgent     = "#ffffff"
 theme.fg_minimize   = "#ffffff"
 
 -- disabled because compton provides transparency to inactive windows
-theme.border_width  = 0
+theme.border_width  = 2
 -- Border transparency requires a compositor
 theme.border_normal = "#aaaaaa00"
 theme.border_focus  = "#ff000000"
