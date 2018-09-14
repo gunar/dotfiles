@@ -138,6 +138,8 @@ textclock = wibox.widget.textclock("%H:%M | %d ", 10)
 require("widgets/heatmon")
 heatmon_widget = create_heatmon_widget()
 
+power_widget = require("widgets/power")
+
 require("widgets/kbdswitcher")
 kbdswitcher_widget = create_kbdswitcher_widget()
 
@@ -288,6 +290,7 @@ for s = 1, screen.count() do
     }
 
     local right_layout = wibox.layout {
+      power_widget,
       heatmon_widget,
       myassault,
       kbdswitcher_widget,
