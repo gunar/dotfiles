@@ -50,6 +50,14 @@ local acpi_battery_is_charging = function (battery)
 	return string.find(o, 'Charging')
 end
 
+local acpi_battery_is_fully_charged = function (battery)
+	local f = io.open('/sys/class/power_supply/' .. battery .. '/status')
+	if f == nil then return false end
+	local o = f:read()
+	f:close()
+	return string.find(o, 'Full')
+end
+
 local acpi_battery_percent = function (battery)
 	local now  = io.open('/sys/class/power_supply/' .. battery .. '/energy_now') or
 		     io.open('/sys/class/power_supply/' .. battery .. '/charge_now')
@@ -155,7 +163,7 @@ local properties = {
 	"battery", "adapter", "width", "height", "peg_top",
 	"peg_height", "peg_width", "stroke_width",
 	"font", "critical_level",
-	"normal_color", "charging_color", "critical_color"
+	"normal_color", "charging_color", "critical_color", "fully_charged_color"
 }
 
 function assault.draw (assault, wibox, cr, width, height)
@@ -177,7 +185,9 @@ function assault.draw (assault, wibox, cr, width, height)
 	local draw_color = color(data[assault].normal_color)
 	if acpi_battery_is_present(data[assault].battery) then
 		if acpi_battery_is_charging(data[assault].battery) then
-			draw_color = color(data[assault].charging_color)
+      draw_color = color(data[assault].charging_color)
+    elseif acpi_battery_is_fully_charged(data[assault].battery) then 
+      draw_color = color(data[assault].fully_charged_color)
 		elseif percent <= data[assault].critical_level then
 			draw_color = color(data[assault].critical_color)
 		end
@@ -230,6 +240,7 @@ function assault.new (args)
 	local normal_color = args.normal_color or beautiful.fg_normal
 	local critical_color = args.critical_color or "#ff0000"
 	local charging_color = args.charging_color or "#00ff00"
+  local fully_charged_color = args.fully_charged_color or "#ffff00"
 	local timeout = args.timeout or 30
 
 	args.type = "imagebox"
@@ -252,6 +263,7 @@ function assault.new (args)
 		normal_color = normal_color,
 		critical_color = critical_color,
 		charging_color = charging_color,
+    fully_charged_color = fully_charged_color,
 		timeout = timeout,
 	}
 

@@ -148,6 +148,7 @@ myassault = assault({
   -- need to update these if replacing hardware
   -- too costly to automate
   battery = "BAT0",
+  timeout = 1,
   adapter = "AC",
   width = 25,
   stroke_width = 1,
@@ -159,18 +160,18 @@ myassault = assault({
   critical_level = 0.1,
   normal_color= "#FFFFFFFF",
   critical_color = "#ff0000",
-  charging_color = "#FFFFFFFF"
+  charging_color = "#0000FF",
+  fully_charged_color = "#ff0000"
 })
 
 -- }}}
 
 -- {{{ TAGS
 -- Define a tag table which hold all screen tags.
-tags1 = {}
-tags2 = {}
+tags = {}
 for s = 1, screen.count() do
   -- Each screen has its own tag table.
-  tags2[s] = awful.tag({
+  tags[s] = awful.tag({
     "1.",
     "2.",
     "3.",
@@ -181,14 +182,6 @@ for s = 1, screen.count() do
     "8.",
     "9.",
     "10.",
-  }, s, layouts[1])
-  tags1[s] = awful.tag({
-    "1.",
-    "2.",
-    "3.",
-    "4.",
-    "5.",
-    "6.",
   }, s, layouts[1])
   end
 -- }}}
@@ -219,11 +212,9 @@ app_folders = { "/usr/share/applications/", "~/.local/share/applications/" }
 
 -- Create a wibox for each screen and add it
 mywibox = {}
-mywibox2 = {}
 mypromptbox = {}
 mylayoutbox = {}
 taglist = {}
-taglist2 = {}
 taglist.buttons = awful.util.table.join(
                     awful.button({ }, 1, awful.tag.viewonly),
                     awful.button({ modkey }, 1, awful.client.movetotag),
@@ -268,31 +259,29 @@ tasklist.buttons = awful.util.table.join(
   end)
 )
 
-function filterForWibox (n)
-  if n == 1 then     return function (tag) return tag.index >  10 end
-  elseif n == 2 then return function (tag) return tag.index <= 10  end
-  end
+function filterForWibox ()
+  return function (tag) return true end
 end
 
 for s = 1, screen.count() do
     local height = "26"
 
     mypromptbox[s] = awful.widget.prompt()
-    taglist[s] = awful.widget.taglist(s, filterForWibox(1), taglist.buttons)
-    taglist2[s] = awful.widget.taglist(s, filterForWibox(2), taglist.buttons)
+    taglist[s] = awful.widget.taglist(s, filterForWibox(), taglist.buttons)
     tasklist[s] = awful.widget.tasklist(s, awful.widget.tasklist.filter.currenttags, tasklist.buttons)
     mywibox[s] = awful.wibar({ position = "top", height = height, screen = s })
 
     local left_layout = wibox.layout {
       taglist[s],
       mypromptbox[s],
+      tasklist[s],
       layout = wibox.layout.fixed.horizontal()
     }
 
     local right_layout = wibox.layout {
       power_widget,
-      heatmon_widget,
       myassault,
+      heatmon_widget,
       kbdswitcher_widget,
       textclock,
       layout = wibox.layout.fixed.horizontal()
@@ -306,14 +295,6 @@ for s = 1, screen.count() do
     }
 
     mywibox[s].widget = layout
-
-    mywibox2[s] = awful.wibar({ position = "top", height = height, screen = s })
-    mywibox2[s].widget = wibox.layout {
-      taglist2[s],
-      tasklist[s],
-      nil,
-      layout = wibox.layout.align.horizontal(),
-    }
 end
 -- }}}
 
@@ -437,12 +418,12 @@ function moveToTag(client, operation)
     local currentTagNumber = awful.screen.focused().selected_tag.index
     if (operation > 0) then
       -- TAGS
-      local nextTagNumber = (currentTagNumber < 14) and currentTagNumber + operation or 1
+      local nextTagNumber = (currentTagNumber < 10) and currentTagNumber + operation or 1
       local nextTag = client.focus.screen.tags[nextTagNumber]
       client.focus:move_to_tag(nextTag)
     else
       -- TAGS
-      local nextTagNumber = (currentTagNumber > 1) and currentTagNumber + operation or 14
+      local nextTagNumber = (currentTagNumber > 1) and currentTagNumber + operation or 10
       local nextTag = client.focus.screen.tags[nextTagNumber]
       client.focus:move_to_tag(nextTag)
     end
@@ -456,7 +437,7 @@ globalkeys = awful.util.table.join(globalkeys,
     awful.key({ modkey, "Control" }, "-", function () useless_gaps_resize(-2) end),
     -- }}}
     -- {{{ Rename tag
-    awful.key({ modkey, "Shift",  }, "b",    function ()
+    awful.key({ modkey, "Shift",  }, "m",    function ()
       awful.prompt.run(
         { prompt = "Name tab: ", text = tostring(awful.tag.selected().index) .. "." , },
         mypromptbox[mouse.screen.index].widget,
@@ -656,50 +637,6 @@ for i = 1, 10 do
                   end))
 end
 
--- TAGS F1 F2 F3 F4 F5 F6
-for i = 11, 16 do
-    local x = i - 10
-    globalkeys = awful.util.table.join(globalkeys,
-        -- View tag only.
-        awful.key({ modkey }, "F" .. x,
-                  function ()
-                        local screen = mouse.screen
-                        local tag = screen.tags[i]
-                        if tag then
-                          tag:view_only()
-                        end
-                  end),
-        -- Toggle tag.
-        awful.key({ modkey, "Control" }, "F" .. x,
-                  function ()
-                      local screen = mouse.screen
-                      local tag = screen.tags[i]
-                      if tag then
-                         awful.tag.viewtoggle(tag)
-                      end
-                  end),
-        -- Move client to tag.
-        awful.key({ modkey, "Shift" }, "F" .. x,
-                  function ()
-                      if client.focus then
-                          local tag = client.focus.screen.tags[i]
-                          if tag then
-                              client.focus:move_to_tag(tag)
-                          end
-                     end
-                  end),
-        -- Toggle tag.
-        awful.key({ modkey, "Control", "Shift" }, "F" .. x,
-                  function ()
-                      if client.focus then
-                          local tag = client.focus.screen.tags[i]
-                          if tag then
-                              awful.client.toggletag(tag)
-                          end
-                      end
-                  end))
-end
-
 clientbuttons = awful.util.table.join(
     awful.button({ }, 1, function (c) client.focus = c; c:raise() end),
     awful.button({ modkey }, 1, awful.mouse.client.move),
@@ -758,6 +695,8 @@ awful.rules.rules = {
    --   properties = { tag = tags1[1][4] , switchtotag=true } },
    -- { rule = { class = "Pavucontrol" },
    --   properties = { tag = tags1[1][4] , switchtotag=true } },
+   { rule = { class = "chromium" },
+   properties = { maximized = false } },
 }
 -- }}}
 
