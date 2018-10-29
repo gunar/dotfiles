@@ -94,3 +94,9 @@ yaourt --noconfirm -Syy autokey-py3
 sudo pacman -Syy filezilla
 sudo pacman -Syy inkscape
 yaourt --noconfirm -Syy shutter
+yaourt --noconfirm -Syy postman
+yaourt --noconfirm -Syy flameshot
+sudo pacman -Syy docker docker-compose
+yaourt --noconfirm -Syy ttf-twemoji-color
+sudo pacman -Syy mlocate
+yaourt --noconfirm -Syy up
