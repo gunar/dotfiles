@@ -482,8 +482,9 @@ globalkeys = awful.util.table.join(globalkeys,
     awful.key({ modkey, "Control" }, "o", function () awful.spawn("chromium --disk-cache-dir=/tmp/cache --profile-directory=\"Profile 1\"") end),
     awful.key({ modkey,           }, ".", function () awful.spawn("chromium --disk-cache-dir=/tmp/cache --profile-directory=Default https://web.telegram.org") end),
     -- awful.key({                   }, "Print",       function () awful.spawn("xfce4-screenshooter") end),
-    awful.key({                   }, "Print",       function () awful.spawn("shutter") end),
-    awful.key({ modkey,           }, "Print",       function () awful.spawn(terminal.." -e /home/gcg/dotfiles/scripts/clipboardImageToCloudApp.rb") end),
+    -- screenshot
+    awful.key({                   }, "Print",       function () awful.spawn("flameshot gui") end),
+    -- awful.key({ modkey,           }, "Print",       function () awful.spawn(terminal.." -e /home/gcg/dotfiles/scripts/clipboardImageToCloudApp.rb") end),
     awful.key({ modkey, "Control" }, "m", function () awful.spawn("xfce4-taskmanager") end),
     -- }}}
     awful.key({ modkey,           }, "Left",   awful.tag.viewprev       ),
@@ -836,5 +837,7 @@ awful.spawn.with_shell("killall compton ; compton -b")
 awful.spawn.with_shell("lxsession 2>/dev/null &")
 awful.spawn.with_shell("pulseaudio --start")
 awful.spawn.with_shell("xautolock -corners 0+0- -time 5 -locker ~/dotfiles/manjaro/lock.sh -detectsleep")
-awful.spawn.with_shell("setxkbmap -layout gunar -variant ext")
+awful.spawn.with_shell("setxkbmap -layout us")
+awful.spawn.with_shell("setxkbmap -option compose:ralt")
+awful.spawn.with_shell("flameshot")
 muteMic()
