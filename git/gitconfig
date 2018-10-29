@@ -63,7 +63,7 @@
   # br       = for-each-ref --sort=committerdate --format='%(HEAD) %(color:yellow)%(refname:short)%(color:reset) - %(color:red)%(objectname:short)%(color:reset) - %(contents:subject) - %(authorname) (%(color:green)%(committerdate:relative)%(color:reset))'
   # bugs     = checkout bugs
   # cherry   = cherry-pick
-  cm       = commit -m
+  cm       = commit -m -v
   co       = checkout
   cor       = "!cor() { git fetch && git co $1 && git reset --hard origin/$1; }; cor"
   # d        = diff --word-diff
@@ -80,6 +80,8 @@
   master   = checkout master
   bkp      = "!bkp() { cur_branch=`git branch | grep '* ' | tr -d '* '` ; git branch -D bkp-$cur_branch 2>/dev/null; git branch bkp-$cur_branch; }; bkp"
   bkpo      = "!bkpo() { cur_branch=`git branch | grep '* ' | tr -d '* '` ; git branch -D bkp-origin-$cur_branch ; git checkout -b bkp-origin-$cur_branch ; git reset --hard origin/$cur_branch; git co $cur_branch; }; bkpo"
+  # re: recent branches
+  re = "for-each-ref --sort=-committerdate refs/heads/ --format='%(HEAD) %(color:yellow)%(refname:short)%(color:reset) (%(color:green)%(committerdate:relative)%(color:reset)) - %(contents:subject) - %(authorname)'"
   # rcb: reset current branch (from origin)
   rcb      = "!rcb() { cur_branch=`git branch | grep '* ' | tr -d '* '` ; git fetch; git reset --hard origin/$cur_branch; }; rcb"
   # conflicts
