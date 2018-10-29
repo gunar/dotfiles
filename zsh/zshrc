@@ -38,6 +38,7 @@ alias ga='git add'
 alias gp='git push'
 alias gpf='git push --force-with-lease'
 alias gcm='git commit -m'
+alias gc='git commit -v'
 alias gcam='git commit -a -m'
 alias gst='git status'
 alias griom='git rebase -i origin/master'
@@ -51,6 +52,7 @@ gitinv() {
   fi
   cd $1
 }
+alias gh="chromium \`git remote -v | grep fetch | head -1 | cut -f2 | cut -d' ' -f1 | sed -e's/git@/http:\/\//' -e's/\.git$//' | sed -E 's/(\/\/[^:]*):/\1\//'\`"
 alias pr='hub pull-request'
 alias n='nvim'
 alias nn='f -e nvim'
@@ -98,6 +100,11 @@ tmp() {
   cd /tmp
   mkd $RANDOM
   npm init --yes
+}
+clonetmp() {
+  cd /tmp
+  mkd $RANDOM
+  git clone $* .
 }
 cc() { readlink -f $1 | c }
 alias ng='killall ngrok 2>/dev/null;ngrok http -subdomain=gunar 3000 >/dev/null &!'
@@ -176,13 +183,6 @@ if [[ $TERM == xterm-termite ]]; then
   __vte_osc7
 fi
 
-# tabtab source for serverless package
-# uninstall by removing these lines or running `tabtab uninstall serverless`
-[[ -f /home/gcg/.config/yarn/global/node_modules/tabtab/.completions/serverless.zsh ]] && . /home/gcg/.config/yarn/global/node_modules/tabtab/.completions/serverless.zsh
-# tabtab source for sls package
-# uninstall by removing these lines or running `tabtab uninstall sls`
-[[ -f /home/gcg/.config/yarn/global/node_modules/tabtab/.completions/sls.zsh ]] && . /home/gcg/.config/yarn/global/node_modules/tabtab/.completions/sls.zsh
-
 # vi mode
 bindkey -v
 bindkey '^P' up-history
@@ -222,6 +222,14 @@ function call-gst {
 }
 zle -N call-gst
 bindkey "^[s" call-gst
+# alt+s for "git diff"
+function call-gd {
+  zle accept-line
+  echo ""
+  gd
+}
+zle -N call-gd
+bindkey "^[d" call-gd
 
 # fasd ---------------
 #
