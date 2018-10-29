@@ -26,6 +26,11 @@ NeoBundleFetch 'Shougo/neobundle.vim'
 
 NeoBundle 'Shougo/deoplete.nvim'
 
+" TypeScript --- {{{
+  NeoBundle 'HerringtonDarkholme/yats.vim'
+  NeoBundle 'mhartington/nvim-typescript', {'build': './install.sh && yarn global add neovim'}
+" --- }}}
+
 " Clojure
 "  Syntax Indent Completion
 NeoBundle 'guns/vim-clojure-static'
