@@ -171,7 +171,7 @@ eval $(dircolors ~/.dircolors)
 # imagemagik aliases
 shadow() {
   # http://www.imagemagick.org/script/command-line-options.php?#shadow
-  convert $2 \( -clone 0 -background black -shadow 60x4+0+0 \) -reverse -background none -layers merge +repage $2
+  convert $1 \( -clone 0 -background black -shadow 60x4+0+0 \) -reverse -background none -layers merge +repage $2
 }
 mergepdf() {
   gs -dBATCH -dNOPAUSE -q -sDEVICE=pdfwrite -sOutputFile=$1 $2 $3 $4 $5
