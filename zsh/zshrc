@@ -299,6 +299,7 @@ alias keys='xmodmap -pke|less'
 alias np='n -c :Unite\ -no-split\ -buffer-name=files\ -start-insert\ -ignorecase\ -force-redraw\ file_rec/neovim'
 alias dotf='cd ~/dotfiles'
 function dox() {
+  cd ~/Downloads
   teensy-loader-cli -v -w -mmcu=atmega32u4 $(ls -t1 *.hex|head -1)
 }
 
