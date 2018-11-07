@@ -45,6 +45,8 @@ alias griom='git rebase -i origin/master'
 alias gd='git diff --minimal'
 alias gdc='git diff --cached'
 alias master='git co master&&g rcb'
+# git delete merged branches
+alias gdmb="git branch --merged | grep -Ev '(^\*|master)' | xargs git branch -d"
 gitinv() {
   cd ~/inv/repos/
   if [ ! -d "$1" ]; then
