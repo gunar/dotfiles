@@ -100,3 +100,5 @@ sudo pacman -Syy docker docker-compose
 yaourt --noconfirm -Syy ttf-twemoji-color
 sudo pacman -Syy mlocate
 yaourt --noconfirm -Syy up
+sudo pacman -Syy colordiff
+yaourt --noconfirm -Syy warsaw-bin
