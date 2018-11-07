@@ -173,6 +173,31 @@ shadow() {
   # http://www.imagemagick.org/script/command-line-options.php?#shadow
   convert $1 \( -clone 0 -background black -shadow 60x4+0+0 \) -reverse -background none -layers merge +repage $2
 }
+orb() {
+  MASK=/tmp/mask$RANDOM.png
+  INPUT=$1
+  OUT=$2
+  W=400
+  H=400
+  SIZE=$W\x$H
+
+  let "CX = $W / 2"
+  let "CY = $H / 2"
+  RESIZED=/tmp/resized$RANDOM.png
+
+  # Create the round mask 
+  convert -size $SIZE xc:black -fill white -draw "circle $CX,$CY $CX,0" $MASK
+
+  # Resize original image
+  convert $INPUT -resize $SIZE $RESIZED
+
+  # cut the mask shape out of the image 
+  convert $RESIZED $MASK -alpha Off -compose CopyOpacity -composite $OUT
+  # composite -compose dst-out $MASK $INPUT -matte $OUT
+
+  rm $MASK
+  rm $RESIZED
+}
 mergepdf() {
   gs -dBATCH -dNOPAUSE -q -sDEVICE=pdfwrite -sOutputFile=$1 $2 $3 $4 $5
 }
