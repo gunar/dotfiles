@@ -102,3 +102,8 @@ sudo pacman -Syy mlocate
 yaourt --noconfirm -Syy up
 sudo pacman -Syy colordiff
 yaourt --noconfirm -Syy warsaw-bin
+yaourt --noconfirm -Syy ttf-emojione-color
+yaourt --noconfirm -Syy ttf-emojione
+yaourt --noconfirm -Syy ibus-uniemoji
+sudo pacman -Syy ibus
+sudo pacman -Syy ibus-qt

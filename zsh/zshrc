@@ -393,3 +393,8 @@ alias compose="less /usr/share/X11/locale/en_US.UTF-8/Compose"
 alias us="setxkbmap us"
 alias shot="flameshot gui"
 alias up="TERM=xterm up"
+
+# IBus for ibus-uniemoji
+export GTK_IM_MODULE=ibus
+export XMODIFIERS=@im=ibus
+export QT_IM_MODULE=ibus
