@@ -476,6 +476,8 @@ globalkeys = awful.util.table.join(globalkeys,
     awful.key({ modkey, "Control", "Shift" }, "Right", function () brightness("-set 100") end),
     -- }}}https://open.spotify.com/track/2YM0kfevj552icN9DisbT9
     -- {{{ Software
+    -- switch bluetooth edifier profile
+    awful.key({ modkey,           }, "Print",       function () awful.spawn.with_shell("/home/gcg/dotfiles/scripts/blueswitch.sh") end),
     awful.key({ modkey,           }, "e", function () awful.spawn("thunar") end),
     awful.key({ "Control"         }, "q", function () awful.spawn("catfish") end),
     awful.key({ modkey,           }, "o", function () awful.spawn("chromium --disk-cache-dir=/tmp/cache --profile-directory=Default") end),
