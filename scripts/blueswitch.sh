@@ -3,7 +3,6 @@
 # CLI options:  `a2dp': Audio Profile
 #               `hsp':  Telephony Profile
 #               <Index> Default Sink (try `0' or `1')
-set +v
 SINK=$( pacmd list-cards | grep -B 1 bluez )
 INDEX=${SINK:10:2}
 SINK=$( pacmd list-cards | grep bluez )
@@ -16,7 +15,7 @@ CURRENT=$( pacmd list-cards | grep -oP "(a2dp_sink|headset_head_unit)" | head -n
 function move_all {
   sink=$1
 
-  sleep 1 # pulseaudio is quite slow sometimes...
+  sleep .5 # pulseaudio is quite slow sometimes...
 
   pacmd list-source-outputs | grep index | while read line
   do
@@ -27,15 +26,15 @@ function move_all {
   done
 }
 
-if echo $CURRENT|grep headset_head_unit; then
-  echo "Setting to High Quality mode"
+if echo $CURRENT|grep --quiet headset_head_unit; then
+  echo "🎹🎹🎹🎹 Music mode 🎹🎹🎹🎹"
   pacmd set-card-profile $INDEX a2dp_sink
-  pacmd set-default-sink $BT_SINK
+  # pacmd set-default-sink $BT_SINK
 
   move_all alsa_input.pci-0000_00_1f.3.analog-stereo
 
-elif echo $CURRENT|grep a2dp_sink; then
-  echo "Setting to Phone mode"
+elif echo $CURRENT|grep --quiet a2dp_sink; then
+  echo "🤙🤙🤙🤙 Call mode 🤙🤙🤙🤙"
   pacmd set-card-profile $INDEX headset_head_unit
   # pacmd set-default-sink $BT_SINK
   # pacmd set-default-source $BT_SOURCE.headset_head_unit
