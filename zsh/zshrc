@@ -394,6 +394,7 @@ alias serve="ifconfig | grep -A1 wlp4s0|grep -o '[0-9]\+\.[0-9]\+\.[0-9]\+\.[0-9
 alias servelive="browser-sync start -s -f . --no-notify --host 0.0.0.0 --port 9000&&chromium http://0.0.0.0:9000"
 alias compose="less /usr/share/X11/locale/en_US.UTF-8/Compose"
 alias us="setxkbmap us"
+alias de="setxkbmap de"
 alias shot="flameshot gui"
 alias up="TERM=xterm up"
 
@@ -401,3 +402,6 @@ alias up="TERM=xterm up"
 export GTK_IM_MODULE=ibus
 export XMODIFIERS=@im=ibus
 export QT_IM_MODULE=ibus
+
+# Postgres
+alias pg="psql -h localhost -p 5432 -U postgres postgres"
