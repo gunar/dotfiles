@@ -1,13 +1,12 @@
 [Unit]
-Description=Redshift
+Description=Redshift display colour temperature adjustment
+Documentation=http://jonls.dk/redshift/
 After=network.target display-manager.service
 
 [Service]
-Type=idle
 ExecStart=/usr/bin/redshift
 Restart=always
 Environment=DISPLAY=:0
-User=gcg
 
 [Install]
 WantedBy=multi-user.target

@@ -107,3 +107,9 @@ yaourt --noconfirm -Syy ttf-emojione
 yaourt --noconfirm -Syy ibus-uniemoji
 sudo pacman -Syy ibus
 sudo pacman -Syy ibus-qt
+sudo pacman -Syy anki
+sudo pacman -Syy pgadmin4
+sudo pacman -Syy tor
+yaourt --noconfirm -Syy tor-browser
+sudo pacman -Syy shellcheck
+yaourt --noconfirm -Syy ladspa-bs2b
