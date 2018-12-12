@@ -113,3 +113,6 @@ sudo pacman -Syy tor
 yaourt --noconfirm -Syy tor-browser
 sudo pacman -Syy shellcheck
 yaourt --noconfirm -Syy ladspa-bs2b
+yaourt --noconfirm -Syy parcel-bundler
+sudo pacman -Syy fish
+yaourt --noconfirm -Syy debtap
