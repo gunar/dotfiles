@@ -320,7 +320,7 @@ function ed { # Edifier
 function edoff { # Edifier
   blue disconnect 04:FE:A1:E8:D9:20
 }
-alias edsw='~/dotfiles/scripts/blueswitch.sh'
+alias blueswitch='~/dotfiles/scripts/blueswitch.sh'
 
 
 alias keys='xmodmap -pke|less'
@@ -397,6 +397,7 @@ alias us="setxkbmap us"
 alias de="setxkbmap de"
 alias shot="flameshot gui"
 alias up="TERM=xterm up"
+alias parcelify="parcel build --target=node --bundle-node-modules"
 
 # IBus for ibus-uniemoji
 export GTK_IM_MODULE=ibus
