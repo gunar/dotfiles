@@ -76,6 +76,7 @@
   # last-tag = !"git describe --tags `git rev-list --tags --max-count=1`"
   lg       = log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr)%Creset' --abbrev-commit --decorate
   lp       = log -p -w
+  pick     = cherry-pick
   # m        = merge --no-ff
   master   = checkout master
   bkp      = "!bkp() { cur_branch=`git branch | grep '* ' | tr -d '* '` ; git branch -D bkp-$cur_branch 2>/dev/null; git branch bkp-$cur_branch; }; bkp"
