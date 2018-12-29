@@ -96,3 +96,6 @@ cmap w!! w !sudo tee > /dev/null %
 if has('mouse')
 set mouse=a
 endif
+
+" fix for `parcel serve`
+set backupcopy=yes

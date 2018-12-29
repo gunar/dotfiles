@@ -324,7 +324,8 @@ alias blueswitch='~/dotfiles/scripts/blueswitch.sh'
 
 
 alias keys='xmodmap -pke|less'
-alias np='n -c :Unite\ -no-split\ -buffer-name=files\ -start-insert\ -ignorecase\ -force-redraw\ file_rec/neovim'
+alias np='n -c :Denite\ -no-split\ -buffer-name=files\ -ignorecase\ file/rec'
+
 alias dotf='cd ~/dotfiles'
 function dox() {
   cd ~/Downloads

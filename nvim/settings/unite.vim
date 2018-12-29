@@ -1,35 +1,101 @@
-" let g:unite_data_directory='~/.nvim/.cache/unite'
-let g:unite_source_history_yank_enable=1
-let g:unite_prompt='» '
-let g:unite_source_rec_async_command =['ag', '--follow', '--nocolor', '--nogroup','--hidden', '-g', '', '--ignore', '.git', '--ignore', '*.png', '--ignore', 'node_modules', '--ignore', 'yarn.lock']
+" let g:denite_data_directory='~/.nvim/.cache/denite'
+" let g:denite_source_history_yank_enable=1
+" let g:denite_prompt='» '
 
-" call unite#custom#source('file_rec/neovim', 'max_candidates', 300)
-call unite#custom#source('file_rec/neovim', 'matchers', ['converter_relative_word', 'matcher_fuzzy'])
-call unite#custom#source('file_rec/neovim', 'sorters', 'sorter_rank')
+" nnoremap <silent> <c-p> :Denite -auto-resize -start-insert -direction=botright -ignorecase file_rec/neovim<CR>
+nnoremap <silent> <c-p> :Denite -no-split -buffer-name=files -ignorecase file/rec<cr>
+" -start-insert -force-redraw
+nnoremap <silent> <leader>c :Denite -auto-resize -start-insert -direction=botright colorscheme<CR>
 
-" nnoremap <silent> <c-p> :Unite -auto-resize -start-insert -direction=botright -ignorecase file_rec/neovim<CR>
-nnoremap <silent> <c-p> :Unite -no-split -buffer-name=files -start-insert -ignorecase -force-redraw file_rec/neovim<cr>
-nnoremap <silent> <leader>c :Unite -auto-resize -start-insert -direction=botright colorscheme<CR>
-nnoremap <silent> <leader>u :Unite neobundle/update<CR>
 
-" Custom mappings for the unite buffer
-augroup spelling
-  autocmd!
-  autocmd FileType unite call s:unite_settings()
-augroup END
+	" Change file/rec command.
+	call denite#custom#var('file/rec', 'command',
+	\ ['ag', '--follow', '--nocolor', '--nogroup','--hidden', '-g', '', '--ignore', '.git', '--ignore', '*.png', '--ignore', 'node_modules', '--ignore', 'yarn.lock'])
 
-function! s:unite_settings() "{{{
-  " Enable navigation with control-j and control-k in insert mode
-  imap <buffer> <C-j>   <Plug>(unite_select_next_line)
-  imap <buffer> <C-k>   <Plug>(unite_select_previous_line)
-endfunction "}}}
+	" Change mappings.
+	call denite#custom#map(
+	      \ 'insert',
+	      \ '<C-j>',
+	      \ '<denite:move_to_next_line>',
+	      \ 'noremap'
+	      \)
+	call denite#custom#map(
+	      \ 'insert',
+	      \ '<C-k>',
+	      \ '<denite:move_to_previous_line>',
+	      \ 'noremap'
+	      \)
 
-" Git from unite...ERMERGERD ------------------------------------------------{{{
-let g:unite_source_menu_menus = {} " Useful when building interfaces at appropriate places
-let g:unite_source_menu_menus.git = {
+	" Change matchers.
+	call denite#custom#source(
+	\ 'file_mru', 'matchers', ['matcher/fuzzy', 'matcher/project_files'])
+	" \ 'file_mru', 'matchers', ['matcher/fuzzy', 'matcher/project_files', 'converter_relative_word'])
+
+	" Change sorters.
+	call denite#custom#source(
+	\ 'file/rec', 'sorters', ['sorter/sublime'])
+
+	" Add custom menus
+	" let s:menus = {}
+  "
+	" let s:menus.zsh = {
+	" 	\ 'description': 'Edit your import zsh configuration'
+	" 	\ }
+	" let s:menus.zsh.file_candidates = [
+	" 	\ ['zshrc', '~/.config/zsh/.zshrc'],
+	" 	\ ['zshenv', '~/.zshenv'],
+	" 	\ ]
+  "
+	" let s:menus.my_commands = {
+	" 	\ 'description': 'Example commands'
+	" 	\ }
+	" let s:menus.my_commands.command_candidates = [
+	" 	\ ['Split the window', 'vnew'],
+	" 	\ ['Open zsh menu', 'Denite menu:zsh'],
+	" 	\ ]
+  "
+	" call denite#custom#var('menu', 'menus', s:menus)
+
+	" Ag command on grep source
+	call denite#custom#var('grep', 'command', ['ag'])
+	call denite#custom#var('grep', 'default_opts',
+			\ ['-i', '--vimgrep'])
+	call denite#custom#var('grep', 'recursive_opts', [])
+	call denite#custom#var('grep', 'pattern_opt', [])
+	call denite#custom#var('grep', 'separator', ['--'])
+	call denite#custom#var('grep', 'final_opts', [])
+
+	" Change default prompt
+	call denite#custom#option('default', 'prompt', '» ')
+
+	" " Change ignore_globs
+	" call denite#custom#filter('matcher/ignore_globs', 'ignore_globs',
+	"       \ [ '.git/', '.ropeproject/', '__pycache__/',
+	"       \   'venv/', 'images/', '*.min.*', 'img/', 'fonts/'])
+
+
+
+" TODO NOT WORKING
+" " Custom mappings for the denite buffer
+" augroup spelling
+"   autocmd!
+"   autocmd FileType denite call s:denite_settings()
+" augroup END
+" function! s:denite_settings() "{{{
+"   " enable navigation with control-j and control-k in insert mode
+"   " not working
+" "   imap <buffer> <c-j>   <plug>(denite:move_to_next_line)
+" "   imap <buffer> <c-k>   <plug>(denite:move_to_previous_line)
+" endfunction "}}}
+" call denite#custom#map('insert', '<C-j>', '<denite:move_to_next_line>', 'noremap')
+" call denite#custom#map('insert', '<C-k>', '<denite:move_to_previous_line>', 'noremap')
+
+" Git from denite...ERMERGERD ------------------------------------------------{{{
+let g:denite_source_menu_menus = {} " Useful when building interfaces at appropriate places
+let g:denite_source_menu_menus.git = {
       \ 'description' : 'Fugitive interface',
       \}
-let g:unite_source_menu_menus.git.command_candidates = [
+let g:denite_source_menu_menus.git.command_candidates = [
       \[' git status', 'Gstatus'],
       \[' git diff', 'Gvdiff'],
       \[' git commit', 'Gcommit'],
@@ -58,6 +124,6 @@ let g:unite_source_menu_menus.git.command_candidates = [
       \[' git grep',  'exe "Ggrep " input("string: ")'],
       \[' git prompt', 'exe "Git! " input("command: ")'],
       \] " Append ' --' after log to get commit info commit buffers
-nnoremap <silent> <Leader>g :Unite -direction=botright -silent -buffer-name=git -start-insert menu:git<CR>
+nnoremap <silent> <Leader>g :Denite -direction=botright -silent -buffer-name=git -start-insert menu:git<CR>
 "}}}
 map <leader>a :Ag<CR>
