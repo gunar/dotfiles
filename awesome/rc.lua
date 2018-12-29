@@ -454,7 +454,7 @@ globalkeys = awful.util.table.join(globalkeys,
     end),
     -- }}}
     --- {{{ Switcher
-    awful.key({ modkey }, "+", revelation),
+    awful.key({ modkey }, "=", revelation),
     --- }}}
     -- {{{ Spotify 
     awful.key({ modkey }, "s", sendToSpotify("PlayPause")), --  XF86AudioPlay
