@@ -5,6 +5,11 @@ ZSH_THEME="agnoster"
 HIST_STAMPS="yyyy-mm-dd"
 plugins=(cloudapp jump heroku)
 
+# infinite .zsh_history
+export HISTSIZE=1000000000
+export SAVEHIST=$HISTSIZE
+setopt EXTENDED_HISTORY
+
 export PATH="/home/gcg/.gem/ruby/2.3.0/bin:/opt/android-sdk-linux/tools:/opt/android-sdk-linux/platform-tools:/usr/local/sbin:/usr/local/bin:/usr/bin:/usr/lib/jvm/default/bin:/usr/bin/site_perl:/usr/bin/vendor_perl:/usr/bin/core_perl"
 export PATH="$PATH:./node_modules/.bin:../node_modules/.bin:../../node_modules/.bin:../../../node_modules/.bin:../../../../node_modules/.bin"
 
@@ -41,7 +46,7 @@ alias gcm='git commit -m'
 alias gc='git commit -v'
 alias gcam='git commit -a -m'
 alias gst='git status'
-alias griom='git rebase -i origin/master'
+alias griom='git pom&&git rebase -i origin/master'
 alias gd='git diff --minimal'
 alias gdc='git diff --cached'
 alias master='git co master&&g rcb'
@@ -73,6 +78,8 @@ alias won='nmcli r w on'
 alias woff='nmcli r w off'
 alias ww='watch nmcli d w'
 alias y='yarn'
+alias yy='yarn --ignore-scripts'
+alias yya='yarn --ignore-scripts add'
 alias ya='yarn add'
 alias t='npm test'
 m() {
@@ -87,6 +94,7 @@ m() {
 }
 alias tw='npm run test-watch'
 alias zshrc='nvim ~/.zshrc&&reload'
+alias gitconfig='nvim ~/.gitconfig'
 alias aa='ag --ignore yarn.lock'
 nrc() {
   cd ~/dotfiles/
@@ -407,3 +415,13 @@ export QT_IM_MODULE=ibus
 
 # Postgres
 alias pg="psql -h localhost -p 5432 -U postgres postgres"
+
+# gpg
+alias aes256="gpg --symmetric --cipher-algo aes256"
+
+alias mon="nodemon -e 'js jsx ts tsx sh json'"
+
+function sql {
+  # Usage: sql <heroku app name>
+  psql $(heroku config --app $1 | grep -E "^DATABASE_URL:" | cut -d':' -f2-)
+}
