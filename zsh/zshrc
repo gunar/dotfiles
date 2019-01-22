@@ -81,7 +81,9 @@ alias y='yarn'
 alias yy='yarn --ignore-scripts'
 alias yya='yarn --ignore-scripts add'
 alias ya='yarn add'
-alias t='npm test'
+alias yd='yarn dev'
+alias t='docker start pg;npm test;docker stop pg'
+alias cat='bat'
 m() {
   # mocha default path is test/mocha.opts
   file=$(readlink -f $1)
@@ -171,6 +173,7 @@ alias hlt='heroku logs --tail --remote production'
 alias hlts='heroku logs --tail --remote staging'
 alias hlst='heroku logs --tail --remote staging'
 alias hrel='heroku releases --remote production'
+alias h='heroku'
 alias sta='git push -f staging HEAD:master'
 
 export TERM=screen-256color-bce
@@ -299,7 +302,7 @@ fi
 
 # power settings
 # "upower -e" to find out your devices
-alias bat='upower -i /org/freedesktop/UPower/devices/battery_BAT0|grep -E "state|time\ to\ full|time\ to\ empty|percentage"'
+alias batt='upower -i /org/freedesktop/UPower/devices/battery_BAT0|grep -E "state|time\ to\ full|time\ to\ empty|percentage"'
 
 # start x if first tty1
 if [[ ! ${DISPLAY} && ${XDG_VTNR} == 1 ]]; then
@@ -425,3 +428,5 @@ function sql {
   # Usage: sql <heroku app name>
   psql $(heroku config --app $1 | grep -E "^DATABASE_URL:" | cut -d':' -f2-)
 }
+
+dockerprune='docker system prune -a --volumes'

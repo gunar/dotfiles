@@ -116,3 +116,6 @@ yaourt --noconfirm -Syy ladspa-bs2b
 yaourt --noconfirm -Syy parcel-bundler
 sudo pacman -Syy fish
 yaourt --noconfirm -Syy debtap
+yaourt --noconfirm -Syy bat
+sudo pacman -Syy siege
+sudo pacman -Syy shellcheck
