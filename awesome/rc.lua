@@ -113,7 +113,7 @@ local layouts =
 --    awful.layout.suit.spiral,
 --    awful.layout.suit.spiral.dwindle,
 --    awful.layout.suit.max,
-    awful.layout.suit.max.fullscreen,
+    -- awful.layout.suit.max.fullscreen,
 --    awful.layout.suit.magnifier
 }
 -- }}}
@@ -134,7 +134,7 @@ local refreshWallpaper = loadrc("wallpaper")
 -- }}}
 
 -- {{{ Widgets
-textclock = wibox.widget.textclock("%H:%M | %d ", 10)
+textclock = wibox.widget.textclock(" <span background=\"#332200\"> %H:%M🕑 </span> <span background=\"#332200\"> %d🌅 </span>", 10)
 
 require("widgets/heatmon")
 heatmon_widget = create_heatmon_widget()
