@@ -7,7 +7,7 @@ function update_power (widget)
   awful.spawn.easy_async_with_shell(cmd, function(stdout, stderr, reason, exit_code)
     local isPowerSave = exit_code > 0
     if isPowerSave then
-      widget.markup = "<span color=\"#FF0000\">powersave</span>"
+      widget.markup = "<span color=\"#FF0000\">⏾</span>"
     else
       widget.markup = ""
     end
