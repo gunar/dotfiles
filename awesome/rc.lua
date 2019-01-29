@@ -9,8 +9,6 @@ local beautiful = require("beautiful")
 local naughty = require("naughty")
 local menubar = require("menubar")
 
-local work = true
-
 -- {{{ Error handling
 -- Check if awesome encountered an error during startup and fell back to
 -- another config (This code will only ever execute for the fallback config)
@@ -189,11 +187,31 @@ for s = 1, screen.count() do
   end
 -- }}}
 
+local work = true
+local lastTag = 6
 function toggleTags()
   if work then work = false else work = true end
 
   updateTheme()
   updateTags()
+end
+
+function updateTags()
+  local currentTag = awful.screen.focused().selected_tag.index
+  for s = 1, screen.count() do
+    if work then
+      for t = 1, 10 do tags[s][t].activated = (t <= 5) end
+      tags[s][lastTag]:view_only()
+    else
+      for t = 1, 10 do tags[s][t].activated = (t > 5) end
+      tags[s][lastTag]:view_only()
+    end
+  end
+  lastTag = currentTag
+end
+-- Init
+for s = 1, screen.count() do
+  for t = 1, 10 do tags[s][t].activated = (t <= 5) end
 end
 
 function updateTheme()
@@ -220,20 +238,6 @@ function updateTheme()
 
   for s = 1, screen.count() do mywibox[s].bg = bg end
 end
-
-function updateTags()
-  for s = 1, screen.count() do
-    if work then
-      tags[s][1]:view_only()
-      for t = 1, 10 do tags[s][t].activated = (t <= 5) end
-    else
-      tags[s][6]:view_only()
-      for t = 1, 10 do tags[s][t].activated = (t > 5) end
-    end
-  end
-  awful.screen.focused().tags[1].selected = true
-end
-updateTags()
 
 -- {{{ Menu
 -- Create a laucher widget and a main menu
