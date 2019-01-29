@@ -119,3 +119,4 @@ yaourt --noconfirm -Syy debtap
 yaourt --noconfirm -Syy bat
 sudo pacman -Syy siege
 sudo pacman -Syy shellcheck
+sudo pacman -Syy mps-youtube
