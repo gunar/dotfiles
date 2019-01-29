@@ -5,21 +5,21 @@ local gears = require("gears")
 local beautiful = require("beautiful")
 local naughty = require('naughty')
 
-local ping = 0
+local pingMs = 0
 local speed = "X"
 
 local SPEED_AVERAGE_INTERVAL_IN_SECONDS = 3
 local PING_TIMEOUT_IN_SECONDS = 1
 
 function update(widget)
-  local _ping = "<span color=\"" .. (
-    (tonumber(ping) or 9999) < 150
-      and beautiful.tasklist_fg_normal
-      or "#ff6600"
-  ) .. "\">".. ping .. "🕐</span>"
-
-  widget.markup = "  <span color=\""..beautiful.tasklist_fg_normal.."\" background=\"" .. beautiful.tasklist_bg_focus .. "\">  " .. speed .. "  </span>" ..
-    "  <span color=\""..beautiful.tasklist_fg_normal.."\" background=\"" .. beautiful.tasklist_bg_focus .. "\">  " .. _ping .. "  </span>"
+  -- local color = beautiful.tasklist_fg_normal
+  local ping
+  if pingMs < 50 then ping = "😍"
+  elseif pingMs < 100 then ping = "😊"
+  elseif pingMs < 200 then ping = "😶"
+  else ping = "😭"
+  end
+  widget.markup = "  <span color=\""..beautiful.tasklist_fg_normal.."\" background=\"" .. beautiful.tasklist_bg_focus .. "\">  " .. speed ..  "  " .. ping .. "  </span>"
 end
 
 function pingUpdate (widget)
@@ -27,7 +27,7 @@ function pingUpdate (widget)
   "ping -c 1 8.8.8.8 -W " .. PING_TIMEOUT_IN_SECONDS .. "|head -n 2|tail -n 1|cut -d'=' -f4-|cut -d' ' -f1|cut -d'.' -f1",
   function(stdout, stderr, reason, exit_code)
     -- remove trailing newline chars
-    ping = string.sub(stdout, 0, -2)
+    pingMs = tonumber(string.sub(stdout, 0, -2))
     update(widget)
   end)
 end
