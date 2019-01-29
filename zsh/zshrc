@@ -429,4 +429,5 @@ function sql {
   psql $(heroku config --app $1 | grep -E "^DATABASE_URL:" | cut -d':' -f2-)
 }
 
-dockerprune='docker system prune -a --volumes'
+alias dockerprune='docker system prune -a --volumes'
+alias yt='mpsyt'
