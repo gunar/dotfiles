@@ -4,11 +4,8 @@ local cairo = require("lgi").cairo
 local awful = require("awful")
 awful.rules = require("awful.rules")
 require("awful.autofocus")
--- Widget and layout library
 local wibox = require("wibox")
--- Theme handling library
 local beautiful = require("beautiful")
--- Notification library
 local naughty = require("naughty")
 local menubar = require("menubar")
 
@@ -78,6 +75,8 @@ naughty.config.defaults['icon_size'] = 32
 -- {{{ Variable definitions
 -- Themes define colours, icons, font and wallpapers.
 beautiful.init(awful.util.getdir("config") .. "/" .. "themes/gunar/theme.lua")
+beautiful.tasklist_bg_focus  = "#FFFFFF33"
+beautiful.tasklist_fg_normal = "#FFFFFF"
 
 -- {{{ Useless gap
 beautiful.useless_gap = 10
@@ -134,7 +133,7 @@ local refreshWallpaper = loadrc("wallpaper")
 -- }}}
 
 -- {{{ Widgets
-textclock = wibox.widget.textclock(" <span background=\"#332200\"> %H:%M🕑 </span> <span background=\"#332200\"> %d🌅 </span>", 10)
+textclock = wibox.widget.textclock(" <span  color=\""..beautiful.tasklist_fg_normal.."\" background=\"" .. beautiful.tasklist_bg_focus .. "\"> %H:%M🕑 </span> <span background=\"" .. beautiful.tasklist_bg_focus .. "\"> %d🌅 </span>")
 
 require("widgets/heatmon")
 heatmon_widget = create_heatmon_widget()
@@ -192,7 +191,34 @@ for s = 1, screen.count() do
 
 function toggleTags()
   if work then work = false else work = true end
+
+  updateTheme()
   updateTags()
+end
+
+function updateTheme()
+  local theme = beautiful.get()
+  local bg = work and "#000000" or "#FFFFFF33"
+  local fg = work and "#FFFFFF" or "#000000"
+
+  theme.bg_normal              = bg
+  theme.bg_focus               = bg
+  theme.taglist_bg_empty       = bg
+  theme.taglist_bg_occupied    = bg
+  theme.titlebar_bg_normal     = bg
+  theme.titlebar_bg_focus      = bg
+  theme.fg_normal              = fg
+  theme.fg_focus               = fg
+  theme.taglist_fg_empty       = fg
+  theme.taglist_fg_occupied    = fg
+  theme.titlebar_fg_normal     = fg
+  theme.titlebar_fg_focus      = fg
+  beautiful.init(theme)
+
+  beautiful.tasklist_bg_normal = bg
+  beautiful.tasklist_fg_normal = fg
+
+  for s = 1, screen.count() do mywibox[s].bg = bg end
 end
 
 function updateTags()
@@ -633,11 +659,11 @@ clientkeys = awful.util.table.join(
 for i = 1, 5 do
   globalkeys = awful.util.table.join(globalkeys,
     -- View tag only.
-    awful.key({ modkey }, "#" .. i + 9, function () mouse.screen.tags[i + (work and 0 or 5)]:view_only() end),
+    awful.key({ modkey }, "#" .. i + 9, function () mouse.screen.tags[i]:view_only() end),
     -- Toggle tag.
-    awful.key({ modkey, "Control" }, "#" .. i + 9, function () awful.tag.viewtoggle(mouse.screen.tags[i + (work and 0 or 5)]) end),
+    awful.key({ modkey, "Control" }, "#" .. i + 9, function () awful.tag.viewtoggle(mouse.screen.tags[i]) end),
     -- Move client to tag.
-      awful.key({ modkey, "Shift" }, "#" .. i + 9, function () if client.focus then client.focus:move_to_tag(client.focus.screen.tags[i]) end end),
+    awful.key({ modkey, "Shift" }, "#" .. i + 9, function () if client.focus then client.focus:move_to_tag(client.focus.screen.tags[i]) end end),
     -- Toggle tag.
     awful.key({ modkey, "Control", "Shift" }, "#" .. i + 9, function () if client.focus then awful.client.toggletag(client.focus.screen.tags[i]) end end))
 end

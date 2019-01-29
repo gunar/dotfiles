@@ -1,6 +1,8 @@
+-- TODO Refactor as https://awesomewm.org/apidoc/classes/awful.widget.watch.html
 local awful = require("awful")
 local wibox = require("wibox")
 local gears = require("gears")
+local beautiful = require("beautiful")
 local naughty = require('naughty')
 
 local ping = 0
@@ -12,11 +14,12 @@ local PING_TIMEOUT_IN_SECONDS = 1
 function update(widget)
   local _ping = "<span color=\"" .. (
     (tonumber(ping) or 9999) < 150
-      and "#ffffff"
+      and beautiful.tasklist_fg_normal
       or "#ff6600"
   ) .. "\">".. ping .. "🕐</span>"
-  widget.markup = "  <span background=\"#332200\">  " .. speed .. "  </span>" ..
-    "  <span background=\"#332200\">  " .. _ping .. "  </span>"
+
+  widget.markup = "  <span color=\""..beautiful.tasklist_fg_normal.."\" background=\"" .. beautiful.tasklist_bg_focus .. "\">  " .. speed .. "  </span>" ..
+    "  <span color=\""..beautiful.tasklist_fg_normal.."\" background=\"" .. beautiful.tasklist_bg_focus .. "\">  " .. _ping .. "  </span>"
 end
 
 function pingUpdate (widget)

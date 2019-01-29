@@ -1,7 +1,3 @@
----------------------------
--- Default awesome theme --
----------------------------
-
 theme_path = os.getenv("HOME") .. "/.config/awesome/themes/gunar/"
 config_path = os.getenv("HOME") .. "/.config/awesome/"
 
@@ -14,7 +10,7 @@ theme.taglist_bg_empty      = "#000000FF"
 theme.taglist_bg_occupied   = "#000000FF"
 theme.taglist_bg_focus      = "#FFFFFFAA"
 
-theme.bg_focus      = "#00000022"
+theme.bg_focus      = "#FFFFFF33"
 theme.bg_urgent     = "#ff0000"
 theme.bg_minimize   = "#44444400"
 theme.bg_systray    = theme.bg_normal

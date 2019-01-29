@@ -1,3 +1,4 @@
+-- TODO Refactor as https://awesomewm.org/apidoc/classes/awful.widget.watch.html
 local awful = require("awful")
 local wibox = require("wibox")
 local gears = require('gears')
