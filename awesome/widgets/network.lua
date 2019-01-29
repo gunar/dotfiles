@@ -14,8 +14,9 @@ function update(widget)
     (tonumber(ping) or 9999) < 150
       and "#ffffff"
       or "#ff6600"
-  ) .. "\">".. ping .. "ms🕐</span>"
-  widget.markup = "  <span background=\"#332200\">  " .. speed .. " ┊ " .. _ping  .. "  </span>"
+  ) .. "\">".. ping .. "🕐</span>"
+  widget.markup = "  <span background=\"#332200\">  " .. speed .. "  </span>" ..
+    "  <span background=\"#332200\">  " .. _ping .. "  </span>"
 end
 
 function pingUpdate (widget)
