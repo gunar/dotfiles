@@ -23,6 +23,8 @@ export PATH="$PATH:$HOME/.config/yarn/global/node_modules/.bin"
 # costly call
 source $ZSH/oh-my-zsh.sh
 
+source /usr/share/zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh
+
 debug() {
   zsh -xv -i -c "print -n" 2>&1 | ts -i "%.s" > zsh_startup.log
   n zsh_startup.log
@@ -50,6 +52,10 @@ alias griom='git pom&&git rebase -i origin/master'
 alias gd='git diff --minimal'
 alias gdc='git diff --cached'
 alias master='git co master&&g rcb'
+# git interactive add
+alias gia="git status -s | sed s/^...// | ipt -m -M 'Select files to add:' | xargs git add"
+# git interactive show
+alias gis="git stash list | ipt -M 'Select stashed item to show:' --unquoted | cut -d ':' -f 1 | xargs git stash show -u"
 # git delete merged branches
 alias gdmb="git branch --merged | grep -Ev '(^\*|master)' | xargs git branch -d"
 gitinv() {
@@ -248,7 +254,7 @@ bindkey "^S" append-exit
 function call-ls {
   zle accept-line
   echo ""
-  ls
+  exa --long # ls
 }
 zle -N call-ls
 bindkey "^[l" call-ls
@@ -400,7 +406,6 @@ function goodnight() {
 
 alias win="/home/gcg/win/run.sh"
 alias mac="(cd /home/gcg/mac/ ; sudo ./boot-macOS-HS.sh)"
-function jj() { cat $1|json_pp|tee $1 }
 alias tv="rm .config/minidlna/cache/files.db;minidlnad -dR"
 alias serve="ifconfig | grep -A1 wlp4s0|grep -o '[0-9]\+\.[0-9]\+\.[0-9]\+\.[0-9]\+' | head -n 1 && python3 -m http.server"
 alias servelive="browser-sync start -s -f . --no-notify --host 0.0.0.0 --port 9000&&chromium http://0.0.0.0:9000"
@@ -431,3 +436,10 @@ function sql {
 
 alias dockerprune='docker system prune -a --volumes'
 alias yt='mpsyt'
+# alias ls='exa'
+
+# very fuzzy tab completion of filenames
+# https://stackoverflow.com/a/25556544
+# Need both of these, in this order (I think?)
+zstyle ':completion:*' matcher-list 'r:[[:ascii:]]||[[:ascii:]]=** r:|=* m:{a-z\-}={A-Z\_}'
+zstyle ':completion:*' matcher-list 'm:{a-z}={A-Z}' # match upper from lower case
