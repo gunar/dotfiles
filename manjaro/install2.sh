@@ -19,3 +19,4 @@ yarn global add degit
 yarn global add kindle-my-clippings
 yarn global add nodemon
 yarn global add surge
+yarn global add ipt

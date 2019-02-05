@@ -120,3 +120,7 @@ yaourt --noconfirm -Syy bat
 sudo pacman -Syy siege
 sudo pacman -Syy shellcheck
 sudo pacman -Syy mps-youtube
+sudo pacman -Syy exa
+sudo pacman -Syy jq
+yaourt --noconfirm -Syy jiq
+sudo pacman -Syy httpie
