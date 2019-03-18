@@ -36,6 +36,7 @@ vnoremap <Space> za
 
 set foldlevel=99
 set foldtext=MyFoldText()
+set foldmethod=syntax
 
 augroup fold
   autocmd!
