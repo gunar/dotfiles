@@ -70,6 +70,7 @@ alias pr='hub pull-request'
 alias n='nvim'
 alias nn='f -e nvim'
 alias nd='node -r ~/dotfiles/node'
+alias nt='nvim /tmp/$RANDOM'
 na () { n "+/\c$*" `ag --ignore yarn.lock -l "$*"` }
 nag () { n "+/\c$*" `ag --ignore yarn.lock -l "$*"` }
 nf () { n `find -name "$*" -not -path "./node_modules/*"` }
@@ -79,16 +80,19 @@ alias w='watch -n 0.5 --color'
 alias v='viewnior'
 alias c='xclip -selection clipboard'
 alias diff='colordiff'
+alias diffgh='diff -u'
 alias wr='nmcli r w off&&nmcli r w on'
 alias won='nmcli r w on'
 alias woff='nmcli r w off'
+alias wr='nmcli r w off&&nmcli r w on'
 alias ww='watch nmcli d w'
 alias y='yarn'
+alias yd='yarn dev'
 alias yy='yarn --ignore-scripts'
 alias yya='yarn --ignore-scripts add'
 alias ya='yarn add'
 alias yd='yarn dev'
-alias t='docker start pg;npm test;docker stop pg'
+alias t='docker start pg;yarn test:all;docker stop pg'
 alias cat='bat'
 m() {
   # mocha default path is test/mocha.opts
@@ -100,7 +104,7 @@ m() {
   [ -f "../../../../../mocha.opts" ] && (cd ../../../../../../ && mocha $file)
   [ -f "../../../../../../mocha.opts" ] && (cd ../../../../../../../ && mocha $file)
 }
-alias tw='npm run test-watch'
+alias tw='TS_NODE_FILES=true ts-mocha --watch'
 alias zshrc='nvim ~/.zshrc&&reload'
 alias gitconfig='nvim ~/.gitconfig'
 alias aa='ag --ignore yarn.lock'
@@ -334,7 +338,8 @@ function ed { # Edifier
   blue power on
   blue connect 04:FE:A1:E8:D9:20
 }
-function edoff { # Edifier
+function btoff { # Edifier
+  blue disconnect 04:FE:A1:B3:FF:47 
   blue disconnect 04:FE:A1:E8:D9:20
 }
 alias blueswitch='~/dotfiles/scripts/blueswitch.sh'
@@ -422,16 +427,16 @@ export XMODIFIERS=@im=ibus
 export QT_IM_MODULE=ibus
 
 # Postgres
-alias pg="psql -h localhost -p 5432 -U postgres postgres"
+alias pg="psql -h localhost -p 5432 -U postgres "
 
 # gpg
 alias aes256="gpg --symmetric --cipher-algo aes256"
 
-alias mon="nodemon -e 'js jsx ts tsx sh json'"
+alias mon="nodemon -e 'js jsx ts tsx sh json clj'"
 
 function sql {
   # Usage: sql <heroku app name>
-  psql $(heroku config --app $1 | grep -E "^DATABASE_URL:" | cut -d':' -f2-)
+  pgcli $(heroku config --app $1 | grep -E "^DATABASE_URL:" | cut -d':' -f2-)
 }
 
 alias dockerprune='docker system prune -a --volumes'
@@ -443,3 +448,11 @@ alias yt='mpsyt'
 # Need both of these, in this order (I think?)
 zstyle ':completion:*' matcher-list 'r:[[:ascii:]]||[[:ascii:]]=** r:|=* m:{a-z\-}={A-Z\_}'
 zstyle ':completion:*' matcher-list 'm:{a-z}={A-Z}' # match upper from lower case
+
+alias delta="nmcli c up Delta"
+alias 4g="nmcli c up \"COMPRE BITCOIN\""
+
+alias updates='sudo pamac-manager updates'
+function gnew {
+  git co master && g rcb && g co -b $1
+}
