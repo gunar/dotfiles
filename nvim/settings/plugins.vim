@@ -33,7 +33,11 @@ if dein#load_state('~/.cache/dein')
   call dein#add('mhartington/nvim-typescript', {'build': './install.sh && yarn global add neovim'})
   " Deoplete for async completion
   " Denite for generic fuzzy finder
+
   " --- }}}
+  " Machine Learning auto-complete https://tabnine.com
+  "     I'm concerned this might conflict with other autocompletes I have
+  call dein#add('tbodt/deoplete-tabnine', {'build': './install.sh'})
 
   " Clojure
   "  Syntax Indent Completion
