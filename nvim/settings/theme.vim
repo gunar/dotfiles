@@ -2,6 +2,7 @@
 syntax enable
 colorscheme OceanicNext
 set background=dark
+highlight Search guifg='black'
 " highlightt the current line number
 hi CursorLineNR guifg=#ffffff
 " no need to fold things in markdown all the time
@@ -12,7 +13,8 @@ augroup spelling
   autocmd BufRead,BufNewFile *.md setlocal spell complete+=kspell
 augroup END
 " highlight bad words in red
-hi SpellBad guibg=#ff2929 guifg=#ffffff" ctermbg=224
+hi SpellBad guibg=#882929 guifg=#ffffff" ctermbg=224
+" hi SpellBad guibg=#ff2929 guifg=#ffffff" ctermbg=224
 " disable markdown auto-preview. Gets annoying
 let g:instant_markdown_autostart = 0
 " Keep my termo window open when I navigate away
