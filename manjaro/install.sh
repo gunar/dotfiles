@@ -124,3 +124,13 @@ sudo pacman -Syy exa
 sudo pacman -Syy jq
 yaourt --noconfirm -Syy jiq
 sudo pacman -Syy httpie
+yaourt --noconfirm -Syy lsix
+yaourt --noconfirm -Syy android-studio
+yaourt --noconfirm -Syy mysql-clients
+yaourt --noconfirm -Syy lighttable-bin
+yaourt --noconfirm -Syy pgcli
+sudo pacman -Syy beep
+sudo pacman -Syy mpg123
+yaourt --noconfirm -Syy clojure
+yaourt --noconfirm -Syy planck
+yaourt --noconfirm -Syy parsec-bin
