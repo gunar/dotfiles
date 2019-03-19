@@ -134,3 +134,6 @@ sudo pacman -Syy mpg123
 yaourt --noconfirm -Syy clojure
 yaourt --noconfirm -Syy planck
 yaourt --noconfirm -Syy parsec-bin
+sudo pacman -Syy vinagre
+yaourt --noconfirm -Syy woeusb
+sudo pacman -Syy gparted

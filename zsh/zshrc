@@ -112,7 +112,7 @@ nrc() {
   cd ~/dotfiles/
   n awesome/rc.lua
   cd -
-  echo 'awesome.restart()' | awesome-client
+  # echo 'awesome.restart()' | awesome-client
 }
 re() {
   rec -t wav - | lame -V 9 -h - >/tmp/record.mp3
@@ -149,7 +149,12 @@ alias hibernate='sudo echo "ok" && xlock 2>/dev/null & echo disk | sudo tee /sys
 alias suspend='sudo echo "ok" && xlock 2>/dev/null & echo mem | sudo tee /sys/power/state'
 alias wf='chromium --app="https://workflowy.com" --enable-apps --enable-extension-apps'
 alias mictest='arecord -vvv -f dat /dev/null'
-alias p='ping 8.8.8.8'
+p() {
+  while true
+  do
+    ping 8.8.8.8 -c 1 -W 0.2|head -n 2|tail -n 1
+  done
+}
 # pacman
 pi() {
   sudo pacman -Syy $* && echo "sudo pacman -Syy $*">>~/dotfiles/manjaro/install.sh
@@ -456,3 +461,4 @@ alias updates='sudo pamac-manager updates'
 function gnew {
   git co master && g rcb && g co -b $1
 }
+alias gpu='lspci -vnn | grep VGA -A 12'
