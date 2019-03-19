@@ -496,7 +496,7 @@ end
 -- {{{ Key bindings
 globalkeys = awful.util.table.join(globalkeys,
     --- {{{ Useless gap
-    awful.key({ modkey, "Control" }, "+", function () useless_gaps_resize(2) end),
+    awful.key({ modkey, "Shift" },   "-", function () useless_gaps_resize(2) end),
     awful.key({ modkey, "Control" }, "-", function () useless_gaps_resize(-2) end),
     -- }}}
     -- {{{ Rename tag
@@ -545,6 +545,7 @@ globalkeys = awful.util.table.join(globalkeys,
     awful.key({ "Control"         }, "q", function () awful.spawn("catfish") end),
     awful.key({ modkey,           }, "o", function () awful.spawn("chromium --disk-cache-dir=/tmp/cache --profile-directory=Default") end),
     awful.key({ modkey, "Control" }, "o", function () awful.spawn("chromium --disk-cache-dir=/tmp/cache --profile-directory=\"Profile 1\"") end),
+    awful.key({ modkey, "Shift" },   "o", function () awful.spawn("chromium --incognito") end),
     awful.key({ modkey,           }, ".", function () awful.spawn("chromium --disk-cache-dir=/tmp/cache --profile-directory=Default https://web.telegram.org") end),
     -- awful.key({                   }, "Print",       function () awful.spawn("xfce4-screenshooter") end),
     -- screenshot
