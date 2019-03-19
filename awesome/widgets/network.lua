@@ -6,17 +6,16 @@ local beautiful = require("beautiful")
 local naughty = require('naughty')
 
 local SPEED_AVERAGE_INTERVAL_IN_SECONDS = 3
-local PING_TIMEOUT_IN_SECONDS = 1
+local PING_TIMEOUT_IN_SECONDS = 0.2
 
-local pingMs = PING_TIMEOUT_IN_SECONDS * 1000
+local MAX_PING_IN_MS = PING_TIMEOUT_IN_SECONDS * 1000
 local speed = "X"
 
 function update(widget)
-  -- local color = beautiful.tasklist_fg_normal
   local ping
-  if pingMs < 50 then ping = "😍"
-  elseif pingMs < 100 then ping = "😊"
-  elseif pingMs < 200 then ping = "😶"
+  if pingMs and pingMs < MAX_PING_IN_MS/4 then ping = "😍"
+  elseif pingMs < MAX_PING_IN_MS/2 then ping = "😊"
+  elseif pingMs < MAX_PING_IN_MS then ping = "😶"
   else ping = "😭"
   end
   widget.markup = "  <span color=\""..beautiful.tasklist_fg_normal.."\" background=\"" .. beautiful.tasklist_bg_focus .. "\">  " .. speed ..  "  " .. ping .. "  </span>"
@@ -29,6 +28,7 @@ function pingUpdate (widget)
     -- remove trailing newline chars
     pingMs = tonumber(string.sub(stdout, 0, -2)) or PING_TIMEOUT_IN_SECONDS * 1000
     update(widget)
+    pingUpdate(widget)
   end)
 end
 function speedUpdate(widget)
@@ -45,9 +45,6 @@ function create_widget()
   local widget = wibox.widget.textbox()
 
   pingUpdate(widget)
-  local pingTimer = gears.timer({ timeout = PING_TIMEOUT_IN_SECONDS })
-  pingTimer:connect_signal("timeout", function() pingUpdate(widget) end)
-  pingTimer:start()
 
   speedUpdate(widget)
   local speedTimer = gears.timer({ timeout = SPEED_AVERAGE_INTERVAL_IN_SECONDS })
