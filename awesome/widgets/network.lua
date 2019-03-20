@@ -12,22 +12,26 @@ local MAX_PING_IN_MS = PING_TIMEOUT_IN_SECONDS * 1000
 local speed = "X"
 
 function update(widget)
-  local ping
-  if pingMs and pingMs < MAX_PING_IN_MS/4 then ping = "😍"
-  elseif pingMs < MAX_PING_IN_MS/2 then ping = "😊"
-  elseif pingMs < MAX_PING_IN_MS then ping = "😶"
-  else ping = "😭"
+  local emoji
+  if pingMs then
+    if pingMs < MAX_PING_IN_MS/4 then emoji = "😍"
+    elseif pingMs < MAX_PING_IN_MS/2 then emoji = "😊"
+    elseif pingMs < MAX_PING_IN_MS then emoji = "😶"
+    else emoji = "😭"
+    end
   end
-  widget.markup = "  <span color=\""..beautiful.tasklist_fg_normal.."\" background=\"" .. beautiful.tasklist_bg_focus .. "\">  " .. speed ..  "  " .. ping .. "  </span>"
+  widget.markup = "  <span color=\""..beautiful.tasklist_fg_normal.."\" background=\"" .. beautiful.tasklist_bg_focus .. "\">  " .. speed ..  "  " .. emoji .. "  </span>"
 end
 
 function pingUpdate (widget)
   awful.spawn.easy_async_with_shell(
-  "ping -c 1 8.8.8.8 -W " .. PING_TIMEOUT_IN_SECONDS .. "|head -n 2|tail -n 1|cut -d'=' -f4-|cut -d' ' -f1|cut -d'.' -f1",
+  "timeout --preserve-status " .. PING_TIMEOUT_IN_SECONDS .. " ping -c 1 8.8.8.8|head -n 2|tail -n 1|cut -d'=' -f4-|cut -d' ' -f1|cut -d'.' -f1",
   function(stdout, stderr, reason, exit_code)
-    -- remove trailing newline chars
-    pingMs = tonumber(string.sub(stdout, 0, -2)) or PING_TIMEOUT_IN_SECONDS * 1000
-    update(widget)
+    if exit_code == 0 then
+      --        remove trailing newline chars
+      pingMs = tonumber(string.sub(stdout, 0, -2)) or PING_TIMEOUT_IN_SECONDS * 1000
+      update(widget)
+    end
     pingUpdate(widget)
   end)
 end
