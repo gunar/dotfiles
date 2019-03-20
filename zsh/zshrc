@@ -152,7 +152,7 @@ alias mictest='arecord -vvv -f dat /dev/null'
 p() {
   while true
   do
-    ping 8.8.8.8 -c 1 -W 0.2|head -n 2|tail -n 1
+    timeout --preserve-status 0.2 ping 8.8.8.8 -c 1|head -n 2|tail -n 1
   done
 }
 # pacman
@@ -462,3 +462,4 @@ function gnew {
   git co master && g rcb && g co -b $1
 }
 alias gpu='lspci -vnn | grep VGA -A 12'
+alias clear='tput reset'
