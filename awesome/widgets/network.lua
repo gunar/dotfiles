@@ -32,7 +32,6 @@ function pingUpdate (widget)
       pingMs = tonumber(string.sub(stdout, 0, -2)) or PING_TIMEOUT_IN_SECONDS * 1000
       update(widget)
     end
-    pingUpdate(widget)
   end)
 end
 function speedUpdate(widget)
@@ -49,6 +48,9 @@ function create_widget()
   local widget = wibox.widget.textbox()
 
   pingUpdate(widget)
+  local pingTimer = gears.timer({ timeout = PING_TIMEOUT_IN_SECONDS })
+  pingTimer:connect_signal("timeout", function() pingUpdate(widget) end)
+  pingTimer:start()
 
   speedUpdate(widget)
   local speedTimer = gears.timer({ timeout = SPEED_AVERAGE_INTERVAL_IN_SECONDS })
