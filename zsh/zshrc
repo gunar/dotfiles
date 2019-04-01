@@ -174,8 +174,9 @@ gifhq() {
   palette="/tmp/palette.png"
   filters="fps=15,scale=420:-1:flags=lanczos"
   ffmpeg -v warning -i $1 -vf "$filters,palettegen" -y $palette
-  ffmpeg -v warning -i $1 -i $palette -lavfi "$filters [x]; [x][1:v] paletteuse" -y $2
+  ffmpeg -v warning -i $1 -i $palette -lavfi "$filters [x]; [x][1:v] paletteuse" -y $1.hq.gif
 }
+
 speedup() { ffmpeg -i $1 -filter_complex "[0:v]setpts=0.8*PTS[v]" -map "[v]" fast-$1 }
 speedupx() { ffmpeg -i $1 -filter_complex "[0:v]setpts=$2*PTS[v]" -map "[v]" fast-$1 }
 speedupa() { ffmpeg -i $1 -filter_complex "[0:v]setpts=0.8*PTS[v];[0:a]atempo=1.25[a]" -map "[v]" -map "[a]" fast-$1 }
@@ -341,7 +342,10 @@ function jbl {
 }
 function ed { # Edifier
   blue power on
-  blue connect 04:FE:A1:E8:D9:20
+  while (! blue connect 04:FE:A1:E8:D9:20)
+  do
+    sleep 0.1
+  done
 }
 function btoff { # Edifier
   blue disconnect 04:FE:A1:B3:FF:47 
@@ -463,3 +467,4 @@ function gnew {
 }
 alias gpu='lspci -vnn | grep VGA -A 12'
 alias clear='tput reset'
+alias ct='clear&&y check-types'

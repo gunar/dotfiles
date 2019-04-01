@@ -1,3 +1,12 @@
+set shell=/bin/zsh
+
+" multi line quick fix for errors
+"
+augroup quickfix
+    autocmd!
+    autocmd FileType qf setlocal wrap
+augroup END
+
 " Neovim Settings
 if (has("termguicolors"))
   set termguicolors

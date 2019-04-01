@@ -137,3 +137,4 @@ yaourt --noconfirm -Syy parsec-bin
 sudo pacman -Syy vinagre
 yaourt --noconfirm -Syy woeusb
 sudo pacman -Syy gparted
+yaourt --noconfirm -Syy onionshare
