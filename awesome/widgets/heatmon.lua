@@ -27,7 +27,7 @@ function update_heatmon (widget)
     "<span color=\"#" .. hex(math.ceil(255 * tonumber(temp) / 105)) .. hex(math.ceil(255 * (105 - tonumber(temp)) / 105)) .. "00\">  " .. temp .. "&#8451;  </span>"
   )
   widget.markup = table.concat(output," ")
-  if tonumber(temp) > 70 then
+  if tonumber(temp) > 80 then
     naughty.notify({
       preset = naughty.config.presets.critical,
       title = "Temprerature too high",
