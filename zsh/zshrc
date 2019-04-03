@@ -71,6 +71,7 @@ alias n='nvim'
 alias nn='f -e nvim'
 alias nd='node -r ~/dotfiles/node'
 alias nt='nvim /tmp/$RANDOM'
+alias ntsx='nvim /tmp/$RANDOM.tsx'
 na () { n "+/\c$*" `ag --ignore yarn.lock -l "$*"` }
 nag () { n "+/\c$*" `ag --ignore yarn.lock -l "$*"` }
 nf () { n `find -name "$*" -not -path "./node_modules/*"` }
