@@ -25,7 +25,7 @@ end
 
 function pingUpdate (widget)
   awful.spawn.easy_async_with_shell(
-  "timeout --preserve-status " .. PING_TIMEOUT_IN_SECONDS .. " ping -c 1 8.8.8.8|head -n 2|tail -n 1|cut -d'=' -f4-|cut -d' ' -f1|cut -d'.' -f1",
+  "timeout --preserve-status " .. PING_TIMEOUT_IN_SECONDS .. " ping -c 1 1.1.1.1|head -n 2|tail -n 1|cut -d'=' -f4-|cut -d' ' -f1|cut -d'.' -f1",
   function(stdout, stderr, reason, exit_code)
     if exit_code == 0 then
       --        remove trailing newline chars
