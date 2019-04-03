@@ -16,7 +16,7 @@ function update_heatmon (widget)
   while line do
     for key, value in string.gmatch(line, "(.+):[ ]+[+](%d+).*") do
       if key == "Package id 0" then
-        temp = value
+        temp = tonumber(value)
       end
     end
     line = h:read()
@@ -24,10 +24,10 @@ function update_heatmon (widget)
   h:close()
   table.insert(
     output,
-    "<span color=\"#" .. hex(math.ceil(255 * tonumber(temp) / 105)) .. hex(math.ceil(255 * (105 - tonumber(temp)) / 105)) .. "00\">  " .. temp .. "&#8451;  </span>"
+    "<span color=\"#" .. hex(math.ceil(255 * temp / 105)) .. hex(math.ceil(255 * (105 - temp) / 105)) .. "00\">  " .. temp .. "&#8451;  </span>"
   )
   widget.markup = table.concat(output," ")
-  if tonumber(temp) > 80 then
+  if temp > 80 then
     naughty.notify({
       preset = naughty.config.presets.critical,
       title = "Temprerature too high",
@@ -48,17 +48,18 @@ function update_heatmon (widget)
   end)
 
   awful.spawn.easy_async_with_shell(
-    'cat /proc/acpi/ibm/fan | head -n 2 | tail -n 1 | cut -f3',
-    function(stdout, stderr, reason, exit_code)
-      local speed = tonumber(stdout)
-      if speed < 2000 then
-        naughty.notify({
-          preset = naughty.config.presets.critical,
-          title = 'Check your fan!',
-          text = stdout,
-        })
-      end
+  'cat /proc/acpi/ibm/fan | head -n 2 | tail -n 1 | cut -f3',
+  function(stdout, stderr, reason, exit_code)
+    local speed = tonumber(stdout)
+    if temp > 50 and speed < 1 then
+      naughty.notify({
+        preset = naughty.config.presets.critical,
+        title = 'High temp but fan is off!',
+        text = stdout,
+      })
+    end
   end)
+
 end
 
 function create_heatmon_widget()
