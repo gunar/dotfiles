@@ -130,6 +130,11 @@ clonetmp() {
   mkd $RANDOM
   git clone $* .
 }
+clonetmp() {
+  cd /tmp
+  mkd $RANDOM
+  git clone $* .
+}
 cc() { readlink -f $1 | c }
 alias ng='killall ngrok 2>/dev/null;ngrok http -subdomain=gunar 3000 >/dev/null &!'
 alias lint='nvim `eslint --cache -f ~/code/_archive/eslint-formatter-list --ignore-path .gitignore .`'
@@ -469,3 +474,4 @@ function gnew {
 alias gpu='lspci -vnn | grep VGA -A 12'
 alias clear='tput reset'
 alias ct='clear&&y check-types'
+alias incognito='unset HISTFILE'
