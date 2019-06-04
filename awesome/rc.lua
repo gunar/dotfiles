@@ -139,6 +139,7 @@ heatmon_widget = create_heatmon_widget()
 power_widget = require("widgets/power")
 
 network_widget = require("widgets/network")
+speed_widget = require("widgets/speed")
 
 require("widgets/kbdswitcher")
 kbdswitcher_widget = create_kbdswitcher_widget()
@@ -334,6 +335,7 @@ for s = 1, screen.count() do
     local right_layout = wibox.layout {
       power_widget,
       myassault,
+      speed_widget,
       network_widget,
       heatmon_widget,
       kbdswitcher_widget,
