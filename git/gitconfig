@@ -82,7 +82,7 @@
   bkp      = "!bkp() { cur_branch=`git branch | grep '* ' | tr -d '* '` ; git branch -D bkp-$cur_branch 2>/dev/null; git branch bkp-$cur_branch; }; bkp"
   bkpo      = "!bkpo() { cur_branch=`git branch | grep '* ' | tr -d '* '` ; git branch -D bkp-origin-$cur_branch ; git checkout -b bkp-origin-$cur_branch ; git reset --hard origin/$cur_branch; git co $cur_branch; }; bkpo"
   # re: recent branches
-  re = "for-each-ref --sort=-committerdate refs/heads/ --format='%(HEAD) %(color:yellow)%(refname:short)%(color:reset) (%(color:green)%(committerdate:relative)%(color:reset)) - %(contents:subject) - %(authorname)'"
+  re = "!re() { git for-each-ref --sort=-committerdate refs/heads/ --format='%(HEAD) %(color:yellow)%(refname:short)%(color:reset) (%(color:green)%(committerdate:relative)%(color:reset)) - %(contents:subject) - %(authorname)' | head -n 5; }; re"
   # rcb: reset current branch (from origin)
   rcb      = "!rcb() { cur_branch=`git branch | grep '* ' | tr -d '* '` ; git fetch; git reset --hard origin/$cur_branch; }; rcb"
   # conflicts
