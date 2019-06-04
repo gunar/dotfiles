@@ -8,6 +8,22 @@ function hex(inp)
   return inp > 16 and string.format("%X", inp) or string.format("0%X", inp)
 end
 
+local notifications = {}
+function notify(id, title, text) 
+  if (notifications[id] == nil) then
+    notifications[id] = naughty.notify({ 
+      title = title,
+      text = text,
+      preset = naughty.config.presets.critical,
+      timeout = 1,
+      destroy = function() notifications[id] = nil end,
+    })
+  else
+    naughty.reset_timeout(notifications[id])
+    naughty.replace_text(notifications[id], title, text)
+  end
+end
+
 function update_heatmon (widget)
   local output = {} -- output buffer
   local h = io.popen('sensors')
@@ -28,22 +44,14 @@ function update_heatmon (widget)
   )
   widget.markup = table.concat(output," ")
   if temp > 80 then
-    naughty.notify({
-      preset = naughty.config.presets.critical,
-      title = "Temprerature too high",
-      text = "Are you sure the fan is on?"
-    })
+    notify("highTemp", "Temprerature too high", "Are you sure the fan is on?")
   end
 
   awful.spawn.easy_async_with_shell(
     "systemctl status thinkfan|grep 'running'",
     function(stdout, stderr, reason, exit_code)
       if exit_code > 0 then
-        naughty.notify({
-          preset = naughty.config.presets.critical,
-          title = 'thinkfan is off!',
-          text = 'Please try to restart it.'
-        })
+        notify('thinkfan', 'thinkfan is off!', 'Please try to restart it.')
       end
   end)
 
@@ -52,11 +60,7 @@ function update_heatmon (widget)
   function(stdout, stderr, reason, exit_code)
     local speed = tonumber(stdout)
     if temp > 50 and speed < 1 then
-      naughty.notify({
-        preset = naughty.config.presets.critical,
-        title = 'High temp but fan is off!',
-        text = stdout,
-      })
+      notify('highTempFanOff', 'High temp but fan is off!', stdout)
     end
   end)
 
