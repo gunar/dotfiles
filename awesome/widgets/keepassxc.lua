@@ -17,7 +17,7 @@ function doit()
 end
 
 function create_widget()
-  timer = gears.timer({ timeout = PING_TIMEOUT_IN_SECONDS })
+  timer = gears.timer({ timeout = INTERVAL_IN_SECONDS })
   timer:connect_signal("timeout", function()
     doit()
   end)
