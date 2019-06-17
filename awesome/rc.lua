@@ -138,6 +138,7 @@ heatmon_widget = create_heatmon_widget()
 
 power_widget = require("widgets/power")
 
+require("widgets/keepassxc")
 network_widget = require("widgets/network")
 speed_widget = require("widgets/speed")
 

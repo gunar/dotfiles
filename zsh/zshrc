@@ -124,6 +124,7 @@ tmp() {
   cd /tmp
   mkd $RANDOM
   npm init --yes
+  clear
 }
 clonetmp() {
   cd /tmp
