@@ -447,6 +447,8 @@ alias pg="psql -h localhost -p 5432 -U postgres "
 
 # gpg
 alias aes256="gpg --symmetric --cipher-algo aes256"
+alias enc="gpg --symmetric --cipher-algo aes256 | base64 --wrap=0"
+alias dec="base64 -d | gpg -d"
 
 alias mon="nodemon -e 'js jsx ts tsx sh json clj'"
 
@@ -471,6 +473,7 @@ zstyle ':completion:*' matcher-list 'm:{a-z}={A-Z}' # match upper from lower cas
 
 alias delta="nmcli c up Delta"
 alias 4g="nmcli c up \"COMPRE BITCOIN\""
+alias hotspot="nmcli c up \"COMPRE BITCOIN\""
 
 alias updates='sudo pamac-manager updates'
 function gnew {
