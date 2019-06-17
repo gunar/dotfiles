@@ -1,3 +1,7 @@
+" TypeScript --- {{{
+nnoremap D :TSDef<cr>
+" --- }}}
+
 nmap <leader>t :term<cr>
 nmap <leader>, :bnext<CR>
 tmap <leader>, <C-\><C-n>:bnext<cr>
