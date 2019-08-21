@@ -127,7 +127,7 @@ tmp() {
   npm init --yes
   clear
 }
-clonetmp() {
+tmpclone() {
   cd /tmp
   mkd $RANDOM
   git clone $* .
@@ -176,7 +176,7 @@ yars() {
   yaourt -Ss $* | less
 }
 
-alias curlpost='curl -v -H "Content-Type: application/json" -d @-'
+alias curlpost='curl -H "Content-Type: application/json" -d @-'
 gif() { ffmpeg -i $1 $1.gif }
 gifhq() {
   palette="/tmp/palette.png"
