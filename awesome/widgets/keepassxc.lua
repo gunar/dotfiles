@@ -9,8 +9,10 @@ function doit()
   awful.spawn.easy_async_with_shell(
   "~/dotfiles/scripts/keepassxc_sync.sh",
   function(stdout, stderr, reason, exit_code)
-    notify('keepassxc', 'keepassxc', stdout)
+    -- notify on success
+    -- notify('keepassxc', 'keepassxc', stdout)
     if exit_code > 0 then
+      -- notify on error
       notify('keepassxcerr', 'keepassxcerr', stderr)
     end
   end)
