@@ -116,8 +116,9 @@ nrc() {
   # echo 'awesome.restart()' | awesome-client
 }
 re() {
-  rec -t wav - | lame -V 9 -h - >/tmp/record.mp3
-  cloudapp /tmp/record.mp3
+  rec -t wav - | lame -V 9 -h - >rec.mp3
+  # rec -t wav - | lame -V 9 -h - >/tmp/record.mp3
+  # cloudapp /tmp/record.mp3
 }
 mkd() { mkdir -p $1 && cd $1 }
 tmp() {
