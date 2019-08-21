@@ -30,7 +30,7 @@ if dein#load_state('~/.cache/dein')
 
   " TypeScript --- {{{
   call dein#add('HerringtonDarkholme/yats.vim') " REQUIRED: Add a syntax file. YATS is the best
-  call dein#add('mhartington/nvim-typescript', {'build': './install.sh && yarn global add neovim'})
+  call dein#add('mhartington/nvim-typescript', {'build': './install.sh'})
   " Deoplete for async completion
   " Denite for generic fuzzy finder
 
