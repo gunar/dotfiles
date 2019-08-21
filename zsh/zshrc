@@ -363,7 +363,7 @@ alias blueswitch='~/dotfiles/scripts/blueswitch.sh'
 
 
 alias keys='xmodmap -pke|less'
-alias np='n -c :Denite\ -no-split\ -buffer-name=files\ -ignorecase\ file/rec'
+alias np='n -c :Denite\ -start-filter\ -no-split\ -buffer-name=files\ -ignorecase\ file/rec'
 
 alias dotf='cd ~/dotfiles'
 function dox() {
@@ -459,7 +459,7 @@ function sql {
 }
 function sql2 {
   # Usage: sql <heroku app name>
-  psql $(heroku config --app $1 | grep -E "^DATABASE_URL:" | cut -d':' -f2-)
+  psql $(heroku config --app $1 | grep -E "^DATABASE_URL:" | cut -d':' -f2-) "${@:2}"
 }
 
 alias dockerprune='docker system prune -a --volumes'
@@ -523,3 +523,5 @@ function changeMac() {
   sudo ifconfig wlp4s0 up
   echo "Your new physical address is $mac"
 }
+
+eval "$(direnv hook zsh)"
