@@ -1,6 +1,6 @@
 " TypeScript --- {{{
-nnoremap D :TSDef<cr>
-nnoremap <C-i> :TSImport<cr>
+nnoremap <C-i> :TSGetCodeFix<cr>
+nnoremap <C-d> :TSDef<cr>
 " --- }}}
 
 nmap <leader>t :term<cr>
