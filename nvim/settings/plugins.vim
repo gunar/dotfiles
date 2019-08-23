@@ -80,6 +80,8 @@ if dein#load_state('~/.cache/dein')
   call dein#add('nelstrom/vim-markdown-folding') "Use :FoldToggle for nested folding
   " }}}
 
+  call dein#add('prettier/vim-prettier', { 'build': 'yarn install' })
+
   " colorscheme & syntax highlighting
   " Theme
   call dein#add('mhartington/oceanic-next')
