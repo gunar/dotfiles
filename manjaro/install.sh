@@ -88,13 +88,10 @@ sudo pacman -Syy libmicrodns
 sudo pacman -Syy protobuf
 yaourt --noconfirm -Syy castnow-git
 sudo pacman -Syy minidlna
-yaourt --noconfirm -Syy rnm
 sudo pacman -Syy tumbler
 yaourt --noconfirm -Syy autokey-py3
 sudo pacman -Syy filezilla
 sudo pacman -Syy inkscape
-yaourt --noconfirm -Syy shutter
-yaourt --noconfirm -Syy postman
 yaourt --noconfirm -Syy flameshot
 sudo pacman -Syy docker docker-compose
 yaourt --noconfirm -Syy ttf-twemoji-color
@@ -125,14 +122,12 @@ sudo pacman -Syy jq
 yaourt --noconfirm -Syy jiq
 sudo pacman -Syy httpie
 yaourt --noconfirm -Syy lsix
-yaourt --noconfirm -Syy android-studio
 yaourt --noconfirm -Syy mysql-clients
 yaourt --noconfirm -Syy lighttable-bin
 yaourt --noconfirm -Syy pgcli
 sudo pacman -Syy beep
 sudo pacman -Syy mpg123
 yaourt --noconfirm -Syy clojure
-yaourt --noconfirm -Syy planck
 yaourt --noconfirm -Syy parsec-bin
 sudo pacman -Syy vinagre
 yaourt --noconfirm -Syy woeusb
@@ -156,3 +151,4 @@ sudo pacman -Syy acpi_call-dkms
 sudo pacman -Syy tpacpi-bat
 sudo pacman -Syy linux419-acpi_call
 yaourt --noconfirm -Syy direnv
+yaourt --noconfirm -Syy planck-git
