@@ -1,5 +1,5 @@
 #!/bin/sh
-yaourt -Syy aur/zoom aur/ngrok
+yay -Syy aur/zoom aur/ngrok
 sudo pacman -Syy extra/xorg-xclipboard extra/xclip
 (cd awesome;./install.sh)
 (cd git;./install.sh)
