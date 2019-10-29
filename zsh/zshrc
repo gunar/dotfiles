@@ -10,7 +10,7 @@ export HISTSIZE=1000000000
 export SAVEHIST=$HISTSIZE
 setopt EXTENDED_HISTORY
 
-export PATH="/home/gcg/.gem/ruby/2.3.0/bin:/opt/android-sdk-linux/tools:/opt/android-sdk-linux/platform-tools:/usr/local/sbin:/usr/local/bin:/usr/bin:/usr/lib/jvm/default/bin:/usr/bin/site_perl:/usr/bin/vendor_perl:/usr/bin/core_perl"
+export PATH="/home/gcg/.gem/ruby/2.3.0/bin:/usr/local/sbin:/usr/local/bin:/usr/bin:/usr/lib/jvm/default/bin:/usr/bin/site_perl:/usr/bin/vendor_perl:/usr/bin/core_perl"
 export PATH="$PATH:./node_modules/.bin:../node_modules/.bin:../../node_modules/.bin:../../../node_modules/.bin:../../../../node_modules/.bin"
 
 # this slows down startup because nodejs
@@ -108,7 +108,7 @@ m() {
 alias tw='TS_NODE_FILES=true ts-mocha --watch'
 alias zshrc='nvim ~/.zshrc&&reload'
 alias gitconfig='nvim ~/.gitconfig'
-alias aa='ag --ignore yarn.lock'
+alias aa='ag --ignore yarn.lock --context=3'
 nrc() {
   cd ~/dotfiles/
   n awesome/rc.lua
@@ -170,10 +170,10 @@ pi() {
 pacs() {
   pacman -Ss $* | less
 }
-# yaourt
-yi() { yaourt -Syy --noconfirm $* && echo "yaourt --noconfirm -Syy $*">>~/dotfiles/manjaro/install.sh }
+# yay
+yi() { yay -Syy --noconfirm $* && echo "yay --Syy $*">>~/dotfiles/manjaro/install.sh }
 yars() {
-  yaourt -Ss $* | less
+  yay -Ss $* | less
 }
 
 alias curlpost='curl -H "Content-Type: application/json" -d @-'
@@ -262,12 +262,19 @@ function zle-line-init zle-keymap-select {
 zle -N zle-line-init
 zle -N zle-keymap-select
 export KEYTIMEOUT=1
-# ctrl+x for "... && exit"
+# ctrl+s for "... && exit"
 function append-exit {
   BUFFER="$BUFFER && exit"
 }
 zle -N append-exit
 bindkey "^S" append-exit
+# ctrl+a for "nohup"
+function append-nohup {
+  BUFFER="nohup "$BUFFER" </dev/null >myprogram.log 2>&1 &! exit"
+}
+zle -N append-nohup
+bindkey "^A" append-nohup
+# 
 # alt+l for "ls"
 function call-ls {
   zle accept-line
@@ -326,7 +333,8 @@ fi
 
 # power settings
 # "upower -e" to find out your devices
-alias batt='upower -i /org/freedesktop/UPower/devices/battery_BAT0|grep -E "state|time\ to\ full|time\ to\ empty|percentage"'
+# alias batt='upower -i /org/freedesktop/UPower/devices/battery_BAT0|grep -E "state|time\ to\ full|time\ to\ empty|percentage"'
+alias batt='sudo tlp-stat -b'
 
 # start x if first tty1
 if [[ ! ${DISPLAY} && ${XDG_VTNR} == 1 ]]; then
@@ -354,6 +362,17 @@ function ed { # Edifier
   do
     sleep 0.1
   done
+}
+function redmi { # Redmi earplug
+  blue power on
+  while (! blue connect 1C:52:16:76:54:DA)
+  do
+    sleep 0.1
+  done
+  # while (! blue connect 1C:52:16:76:59:78)
+  # do
+  #   sleep 0.1
+  # done
 }
 function btoff { # Edifier
   blue disconnect 04:FE:A1:B3:FF:47 
@@ -525,3 +544,15 @@ function changeMac() {
 }
 
 eval "$(direnv hook zsh)"
+
+# https://github.com/yarnpkg/yarn/issues/6130
+export NPM_TOKEN=''
+
+alias duu='du -h -d 2 . | sort -h'
+alias dff='df -h | grep home | cut -d" " -f 8'
+alias tree='tree -I node_modules'
+alias groot='git rebase -i --root'
+alias ytdl='youtube-dl -x --audio-format mp3 --force-ipv4 -i'
+alias beep='aplay ~/dotfiles/sounds/beep-07.wav'
+alias th='aiksaurus'
+alias uz='unzip'
