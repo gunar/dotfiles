@@ -75,6 +75,8 @@ let g:deoplete#enable_at_startup = 1
 
 let g:auto_save = 1
 let g:auto_save_silent = 1  
+" let g:auto_save_events = ["CursorHold", "CursorHoldI"]
+" set updatetime=1000
 
 
 " visual-at https://github.com/stoeffel/.dotfiles/blob/master/vim/visual-at.vim<Paste>
