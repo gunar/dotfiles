@@ -1,2 +1,2 @@
 #!/bin/sh
-yaourt -Syy aur/robo3t-bin 
+yay -Syy aur/robo3t-bin 
