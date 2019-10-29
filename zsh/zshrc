@@ -3,7 +3,7 @@ export ZSH=/home/gcg/.oh-my-zsh
 
 ZSH_THEME="agnoster"
 HIST_STAMPS="yyyy-mm-dd"
-plugins=(cloudapp jump heroku)
+plugins=(jump heroku tldr)
 
 # infinite .zsh_history
 export HISTSIZE=1000000000
