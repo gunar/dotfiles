@@ -317,11 +317,16 @@ tasklist.buttons = awful.util.table.join(
 function filterForWibox ()
   return function (tag) return true end
 end
-
 for s = 1, screen.count() do
     local height = "26"
 
-    mypromptbox[s] = awful.widget.prompt()
+    -- TODO Make prompt do zsh instead
+    mypromptbox[s] = awful.widget.prompt{
+      prompt = '$ ',
+      -- Defaults to $SHELL
+      -- completion_callback = function (command,cur_pos,ncomp) return awful.completion.shell(command,cur_pos,ncomp,"zsh") end,
+    }
+
     taglist[s] = awful.widget.taglist(s, filterForWibox(), taglist.buttons)
     tasklist[s] = awful.widget.tasklist(s, awful.widget.tasklist.filter.currenttags, tasklist.buttons)
     mywibox[s] = awful.wibar({ position = "top", height = height, screen = s })
