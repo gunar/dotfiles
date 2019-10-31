@@ -1,5 +1,17 @@
 set shell=/bin/zsh
 
+" update fasd index when opning files inside nvim
+function! s:fasd_update() abort
+  if empty(&buftype) || &filetype ==# 'dirvish'
+    call jobstart(['fasd', '-A', expand('%:p')])
+  endif
+endfunction
+augroup fasd
+  autocmd!
+  autocmd BufWinEnter,BufFilePost * call s:fasd_update()
+augroup END
+command! FASD call fzf#run(fzf#wrap({'source': 'fasd -al', 'options': '--no-sort --tac --tiebreak=index'}))
+
 " multi line quick fix for errors
 "
 augroup quickfix
