@@ -885,5 +885,4 @@ awful.spawn.with_shell("xautolock -corners 0+0- -time 5 -locker ~/dotfiles/manja
 awful.spawn.with_shell("setxkbmap -layout us")
 awful.spawn.with_shell("setxkbmap -option compose:caps")
 awful.spawn.with_shell("flameshot")
-awful.spawn.with_shell("ibus-daemon")
 muteMic()
