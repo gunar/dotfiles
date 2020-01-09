@@ -563,9 +563,9 @@ alias hp='heroku accounts:set personal'
 alias hi='heroku accounts:set inv'
 export PG='postgres://postgres@localhost/postgres'
 source /usr/share/zsh-theme-powerlevel9k/powerlevel9k.zsh-theme
-export POWERLEVEL9K_PROMPT_ON_NEWLINE=true
-export POWERLEVEL9K_LEFT_PROMPT_ELEMENTS=(status context vcs dir)
-export POWERLEVEL9K_RIGHT_PROMPT_ELEMENTS=()
+export POWERLEVEL9K_LEFT_PROMPT_ELEMENTS=(status vcs dir) # context
+export POWERLEVEL9K_RIGHT_PROMPT_ELEMENTS=() # Right prompt not working (because "vim-mode" on zsh?)
+export POWERLEVEL9K_PROMPT_ON_NEWLINE=false
 # export POWERLEVEL9K_MULTILINE_FIRST_PROMPT_PREFIX=""
 # export POWERLEVEL9K_MULTILINE_LAST_PROMPT_PREFIX=""
 
@@ -577,3 +577,7 @@ alias dc='docker-compose'
 function ncc() {
   while :; do; nc -lvvp ${1:-9090}; done;
 }
+
+alias 1='cd - >/dev/null'
+alias 2='cd -2 >/dev/null'
+alias 3='cd -3 >/dev/null'
