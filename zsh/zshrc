@@ -49,6 +49,7 @@ alias gc='git commit -v'
 alias gcam='git commit -a -m'
 alias gst='git status'
 alias griom='git pom&&git rebase -i origin/master'
+alias griod='git pod&&git rebase -i origin/develop'
 alias gd='git diff --minimal'
 alias gdc='git diff --cached'
 alias master='git co master&&g rcb'
@@ -108,7 +109,7 @@ m() {
 alias tw='TS_NODE_FILES=true ts-mocha --watch'
 alias zshrc='nvim ~/.zshrc&&reload'
 alias gitconfig='nvim ~/.gitconfig'
-alias aa='ag --ignore yarn.lock --context=3'
+alias aa='ag --ignore yarn.lock --ignore node_modules --ignore package-lock.json --context=3'
 nrc() {
   cd ~/dotfiles/
   n awesome/rc.lua
@@ -341,7 +342,6 @@ if [[ ! ${DISPLAY} && ${XDG_VTNR} == 1 ]]; then
   # mute microphone on startup
   amixer set Capture nocap
   exec ssh-agent startx 
-  teamviewer
 fi
 
 # not working
@@ -447,7 +447,7 @@ function goodnight() {
 
 alias win="/home/gcg/win/run.sh"
 alias mac="(cd /home/gcg/mac/ ; sudo ./boot-macOS-HS.sh)"
-alias tv="rm .config/minidlna/cache/files.db;minidlnad -dR"
+alias tv="rm -f ~/.config/minidlna/cache/files.db&&minidlnad -dR"
 alias serve="ifconfig | grep -A1 wlp4s0|grep -o '[0-9]\+\.[0-9]\+\.[0-9]\+\.[0-9]\+' | head -n 1 && python3 -m http.server"
 alias servelive="browser-sync start -s -f . --no-notify --host 0.0.0.0 --port 9000&&chromium http://0.0.0.0:9000"
 alias compose="less /usr/share/X11/locale/en_US.UTF-8/Compose"
@@ -556,3 +556,18 @@ alias ytdl='youtube-dl -x --audio-format mp3 --force-ipv4 -i'
 alias beep='aplay ~/dotfiles/sounds/beep-07.wav'
 alias th='aiksaurus'
 alias uz='unzip'
+
+export GPG_TTY=$(tty)
+
+alias hp='heroku accounts:set personal'
+alias hi='heroku accounts:set inv'
+export PG='postgres://postgres@localhost/postgres'
+
++(){
+  dc -e "$* p"
+}
+
+alias dc='docker-compose'
+function ncc() {
+  while :; do; nc -lvvp ${1:-9090}; done;
+}

@@ -167,3 +167,4 @@ yay --Syy bisq
 sudo pacman -Syy extra/linux419-tp_smapi
 sudo pacman -Syy downgrade
 sudo pacman -Syy peek
+sudo pacman -Syy firefox
