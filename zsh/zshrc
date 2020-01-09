@@ -562,6 +562,12 @@ export GPG_TTY=$(tty)
 alias hp='heroku accounts:set personal'
 alias hi='heroku accounts:set inv'
 export PG='postgres://postgres@localhost/postgres'
+source /usr/share/zsh-theme-powerlevel9k/powerlevel9k.zsh-theme
+export POWERLEVEL9K_PROMPT_ON_NEWLINE=true
+export POWERLEVEL9K_LEFT_PROMPT_ELEMENTS=(status context vcs dir)
+export POWERLEVEL9K_RIGHT_PROMPT_ELEMENTS=()
+# export POWERLEVEL9K_MULTILINE_FIRST_PROMPT_PREFIX=""
+# export POWERLEVEL9K_MULTILINE_LAST_PROMPT_PREFIX=""
 
 +(){
   dc -e "$* p"

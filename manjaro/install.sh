@@ -167,4 +167,5 @@ yay --Syy bisq
 sudo pacman -Syy extra/linux419-tp_smapi
 sudo pacman -Syy downgrade
 sudo pacman -Syy peek
+yay --Syy zsh-theme-powerlevel9k
 sudo pacman -Syy firefox
