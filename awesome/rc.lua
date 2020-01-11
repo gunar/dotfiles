@@ -881,7 +881,7 @@ awful.spawn.with_shell("killall compton ; compton -b")
 -- start session
 awful.spawn.with_shell("lxsession 2>/dev/null &")
 awful.spawn.with_shell("pulseaudio --start")
-awful.spawn.with_shell("xautolock -corners 0+0- -time 5 -locker ~/dotfiles/manjaro/lock.sh -detectsleep")
+awful.spawn.with_shell("xautolock -corners +-+- -time 5 -locker ~/dotfiles/manjaro/lock.sh -detectsleep")
 awful.spawn.with_shell("setxkbmap -layout us")
 awful.spawn.with_shell("setxkbmap -option compose:caps")
 awful.spawn.with_shell("flameshot")
