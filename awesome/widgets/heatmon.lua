@@ -47,15 +47,6 @@ function update_heatmon (widget)
     notify("highTemp", "Temprerature too high", "Are you sure the fan is on?")
   end
 
-  awful.spawn.easy_async_with_shell(
-  'cat /proc/acpi/ibm/fan | head -n 2 | tail -n 1 | cut -f3',
-  function(stdout, stderr, reason, exit_code)
-    local speed = tonumber(stdout)
-    if temp > 50 and speed < 1 then
-      notify('highTempFanOff', 'High temp but fan is off!', stdout)
-    end
-  end)
-
 end
 
 function create_heatmon_widget()
