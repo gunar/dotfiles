@@ -7,11 +7,6 @@ highlight Search guifg='black'
 hi CursorLineNR guifg=#ffffff
 " no need to fold things in markdown all the time
 let g:vim_markdown_folding_disabled = 1
-" turn on spelling for markdown files
-augroup spelling
-  autocmd!
-  autocmd BufRead,BufNewFile *.md setlocal spell complete+=kspell
-augroup END
 " highlight bad words in red
 hi SpellBad guibg=#882929 guifg=#ffffff" ctermbg=224
 " hi SpellBad guibg=#ff2929 guifg=#ffffff" ctermbg=224

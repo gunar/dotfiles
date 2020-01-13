@@ -10,7 +10,7 @@
 let g:neomake_markdown_vale_maker = {
 \   'exe': 'vale',
 \   'args': ['--output', 'line'],
-\   'errorformat': '/%f:%l:%c:%s:%m'
+\   'errorformat': '%f:%l:%c:%s:%m'
 \ }
 let g:neomake_markdown_enabled_makers = ['vale']
 
