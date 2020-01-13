@@ -40,6 +40,8 @@ augroup neomake_md
   call neomake#configure#automake('w')
 augroup END
 
+map <leader>s :!.scripts/pre-commit.sh<cr>
+
 " " turn on spelling for markdown files
 " augroup spelling
 "   autocmd!
