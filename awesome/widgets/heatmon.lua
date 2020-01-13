@@ -48,14 +48,6 @@ function update_heatmon (widget)
   end
 
   awful.spawn.easy_async_with_shell(
-    "systemctl status thinkfan|grep 'running'",
-    function(stdout, stderr, reason, exit_code)
-      if exit_code > 0 then
-        notify('thinkfan', 'thinkfan is off!', 'Please try to restart it.')
-      end
-  end)
-
-  awful.spawn.easy_async_with_shell(
   'cat /proc/acpi/ibm/fan | head -n 2 | tail -n 1 | cut -f3',
   function(stdout, stderr, reason, exit_code)
     local speed = tonumber(stdout)
