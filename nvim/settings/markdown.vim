@@ -32,7 +32,7 @@ let g:neomake_markdown_sove_maker = {
 \ }
 
 
-let g:neomake_markdown_enabled_makers = ['sove']
+let g:neomake_markdown_enabled_makers = ['sove', 'vale']
 
 augroup neomake_md
   autocmd FileType markdown setlocal conceallevel=2
