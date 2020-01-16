@@ -35,8 +35,7 @@ sudo pacman -Syy gpick
 sudo pacman -Syy xorg-xdpyinfo
 sudo pacman -Syy thunar
 sudo pacman -Syy xss-lock
-sudo pacman -Syy compton
-# sudo pacman -Syy xcompmgr
+sudo pacman -Syy community/picom
 sudo pacman -Syy viewnior
 sudo pacman -Syy xfce4-taskmanager
 sudo pacman -Syy tree
@@ -169,3 +168,5 @@ sudo pacman -Syy downgrade
 sudo pacman -Syy peek
 yay --Syy zsh-theme-powerlevel9k
 sudo pacman -Syy firefox
+sudo pacman -Syy emacs
+yay --Syy adobe-base-14-fonts
