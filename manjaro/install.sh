@@ -48,7 +48,6 @@ sudo pacman -Syy libmcrypt
 sudo pacman -Syy xfce4-settings
 sudo pacman -Syy autofs
 sudo pacman -Syy calibre
-sudo pacman -Syy subdl
 sudo pacman -Syy lsof
 sudo pacman -Syy libva-intel-driver libvdpau-va-gl mesa lib32-mesa vulkan-intel lib32-vulkan-intel
 sudo pacman -Syy libva-utils
@@ -170,3 +169,10 @@ yay --Syy zsh-theme-powerlevel9k
 sudo pacman -Syy firefox
 sudo pacman -Syy emacs
 yay --Syy adobe-base-14-fonts
+sudo pacman -Syy pdftk
+
+sudo ./fontconfig/install.sh
+sudo ./org-protocol/install.sh
+yay --Syy magic-wormhole-git
+sudo pacman -Syy nethogs
+sudo pacman -Syy stunnel
