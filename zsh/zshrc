@@ -237,6 +237,10 @@ orb() {
   rm $MASK
   rm $RESIZED
 }
+gif() {
+  # XXX: Not ready for use
+  convert -delay 20 -loop 0 *.jpg myimage.gif
+}
 mergepdf() {
   gs -dBATCH -dNOPAUSE -q -sDEVICE=pdfwrite -sOutputFile=$1 $2 $3 $4 $5
 }
