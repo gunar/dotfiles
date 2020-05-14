@@ -41,7 +41,9 @@ alias webcam='guvcview'
 
 # Git
 alias g='git'
-alias ga='git add'
+function ga() {
+  git add "$*" && git status
+}
 alias gp='git push'
 alias gpf='git push --force-with-lease'
 alias gcm='git commit -m'
