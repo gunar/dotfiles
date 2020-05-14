@@ -629,15 +629,15 @@ globalkeys = awful.util.table.join(globalkeys,
                   awful.util.getdir("cache") .. "/history_eval")
               end),
     -- Menubar
-    awful.key({ modkey }, "p", function() menubar.show() end),
+    awful.key({ modkey }, "p", function() menubar.show() end)
 
     -- Modal awesome
-    awful.key({                }, "XF86WakeUp", function ()
-      awful.spawn.with_shell('setxkbmap -layout gunar -variant visual&&xrandr --output eDP1 --gamma 1:1:0.5')
-    end),
-    awful.key({                }, "XF86AddFavorite", function ()
-      awful.spawn.with_shell('setxkbmap -layout gunar -variant basic&&xrandr --output eDP1 --gamma 1:1:1')
-    end)
+    -- awful.key({                }, "XF86WakeUp", function ()
+    --   awful.spawn.with_shell('setxkbmap -layout gunar -variant visual&&xrandr --output eDP1 --gamma 1:1:0.5')
+    -- end),
+    -- awful.key({                }, "XF86AddFavorite", function ()
+    --   awful.spawn.with_shell('setxkbmap -layout gunar -variant basic&&xrandr --output eDP1 --gamma 1:1:1')
+    -- end)
 )
 
 clientkeys = awful.util.table.join(
@@ -680,8 +680,15 @@ for i = 1, 5 do
     -- Move client to tag.
     awful.key({ modkey, "Shift" }, "#" .. i + 9, function () if client.focus then client.focus:move_to_tag(client.focus.screen.tags[i]) end end),
     -- Toggle tag.
-    awful.key({ modkey, "Control", "Shift" }, "#" .. i + 9, function () if client.focus then awful.client.toggletag(client.focus.screen.tags[i]) end end))
+    awful.key({ modkey, "Control", "Shift" }, "#" .. i + 9, function () if client.focus then awful.client.toggletag(client.focus.screen.tags[i]) end end)
+  )
 end
+globalkeys = awful.util.table.join(globalkeys,
+    awful.key({ modkey, "Shift" }, "Return", function () if client.focus then client.focus:move_to_tag(
+      -- TODO: extend to allow for multiple screens
+      tags[1][work and 6 or 1]
+    ) end end)
+)
 
 clientbuttons = awful.util.table.join(
     awful.button({ }, 1, function (c) client.focus = c; c:raise() end),
@@ -882,7 +889,7 @@ awful.spawn.with_shell("killall compton ; compton -b")
 awful.spawn.with_shell("lxsession 2>/dev/null &")
 awful.spawn.with_shell("pulseaudio --start")
 awful.spawn.with_shell("xautolock -corners +-+- -time 5 -locker ~/dotfiles/manjaro/lock.sh -detectsleep")
-awful.spawn.with_shell("setxkbmap -layout us")
+awful.spawn.with_shell("setxkbmap -layout de")
 awful.spawn.with_shell("setxkbmap -option compose:caps")
 awful.spawn.with_shell("flameshot")
 muteMic()
