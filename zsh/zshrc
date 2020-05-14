@@ -587,3 +587,17 @@ function ncc() {
 alias 1='cd - >/dev/null'
 alias 2='cd -2 >/dev/null'
 alias 3='cd -3 >/dev/null'
+alias k='emacs ~/k/index.org'
+upload() { if [ $# -eq 0 ]; then echo -e "No arguments specified. Usage:\necho transfer /tmp/test.md\ncat /tmp/test.md | transfer test.md"; return 1; fi
+tmpfile=$( mktemp -t transferXXX ); if tty -s; then basefile=$(basename "$1" | sed -e 's/[^a-zA-Z0-9._-]/-/g'); curl --progress-bar --upload-file "$1" "https://transfer.sh/$basefile" >> $tmpfile; else curl --progress-bar --upload-file "-" "https://transfer.sh/$1" >> $tmpfile ; fi; cat $tmpfile; rm -f $tmpfile; }
+alias bandwidth='sudo nethogs'
+alias sub='subdownloader -c -l eng -V'
+alias rm='rm -i'
+
+alias big='xrandr --output eDP1 --mode 1600x900'
+alias small='xrandr --output eDP1 --mode 1920x1080'
+alias red='systemctl --user restart redshift'
+pdfremovelastpage() {
+  pdftk "$1" cat 1-r2 output "$2"
+}
+alias stream="obs"
