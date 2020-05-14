@@ -1,0 +1,74 @@
+(setq straight-repository-branch "develop")
+
+(defvar bootstrap-version)
+(let ((bootstrap-file
+       (expand-file-name "straight/repos/straight.el/bootstrap.el" user-emacs-directory))
+      (bootstrap-version 5))
+  (unless (file-exists-p bootstrap-file)
+    (with-current-buffer
+        (url-retrieve-synchronously
+         "https://raw.githubusercontent.com/raxod502/straight.el/develop/install.el"
+         'silent 'inhibit-cookies)
+      (goto-char (point-max))
+      (eval-print-last-sexp)))
+  (load bootstrap-file nil 'nomessage))
+
+(setq straight-use-package-by-default t)
+(straight-use-package 'use-package)
+(straight-use-package 'diminish)
+
+
+(use-package org-cliplink
+  :bind
+  ("C-c C" . 'jethro/org-capture-link)
+  :config
+  (defun jethro/org-capture-link ()
+    "Captures a link, and stores it in inbox."
+    (interactive)
+    (org-capture nil "l")))(global-set-key (kbd "C-c l") 'org-store-link)
+
+(global-set-key (kbd "C-c a") 'org-agenda)
+(global-set-key (kbd "C-c c") 'org-capture)
+(setq org-capture-templates
+      '(("i" "inbox" entry (file "~/k/inbox.org")
+           "* TODO %?\n  %i\n  %a")
+        ("e" "email" entry (file+headline "~/k/emails.org" "Emails")
+         "* TODO [#A] Reply: %a :@home:@school:" :immediate-finish t)
+        ("l" "link" entry (file  "~/k/inbox.org")
+           "* TODO %(org-cliplink-capture)" :immediate-finish t)
+        ; See ~/dotfiles/manjaro/org-protocol
+        ("c" "org-protocol-capture" entry (file , "~/k/index,org")
+         "* TODO [[%:link][%:description]]\n\n %i" :immediate-finish t)
+        ; TODO: remove this as I will use Zettelkasten instead
+        ("j" "Journal" entry (file+datetree "~/k/journal.org")
+         "* %?\nEntered on %U\n  %i\n  %a")))
+(define-key global-map (kbd "C-c i")
+  (lambda () (interactive) (org-capture nil "i")))
+
+; Capture articles https://blog.jethro.dev/posts/capturing_inbox/
+(load "server")
+(unless (server-running-p) (server-start))
+(add-to-list 'load-path "~/k/index.org")
+(require 'org-protocol)
+
+
+(require 'package)
+(let* ((no-ssl (and (memq system-type '(windows-nt ms-dos))
+                    (not (gnutls-available-p))))
+       (proto (if no-ssl "http" "https")))
+  (when no-ssl (warn "\
+Your version of Emacs does not support SSL connections,
+which is unsafe because it allows man-in-the-middle attacks.
+There are two things you can do about this warning:
+1. Install an Emacs version that does support SSL and be safe.
+2. Remove this warning from your init file so you won't see it again."))
+  (add-to-list 'package-archives (cons "melpa" (concat proto "://melpa.org/packages/")) t)
+  ;; Comment/uncomment this line to enable MELPA Stable if desired.  See `package-archive-priorities`
+  ;; and `package-pinned-packages`. Most users will not need or want to do this.
+  ;;(add-to-list 'package-archives (cons "melpa-stable" (concat proto "://stable.melpa.org/packages/")) t)
+  )
+
+(unless (package-installed-p 'cider)
+  (package-install 'cider))
+
+(package-initialize)
