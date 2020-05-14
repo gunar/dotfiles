@@ -176,7 +176,7 @@ pacs() {
 # yay
 yi() { yay -Syy --noconfirm $* && echo "yay --Syy $*">>~/dotfiles/manjaro/install.sh }
 yars() {
-  yay -Ss $* | less
+  yay --sortby popularity -Ss $* | less
 }
 
 alias curlpost='curl -H "Content-Type: application/json" -d @-'
