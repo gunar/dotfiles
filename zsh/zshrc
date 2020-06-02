@@ -601,3 +601,20 @@ pdfremovelastpage() {
   pdftk "$1" cat 1-r2 output "$2"
 }
 alias stream="obs"
+function favicon() {
+  convert -resize x16 -gravity center -crop 16x16+0+0 -flatten -colors 256 input.png output-16x16.ico
+  convert -resize x32 -gravity center -crop 32x32+0+0 -flatten -colors 256 input.png output-32x32.ico
+  convert output-16x16.ico output-32x32.ico favicon.ico
+  convert -resize x152 input.png apple-touch-icon-152x152.png
+  convert -resize x120 input.png apple-touch-icon-120x120.png
+  convert -resize x76  input.png apple-touch-icon-76x76.png
+  convert -resize x60  input.png apple-touch-icon-60x60.png
+  xclip -selection clipboard <<EOF
+<link rel="shortcut icon" href="/favicon.ico" sizes="32x32"/>
+<link rel="apple-touch-icon" sizes="152x152" href="/apple-touch-icon-152x152.png"/>
+<link rel="apple-touch-icon" sizes="120x120" href="/apple-touch-icon-120x120.png"/>
+<link rel="apple-touch-icon" sizes="76x76" href="/apple-touch-icon-76x76.png"/>
+<link rel="apple-touch-icon" href="/apple-touch-icon-60x60.png"/>
+EOF
+  echo "HTML copied to the clipboard!"
+}
