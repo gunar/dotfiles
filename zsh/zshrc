@@ -50,8 +50,8 @@ alias gcm='git commit -m'
 alias gc='git commit -v'
 alias gcam='git commit -a -m'
 alias gst='git status'
-alias griom='git pom&&git rebase -i origin/master'
-alias griod='git pod&&git rebase -i origin/develop'
+alias griom='git fetch origin &&git rebase -i origin/master'
+alias griod='git fetch &&git rebase -i origin/develop'
 alias gd='git diff --minimal'
 alias gdc='git diff --cached'
 alias master='git co master&&g rcb'
@@ -144,12 +144,10 @@ cc() { readlink -f $1 | c }
 alias ng='killall ngrok 2>/dev/null;ngrok http -subdomain=gunar 3000 >/dev/null &!'
 alias lint='nvim `eslint --cache -f ~/code/_archive/eslint-formatter-list --ignore-path .gitignore .`'
 perf() {
-  compton -b
-  if pstate-frequency --get|grep performance; then
-    echo "already high"
-  else
-    sudo pstate-frequency --set --plan performance
-  fi
+  compton -b >/dev/null 2>/dev/null
+  sudo pstate-frequency --set --plan performance >/dev/null
+  # if pstate-frequency --get|grep performance; then
+  #   echo "already high"
 }
 powersave() {
   killall compton
@@ -555,6 +553,7 @@ eval "$(direnv hook zsh)"
 export NPM_TOKEN=''
 
 alias duu='du -h -d 2 . | sort -h'
+alias duuu='du -h -d 1 . | sort -h'
 alias dff='df -h | grep home | cut -d" " -f 8'
 alias tree='tree -I node_modules'
 alias groot='git rebase -i --root'
@@ -594,6 +593,8 @@ alias bandwidth='sudo nethogs'
 alias sub='subdownloader -c -l eng -V'
 alias rm='rm -i'
 
+# 96, 120 (25% higher), 144 (50% higher), 168 (75% higher), 192 (100% higher) etc.
+# xrandr --dpi 120
 alias big='xrandr --output eDP1 --mode 1600x900'
 alias small='xrandr --output eDP1 --mode 1920x1080'
 alias red='systemctl --user restart redshift'
