@@ -176,3 +176,4 @@ sudo ./org-protocol/install.sh
 yay --Syy magic-wormhole-git
 sudo pacman -Syy nethogs
 sudo pacman -Syy stunnel
+yay --Syy zoom

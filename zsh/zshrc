@@ -51,6 +51,7 @@ alias gc='git commit -v'
 alias gcam='git commit -a -m'
 alias gst='git status'
 alias griom='git fetch origin &&git rebase -i origin/master'
+alias grom='git fetch origin && git rebase origin/master'
 alias griod='git fetch &&git rebase -i origin/develop'
 alias gd='git diff --minimal'
 alias gdc='git diff --cached'
@@ -619,3 +620,23 @@ function favicon() {
 EOF
   echo "HTML copied to the clipboard!"
 }
+alias lastc='g lg | head -n 1 | cut -d" " -f2 | c'
+function splitVideo() {
+  if [ $# -eq 0 ]
+  then
+    echo "Usage: splitVideo input.mp4 00:01:00 00:02:00 output.mp4"
+    return
+  fi
+  # 
+  ffmpeg -i $1 -acodec copy -vcodec copy -ss $2 -t $3 $4
+}
+alias mp3='lame -V 9 -h'
+function watermark() {
+  if [ $# -eq 0 ]
+  then
+    echo "Usage: watermark input.mp4 watermark.png output.mp4"
+    return
+  fi
+  ffmpeg -i $1 -i $2 -filter_complex "overlay=W-w-5:H-h-5" $3
+}
+alias gnoop='git commit --allow-empty -m "chore: empty commit (probably trying to trigger the CI)"'
