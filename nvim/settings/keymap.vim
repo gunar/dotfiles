@@ -4,10 +4,6 @@ nnoremap <C-d> :TSDef<cr>
 " --- }}}
 
 nmap <leader>t :term<cr>
-nmap <leader>, :bnext<CR>
-tmap <leader>, <C-\><C-n>:bnext<cr>
-nmap <leader>. :bprevious<CR>
-tmap <leader>. <C-\><C-n>:bprevious<CR>
 
 " No need for ex mode
 nnoremap Q <nop>
@@ -72,7 +68,7 @@ nnoremap <silent> <A-h> :bp<CR>
 nnoremap <silent> <A-l>  :bn<CR>
 
 " Fast editing and reloading of vimrc configs
-nmap <leader>e :e! $MYVIMRC<cr>
+nmap <leader><leader>e :e! $MYVIMRC<cr>
 augroup myvimrc
   autocmd!
   autocmd bufwritepost $MYVIMRC source $MYVIMRC

@@ -24,6 +24,10 @@ if dein#load_state('~/.cache/dein')
     call dein#add('roxma/vim-hug-neovim-rpc')
   endif
 
+  " Autocompletion {{{
+    call dein#add('ncm2/float-preview.nvim')
+  " }}}
+
 
   " Denite: Generic Fuzzy Finder
   call dein#add('Shougo/denite.nvim')
@@ -39,11 +43,23 @@ if dein#load_state('~/.cache/dein')
   "     I'm concerned this might conflict with other autocompletes I have
   call dein#add('tbodt/deoplete-tabnine', {'build': './install.sh'})
 
-  " Clojure
+  " Clojure {{{
   "  Syntax Indent Completion
-  call dein#add('guns/vim-clojure-static')
+  " call dein#add('guns/vim-clojure-static')
   call dein#add('kien/rainbow_parentheses.vim')
-  call dein#add('tpope/vim-fireplace')
+  " call dein#add('tpope/vim-fireplace')
+  call dein#add('Olical/conjure', {'tag': 'v3.4.0'})
+  call dein#add('jiangmiao/auto-pairs', { 'tag': 'v2.0.0' })
+  call dein#add('w0rp/ale')
+  " TODO:
+  "   - https://oli.me.uk/getting-started-with-clojure-neovim-and-conjure-in-minutes/
+  "   - https://github.com/guns/vim-sexp
+  "   - https://github.com/tpope/vim-sexp-mappings-for-regular-people
+  "  }}}
+
+  " moving around --- {{{
+  call dein#add('easymotion/vim-easymotion')
+  " }}}
 
   " javascript --- {{{
   " testing

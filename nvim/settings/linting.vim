@@ -36,3 +36,7 @@ augroup neomake_lint
 augroup END
 
 nmap <F2> :lfirst<cr>
+
+let g:ale_linters = {
+      \ 'clojure': ['clj-kondo', 'joker']
+      \}

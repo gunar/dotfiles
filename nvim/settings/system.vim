@@ -48,8 +48,8 @@ autocmd FileType gitcommit set textwidth=73
 
 set wrap linebreak nolist
 set wildmode=full
-" leader is ,
 let mapleader = ','
+let maplocalleader = '.'
 set undofile
 set undodir="$HOME/.VIM_UNDO_FILES"
 " incremental replace
