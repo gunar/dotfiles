@@ -21,3 +21,5 @@ yarn global add nodemon
 yarn global add surge
 yarn global add ipt
 yarn global add tldr
+
+python3 -m pip install --user --upgrade ezsub
