@@ -177,3 +177,4 @@ yay --Syy magic-wormhole-git
 sudo pacman -Syy nethogs
 sudo pacman -Syy stunnel
 yay --Syy zoom
+yay --Syy babashka-bin
