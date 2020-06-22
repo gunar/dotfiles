@@ -12,6 +12,8 @@ setopt EXTENDED_HISTORY
 
 export PATH="/home/gcg/.gem/ruby/2.3.0/bin:/usr/local/sbin:/usr/local/bin:/usr/bin:/usr/lib/jvm/default/bin:/usr/bin/site_perl:/usr/bin/vendor_perl:/usr/bin/core_perl"
 export PATH="$PATH:./node_modules/.bin:../node_modules/.bin:../../node_modules/.bin:../../../node_modules/.bin:../../../../node_modules/.bin"
+# pip
+export PATH="$PATH:/home/gcg/.local/bin"
 
 # this slows down startup because nodejs
 # export PATH="$PATH:$(yarn global bin 2>/dev/null)"
@@ -270,7 +272,7 @@ zle -N zle-keymap-select
 export KEYTIMEOUT=1
 # ctrl+s for "... && exit"
 function append-exit {
-  BUFFER="$BUFFER && exit"
+  BUFFER="$BUFFER && beep && exit"
 }
 zle -N append-exit
 bindkey "^S" append-exit
@@ -568,7 +570,7 @@ export GPG_TTY=$(tty)
 alias hp='heroku accounts:set personal'
 alias hi='heroku accounts:set inv'
 export PG='postgres://postgres@localhost/postgres'
-source /usr/share/zsh-theme-powerlevel9k/powerlevel9k.zsh-theme
+source /usr/share/zsh-theme-powerlevel10k/powerlevel10k.zsh-theme
 export POWERLEVEL9K_LEFT_PROMPT_ELEMENTS=(status vcs dir) # context
 export POWERLEVEL9K_RIGHT_PROMPT_ELEMENTS=() # Right prompt not working (because "vim-mode" on zsh?)
 export POWERLEVEL9K_PROMPT_ON_NEWLINE=false
@@ -591,8 +593,8 @@ alias k='emacs ~/k/index.org'
 upload() { if [ $# -eq 0 ]; then echo -e "No arguments specified. Usage:\necho transfer /tmp/test.md\ncat /tmp/test.md | transfer test.md"; return 1; fi
 tmpfile=$( mktemp -t transferXXX ); if tty -s; then basefile=$(basename "$1" | sed -e 's/[^a-zA-Z0-9._-]/-/g'); curl --progress-bar --upload-file "$1" "https://transfer.sh/$basefile" >> $tmpfile; else curl --progress-bar --upload-file "-" "https://transfer.sh/$1" >> $tmpfile ; fi; cat $tmpfile; rm -f $tmpfile; }
 alias bandwidth='sudo nethogs'
-alias sub='subdownloader -c -l eng -V'
 alias rm='rm -i'
+alias sub='rm -rf /home/gcg/.ezsub && ezsub download -l en --destination sub -G -O -A  --title'
 
 # 96, 120 (25% higher), 144 (50% higher), 168 (75% higher), 192 (100% higher) etc.
 # xrandr --dpi 120
@@ -640,3 +642,5 @@ function watermark() {
   ffmpeg -i $1 -i $2 -filter_complex "overlay=W-w-5:H-h-5" $3
 }
 alias gnoop='git commit --allow-empty -m "chore: empty commit (probably trying to trigger the CI)"'
+alias whoowns='pacman -Qo'
+alias nrepl="clojure -Sdeps '{:deps {nrepl {:mvn/version \"0.7.0\"} cider/cider-nrepl {:mvn/version \"0.25.2\"}}}' -m nrepl.cmdline --middleware '[\"cider.nrepl/cider-middleware\"]'"
