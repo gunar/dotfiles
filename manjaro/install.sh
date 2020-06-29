@@ -160,8 +160,6 @@ sudo pacman -Syy krename
 sudo pacman -Syy aiksaurus
 sudo pacman -Syy musescore
 sudo pacman -Syy fd
-yay --Syy bisq
-yay --Syy bisq
 sudo pacman -Syy extra/linux419-tp_smapi
 sudo pacman -Syy downgrade
 sudo pacman -Syy peek
@@ -178,3 +176,5 @@ sudo pacman -Syy nethogs
 sudo pacman -Syy stunnel
 yay --Syy zoom
 yay --Syy babashka-bin
+sudo pacman -Syy swaks
+sudo pacman -Syy nnn
