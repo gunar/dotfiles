@@ -549,7 +549,7 @@ globalkeys = awful.util.table.join(globalkeys,
     -- {{{ Software
     -- switch bluetooth edifier profile
     awful.key({ modkey,           }, "Print", function () toggleBluetoothMic() end),
-    awful.key({ modkey,           }, "e", function () awful.spawn("thunar") end),
+    awful.key({ modkey,           }, "e", function () awful.spawn("termite -e tmux -e nnn") end),
     awful.key({ "Control"         }, "q", function () awful.spawn("catfish") end),
     awful.key({ modkey,           }, "o", function () awful.spawn("chromium --disk-cache-dir=/tmp/cache --profile-directory=Default") end),
     awful.key({ modkey, "Control" }, "o", function () awful.spawn("chromium --disk-cache-dir=/tmp/cache --profile-directory=\"Profile 1\"") end),
@@ -562,10 +562,6 @@ globalkeys = awful.util.table.join(globalkeys,
     -- awful.key({ modkey,           }, "Print",       function () awful.spawn(terminal.." -e /home/gcg/dotfiles/scripts/clipboardImageToCloudApp.rb") end),
     awful.key({ modkey, "Control" }, "m", function () awful.spawn("xfce4-taskmanager") end),
     -- }}}
-    awful.key({ modkey,           }, "Left",   awful.tag.viewprev       ),
-    awful.key({ modkey,           }, "Up",     changeFocus(1)           ),
-    awful.key({ modkey,           }, "Down",   changeFocus(-1)          ),
-    awful.key({ modkey,           }, "Right",  awful.tag.viewnext       ),
 
     --- {{{ Screen movement
     -- Switch screen
@@ -573,6 +569,12 @@ globalkeys = awful.util.table.join(globalkeys,
     awful.key({ modkey,         }, "Up", function () awful.screen.focus_bydirection('up') end),
     awful.key({ modkey,         }, "n", function () awful.screen.focus_bydirection('down') end),
     awful.key({ modkey,         }, "Down", function () awful.screen.focus_bydirection('down') end),
+    awful.key({ modkey,         }, "Left",   awful.tag.viewprev       ),
+    awful.key({ modkey,         }, "Up",     changeFocus(1)           ),
+    awful.key({ modkey,         }, "Down",   changeFocus(-1)          ),
+    awful.key({ modkey,         }, "Right",  awful.tag.viewnext       ),
+    awful.key({ modkey,         }, "l", awful.tag.viewnext),
+    awful.key({ modkey,         }, "h", awful.tag.viewprev),
     -- Move client
     awful.key({ modkey, "Shift" }, "i",    function () client.focus:move_to_screen() end),
     awful.key({ modkey, "Shift" }, "Up",   function () client.focus:move_to_screen() end),
@@ -608,8 +610,6 @@ globalkeys = awful.util.table.join(globalkeys,
     -- lock screen
   	awful.key({ modkey, "Shift"   }, "q", function () awful.spawn.with_shell("~/dotfiles/manjaro/lock.sh") end),
 
-    awful.key({ modkey,           }, "l", awful.tag.viewnext),
-    awful.key({ modkey,           }, "h", awful.tag.viewprev),
     awful.key({ modkey, "Control" }, "h",     function () awful.tag.incmwfact(-0.05)         end),
     awful.key({ modkey, "Control" }, "l",     function () awful.tag.incmwfact( 0.05)         end),
     awful.key({ modkey,           }, "space", function () toggleTags() end), -- toggle between work and non-work
