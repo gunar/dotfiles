@@ -136,12 +136,7 @@ tmp() {
 tmpclone() {
   cd /tmp
   mkd $RANDOM
-  git clone $* .
-}
-clonetmp() {
-  cd /tmp
-  mkd $RANDOM
-  git clone $* .
+  git clone --depth 1 $* .
 }
 cc() { readlink -f $1 | c }
 alias ng='killall ngrok 2>/dev/null;ngrok http -subdomain=gunar 3000 >/dev/null &!'
@@ -605,13 +600,18 @@ pdfremovelastpage() {
 }
 alias stream="obs"
 function favicon() {
-  convert -resize x16 -gravity center -crop 16x16+0+0 -flatten -colors 256 input.png output-16x16.ico
-  convert -resize x32 -gravity center -crop 32x32+0+0 -flatten -colors 256 input.png output-32x32.ico
+  if [ $# -eq 0 ]
+  then
+    echo "Usage: favicon <input>"
+    return
+  fi
+  convert -resize x16 -gravity center -crop 16x16+0+0 -flatten -colors 256 $1 output-16x16.ico
+  convert -resize x32 -gravity center -crop 32x32+0+0 -flatten -colors 256 $1 output-32x32.ico
   convert output-16x16.ico output-32x32.ico favicon.ico
-  convert -resize x152 input.png apple-touch-icon-152x152.png
-  convert -resize x120 input.png apple-touch-icon-120x120.png
-  convert -resize x76  input.png apple-touch-icon-76x76.png
-  convert -resize x60  input.png apple-touch-icon-60x60.png
+  convert -resize x152 $1 apple-touch-icon-152x152.png
+  convert -resize x120 $1 apple-touch-icon-120x120.png
+  convert -resize x76  $1 apple-touch-icon-76x76.png
+  convert -resize x60  $1 apple-touch-icon-60x60.png
   xclip -selection clipboard <<EOF
 <link rel="shortcut icon" href="/favicon.ico" sizes="32x32"/>
 <link rel="apple-touch-icon" sizes="152x152" href="/apple-touch-icon-152x152.png"/>
@@ -643,3 +643,9 @@ function watermark() {
 alias gnoop='git commit --allow-empty -m "chore: empty commit (probably trying to trigger the CI)"'
 alias whoowns='pacman -Qo'
 alias nrepl="clojure -Sdeps '{:deps {nrepl {:mvn/version \"0.7.0\"} cider/cider-nrepl {:mvn/version \"0.25.2\"}}}' -m nrepl.cmdline --middleware '[\"cider.nrepl/cider-middleware\"]'"
+
+export NNN_PLUG='z:fzz;o:fzopen'
+function up() {
+  curl -F "file=@$1" "https://tmp.ninja/api.php?d=upload-tool"
+}
+
