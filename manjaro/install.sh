@@ -178,3 +178,5 @@ yay --Syy zoom
 yay --Syy babashka-bin
 sudo pacman -Syy swaks
 sudo pacman -Syy nnn
+sudo pacman -Syy torsocks
+yay --Syy ffmpeg-normalize
