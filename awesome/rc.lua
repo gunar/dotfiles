@@ -550,6 +550,7 @@ globalkeys = awful.util.table.join(globalkeys,
     -- switch bluetooth edifier profile
     awful.key({ modkey,           }, "Print", function () toggleBluetoothMic() end),
     awful.key({ modkey,           }, "e", function () awful.spawn("termite -e \"tmux new-session 'nnn -x'\"") end),
+    awful.key({ modkey,           }, "b", function () awful.spawn("termite -e \"tmux new-session 'bc -l'\"") end),
     awful.key({ "Control"         }, "q", function () awful.spawn("catfish") end),
     awful.key({ modkey,           }, "o", function () awful.spawn("chromium --disk-cache-dir=/tmp/cache --profile-directory=Default") end),
     awful.key({ modkey, "Control" }, "o", function () awful.spawn("chromium --disk-cache-dir=/tmp/cache --profile-directory=\"Profile 1\"") end),
