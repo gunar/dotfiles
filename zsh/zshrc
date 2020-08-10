@@ -638,7 +638,29 @@ function watermark() {
     echo "Usage: watermark input.mp4 watermark.png output.mp4"
     return
   fi
-  ffmpeg -i $1 -i $2 -filter_complex "overlay=W-w-5:H-h-5" $3
+  # ffmpeg -i $1 -i $2 -filter_complex "overlay=W-w-5:H-h-5" $3
+  ffmpeg -y \
+-i $1 \
+-i $2 \
+-filter_complex "\
+[1][0]scale2ref=h=ow/mdar:w=iw/4[#A logo][bird];\
+[#A logo]format=argb,colorchannelmixer=aa=0.5[#B logo transparent];\
+[bird][#B logo transparent]overlay\
+=(main_w-w)-(main_w*0.1):(main_h-h)-(main_h*0.1)" \
+$3
+
+#A preserve aspect ratio of logo, scale width of logo to 1/4 of image width
+#B add alpha channel, reduce opacity to 50%
+# overlay image an logo
+# position: bottom right, with a margin of 10% of the edges
+}
+function cutvideo() {
+  if [ $# -eq 0 ]
+  then
+    echo "Usage: cutvideo start-time duration input.mp4 output.mp4"
+    return
+  fi
+  ffmpeg -ss $1 -t $2 -i $3 -async 1 $4
 }
 alias gnoop='git commit --allow-empty -m "chore: empty commit (probably trying to trigger the CI)"'
 alias whoowns='pacman -Qo'
@@ -649,3 +671,4 @@ function up() {
   curl -F "file=@$1" "https://tmp.ninja/api.php?d=upload-tool"
 }
 
+alias now='vc'
