@@ -96,6 +96,10 @@ if dein#load_state('~/.cache/dein')
   call dein#add('nelstrom/vim-markdown-folding') "Use :FoldToggle for nested folding
   " }}}
 
+
+  " postgres {{{
+  call dein#add('vim-scripts/dbext.vim')
+  " }}}
   call dein#add('prettier/vim-prettier', { 'build': 'yarn install' })
 
   " colorscheme & syntax highlighting
