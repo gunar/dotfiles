@@ -672,3 +672,4 @@ function up() {
 }
 
 alias now='vc'
+alias ssr='simplescreenrecorder'

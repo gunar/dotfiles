@@ -1,4 +1,6 @@
 #!/bin/sh
+./pulseaudio/install.sh
+
 sudo ln -fs "$(readlink -f xinitrc)" ~/.xinitrc
 sudo ln -fs "$(readlink -f xkb)" /usr/share/X11/xkb/symbols/gunar
 
@@ -180,3 +182,14 @@ sudo pacman -Syy swaks
 sudo pacman -Syy nnn
 sudo pacman -Syy torsocks
 yay --Syy ffmpeg-normalize
+sudo pacman -Syy terraform
+yay --Syy semgrep-bin
+sudo pacman -Syy aws-cli
+yay --Syy pulumi
+yay --Syy pulumi
+sudo pacman -Syy asciinema
+yay --Syy pulumi
+sudo pacman -Syy xsensors
+yay --Syy thinkfan
+yay --Syy lm_sensors
+sudo pacman -Syy socat
