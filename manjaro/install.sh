@@ -190,6 +190,5 @@ yay --Syy pulumi
 sudo pacman -Syy asciinema
 yay --Syy pulumi
 sudo pacman -Syy xsensors
-yay --Syy thinkfan
 yay --Syy lm_sensors
 sudo pacman -Syy socat
