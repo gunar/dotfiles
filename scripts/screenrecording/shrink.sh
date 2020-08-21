@@ -1,7 +1,7 @@
 #!/usr/bin/env sh
 
 # Try to resume a paused encoding job
-pgrep ffmpeg | xargs kill -s SIGCONT
+killall ffmpeg -s SIGCONT
 
 # Ensure single process — https://stackoverflow.com/a/7305448/1456173
 exec 200<"$0"
