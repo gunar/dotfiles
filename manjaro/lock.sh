@@ -12,3 +12,6 @@ xbacklight -set 100
 
 # Tell my SimpleScreenRecorder coordinator to resume recording
 echo "record-start" | socat -t 1 - tcp:localhost:8124
+
+# Pause encoding job
+pgrep ffmpeg | xargs kill -s SIGSTOP
