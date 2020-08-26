@@ -12,9 +12,6 @@ let g:tsuquyomi_disable_quickfix = 1
 let g:vim_json_syntax_conceal = 0
 let g:deoplete#omni_patterns = {}
 
-" Codi
-nnoremap <silent> <C-c> :Codi!!<CR>
-
 " Remove trailing spaces
 autocmd BufWritePre *.js :%s/\s\+$//e
 

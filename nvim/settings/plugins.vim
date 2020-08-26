@@ -80,9 +80,6 @@ if dein#load_state('~/.cache/dein')
   call dein#add('1995eaton/vim-better-javascript-completion')
   call dein#add('moll/vim-node') " makes `gf` work on node_modules
 
-  " interactive scratchpad instant evaluation
-  call dein#add('metakirby5/codi.vim')
-
   " call dein#add('hail2u/vim-css3-syntax')
   " " call dein#add('vim-scripts/SyntaxComplete')
   " call dein#add('othree/javascript-libraries-syntax.vim')
