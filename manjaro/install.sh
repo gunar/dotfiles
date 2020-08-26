@@ -192,3 +192,6 @@ yay --Syy pulumi
 sudo pacman -Syy xsensors
 yay --Syy lm_sensors
 sudo pacman -Syy socat
+sudo pacman -Syy tidy
+yay --Syy cloudflared
+yay --Syy mongodb-tools-bin
