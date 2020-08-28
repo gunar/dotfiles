@@ -195,3 +195,4 @@ sudo pacman -Syy socat
 sudo pacman -Syy tidy
 yay --Syy cloudflared
 yay --Syy mongodb-tools-bin
+sudo pacman -Syy pv
