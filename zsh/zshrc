@@ -551,7 +551,7 @@ export NPM_TOKEN=''
 
 alias duu='du -h -d 2 . | sort -h'
 alias duuu='du -h -d 1 . | sort -h'
-alias dff='df -h | grep home | cut -d" " -f 8'
+alias dff='df -h | grep home | cut -d" " -f 7'
 alias tree='tree -I node_modules'
 alias groot='git rebase -i --root'
 alias ytdl='youtube-dl -x --audio-format mp3 --force-ipv4 -i'
