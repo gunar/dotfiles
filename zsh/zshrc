@@ -154,12 +154,13 @@ alias hibernate='sudo echo "ok" && xlock 2>/dev/null & echo disk | sudo tee /sys
 alias suspend='sudo echo "ok" && xlock 2>/dev/null & echo mem | sudo tee /sys/power/state'
 alias wf='chromium --app="https://workflowy.com" --enable-apps --enable-extension-apps'
 alias mictest='arecord -vvv -f dat /dev/null'
-p() {
-  while true
-  do
-    timeout --preserve-status 0.2 ping 8.8.8.8 -c 1|head -n 2|tail -n 1
-  done
-}
+alias p='pulumi'
+# p() {
+#   while true
+#   do
+#     timeout --preserve-status 0.2 ping 8.8.8.8 -c 1|head -n 2|tail -n 1
+#   done
+# }
 # pacman
 pi() {
   sudo pacman -Syy $* && echo "sudo pacman -Syy $*">>~/dotfiles/manjaro/install.sh
@@ -335,6 +336,7 @@ fi
 # "upower -e" to find out your devices
 # alias batt='upower -i /org/freedesktop/UPower/devices/battery_BAT0|grep -E "state|time\ to\ full|time\ to\ empty|percentage"'
 alias batt='sudo tlp-stat -b'
+alias fullcharge='sudo tlp fullcharge'
 
 # start x if first tty1
 if [[ ! ${DISPLAY} && ${XDG_VTNR} == 1 ]]; then
@@ -549,7 +551,7 @@ export NPM_TOKEN=''
 
 alias duu='du -h -d 2 . | sort -h'
 alias duuu='du -h -d 1 . | sort -h'
-alias dff='df -h | grep home | cut -d" " -f 7'
+alias df='df -h 2>/dev/null'
 alias tree='tree -I node_modules'
 alias groot='git rebase -i --root'
 alias ytdl='youtube-dl -x --audio-format mp3 --force-ipv4 -i'
@@ -673,6 +675,8 @@ function mergevideo() {
 }
 alias gnoop='git commit --allow-empty -m "chore: empty commit (probably trying to trigger CI)"'
 alias whoowns='pacman -Qo'
+alias pacman-clean-cache='sudo journalctl --vacuum-files=1 && paccache -r && yay -Sc && pacman -Sc && pacman -Scc'
+alias pacman-remove-orphans='pacman -Qtdq | sudo pacman -Rns -'
 alias nrepl="clojure -Sdeps '{:deps {nrepl {:mvn/version \"0.7.0\"} cider/cider-nrepl {:mvn/version \"0.25.2\"}}}' -m nrepl.cmdline --middleware '[\"cider.nrepl/cider-middleware\"]'"
 
 export NNN_PLUG='z:fzz;o:fzopen'
@@ -682,3 +686,49 @@ function up() {
 
 alias now='vc'
 alias ssr='simplescreenrecorder'
+alias ports='sudo netstat -tunlp | less'
+alias pu='pulumi up -r'
+alias pl='pulumi logs -f'
+
+function convert-all-to-mobi() {
+  # TODO: For extra clean code, refactor to use case instead https://stackoverflow.com/a/18280350/1456173
+  for f in ./*; do
+    if [[ $f =~ \.mobi$ ]]; then
+      echo "$f is mobi, ignoring"
+    else
+      echo "$f is not mobi, converting"
+      ebook-convert $f .mobi
+    fi
+  done
+}
+
+function cloud() {
+  if [ -z "$AWS_S3_CLOUD_BACKUP_BUCKET" ]; then
+    echo "Set AWS_S3_CLOUD_BACKUP_BUCKET"
+    exit 1
+  fi
+  if [ $# -eq 0 ]
+  then
+    echo "Usage: cloud file"
+    return
+  fi
+  echo "Encrypting and uploading file '${1}'"
+  gpg --encrypt -r gunar@gunargessner.com <"${1}" \
+    | aws s3 cp - "s3://${AWS_S3_CLOUD_BACKUP_BUCKET}/${1}" --storage-class STANDARD_IA  \
+    || exit 1
+  echo "Done! You can safely remove '${1}'"
+}
+function cloud-and-delete() {
+  cloud "$1" && rm "$1"
+}
+function cloud-ls() {
+  aws s3 ls --human-readable --summarize s3://${AWS_S3_CLOUD_BACKUP_BUCKET}/
+}
+function cloud-dl() {
+  if [ $# -eq 0 ]
+  then
+    echo "Usage: cloud-dl <filename>"
+    exit 0
+  fi
+  aws s3 cp "s3://${AWS_S3_CLOUD_BACKUP_BUCKET}/$1" - | gpg --decrypt >"$1" || exit 1
+}
