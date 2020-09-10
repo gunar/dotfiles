@@ -880,8 +880,8 @@ awful.spawn.with_shell("killall compton ; compton -b")
 -- start session
 awful.spawn.with_shell("lxsession 2>/dev/null &")
 awful.spawn.with_shell("pulseaudio --start")
-awful.spawn.with_shell("xautolock -corners +-+- -cornerdelay 2 -time 5 -locker ~/dotfiles/manjaro/lock.sh -detectsleep")
 awful.spawn.with_shell("setxkbmap -layout de")
+awful.spawn.with_shell("killall xautolock ; xautolock -corners +-+- -cornerdelay 2 -time 5 -locker ~/dotfiles/manjaro/lock.sh -detectsleep")
 awful.spawn.with_shell("setxkbmap -option compose:caps")
 -- If this ends up being run multiple times (e.g. restarting awesome) it won't be a problem
 -- because the first process will capture the socket port, and the second will fail to capture it and exit
