@@ -144,12 +144,9 @@ sudo pacman -Syy dnsutils
 sudo pacman -Syy nmap
 sudo pacman -Syy wine
 sudo pacman -Syy anki
-sudo pacman -Syy linux414-tp_smapi
-sudo pacman -Syy linux419-tp_smapi
 yay --noconfirm -Syy tp_smapi-dkms
 sudo pacman -Syy acpi_call-dkms
 sudo pacman -Syy tpacpi-bat
-sudo pacman -Syy linux419-acpi_call
 yay --noconfirm -Syy direnv
 yay --noconfirm -Syy planck-git
 sudo pacman -Syy lutris
@@ -162,7 +159,6 @@ sudo pacman -Syy krename
 sudo pacman -Syy aiksaurus
 sudo pacman -Syy musescore
 sudo pacman -Syy fd
-sudo pacman -Syy extra/linux419-tp_smapi
 sudo pacman -Syy downgrade
 sudo pacman -Syy peek
 yay --Syy zsh-theme-powerlevel9k
@@ -196,3 +192,24 @@ sudo pacman -Syy tidy
 yay --Syy cloudflared
 yay --Syy mongodb-tools-bin
 sudo pacman -Syy pv
+sudo pacman -Syy x11vnc
+sudo pacman -Syy vncdotool
+sudo pacman -Syy lib32-v4l-utils
+sudo pacman -Syy linux-headers
+sudo pacman -Syy v4l-utils
+sudo pacman -Syy v4l2loopback-dkms
+sudo pacman -Syy linux-headers
+sudo pacman -Syy linux49-headers
+yay --Syy obs-v4l2sink
+yay --Syy losslesscut
+sudo pacman -Syy dos2unix
+sudo pacman -Syy linux54-acpi_call
+sudo pacman -Syy linux54-tp_smapi
+sudo pacman -Syy linux54-headers
+sudo pacman -Syy linux-lts-headers
+sudo pacman -Syy manjaro-settings-manager
+
+# ==> Unable to install module tp_smapi-dkms/0.43 for kernel 5.4.62-1-MANJARO: Missing kernel modules tree.
+# ==> Unable to install module v4l2loopback/0.12.5 for kernel 5.4.62-1-MANJARO: Missing kernel modules tree.
+sudo pacman -Syy bc
+sudo pacman -Syy i3lock
