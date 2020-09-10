@@ -887,7 +887,7 @@ awful.spawn.with_shell("setxkbmap -option compose:caps")
 -- because the first process will capture the socket port, and the second will fail to capture it and exit
 -- leaving a single process online
 awful.spawn.with_shell("~/dotfiles/scripts/screenrecording/coordinator.js")
-awful.spawn.with_shell("flameshot")
+awful.spawn.with_shell("killall flameshot ; flameshot")
 muteMic()
 
 -- First update
