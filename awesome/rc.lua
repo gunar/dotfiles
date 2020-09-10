@@ -868,15 +868,6 @@ client.connect_signal("property::geometry", function (c)
   end
 end)
 
-
-
-
-
-
-
--- Composition Manager for transparency
-awful.spawn.with_shell("killall compton ; compton -b")
-
 -- start session
 awful.spawn.with_shell("killall lxsession ; lxsession")
 awful.spawn.with_shell("pulseaudio --start")

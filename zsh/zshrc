@@ -142,13 +142,11 @@ cc() { readlink -f $1 | c }
 alias ng='killall ngrok 2>/dev/null;ngrok http -subdomain=gunar 3000 >/dev/null &!'
 alias lint='nvim `eslint --cache -f ~/code/_archive/eslint-formatter-list --ignore-path .gitignore .`'
 perf() {
-  compton -b >/dev/null 2>/dev/null
   sudo pstate-frequency --set --plan performance >/dev/null
   # if pstate-frequency --get|grep performance; then
   #   echo "already high"
 }
 powersave() {
-  killall compton
   xbacklight -set 7
   sudo pstate-frequency --set --plan powersave
 }
