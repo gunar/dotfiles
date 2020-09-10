@@ -71,7 +71,7 @@ naughty.config.defaults.timeout = 2
 naughty.config.defaults['icon_size'] = 32
 
 -- {{{ Variable definitions
--- Themes define colours, icons, font and wallpapers.
+-- Themes define colours, icons, font
 beautiful.init(awful.util.getdir("config") .. "/" .. "themes/gunar/theme.lua")
 beautiful.tasklist_bg_focus  = "#FFFFFF33"
 beautiful.tasklist_fg_normal = "#FFFFFF"
@@ -115,19 +115,10 @@ local layouts =
 }
 -- }}}
 
--- {{{ Wallpaper
-if beautiful.wallpaper then
-    for s = 1, screen.count() do
-        gears.wallpaper.maximized(beautiful.wallpaper, s, true)
-    end
-end
--- }}}
-
 -- {{{ Prompts
 loadrc("prompt")
 -- disabled in favor of xfce4-display-settings
 loadrc("xrandr")
-local refreshWallpaper = loadrc("wallpaper")
 -- }}}
 
 -- {{{ Widgets
@@ -193,12 +184,11 @@ local work = true
 local lastTag = 6
 function toggleTags()
   if work then work = false else work = true end
-
-  updateTheme()
-  updateTags()
+  updateTheme(work)
+  updateTags(work)
 end
 
-function updateTags()
+function updateTags(work)
   local currentTag = awful.screen.focused().selected_tag.index
   for s = 1, screen.count() do
     if work then
@@ -216,10 +206,12 @@ for s = 1, screen.count() do
   for t = 1, 10 do tags[s][t].activated = (t <= 5) end
 end
 
-function updateTheme()
+function updateTheme(work)
   local theme = beautiful.get()
   local bg = work and "#000000" or "#FFFFFF33"
   local fg = work and "#FFFFFF" or "#000000"
+
+  gears.wallpaper.maximized('/home/gcg/dotfiles/awesome/themes/' .. (work and 'down' or 'up') .. '.jpg')
 
   theme.bg_normal              = bg
   theme.bg_focus               = bg
@@ -251,7 +243,6 @@ myawesomemenu = {
 
 mymainmenu = awful.menu({ items = { { "awesome", myawesomemenu, beautiful.awesome_icon },
                                     { "open terminal", terminal },
-                                    { "refresh wallpaper", refreshWallpaper },
                                     { "fix HDMI1", function() awful.spawn.with_shell("xrandr --output HDMI1 --mode 800x600&&xrandr --output HDMI1 --mode 1920x1080") end },
                                     { "fix eDP1", function() awful.spawn.with_shell("xrandr --output eDP1 --mode 800x600&&xrandr --output eDP1 --mode 1920x1080") end }
                                   }
@@ -613,7 +604,7 @@ globalkeys = awful.util.table.join(globalkeys,
 
     awful.key({ modkey, "Control" }, "h",     function () awful.tag.incmwfact(-0.05)         end),
     awful.key({ modkey, "Control" }, "l",     function () awful.tag.incmwfact( 0.05)         end),
-    awful.key({ modkey,           }, "space", function () toggleTags() end), -- toggle between work and non-work
+    awful.key({ modkey,           }, "space", toggleTags), -- toggle between work and non-work
 
     -- awful.key({ modkey, "Control" }, "n", awful.client.restore),
 
@@ -898,3 +889,6 @@ awful.spawn.with_shell("setxkbmap -option compose:caps")
 awful.spawn.with_shell("~/dotfiles/scripts/screenrecording/coordinator.js")
 awful.spawn.with_shell("flameshot")
 muteMic()
+
+-- First update
+updateTheme(work)
