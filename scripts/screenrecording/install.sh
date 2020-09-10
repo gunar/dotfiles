@@ -1,3 +1,3 @@
 #!/usr/bin/sh
 mkdir -p ~/screenrecordings/in-progress
-mkdir -p ~/screenrecordings/shrinked
+mkdir -p ~/screenrecordings/by-day

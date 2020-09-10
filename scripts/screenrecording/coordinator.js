@@ -14,11 +14,21 @@ ssr.stderr.on("data", data => {
   const string = data.toString();
   if (string.includes("StopPage] Stopped page.")) {
     notify("Stopped. Shrinking now...");
-    const shrink = spawn(`${__dirname}/shrink.sh`, [], { shell: true });
+    const shrink = spawn(`${__dirname}/shrink.sh`, [], {
+      shell: true,
+    });
     shrink.stderr.on("data", data => {
+      require("fs").appendFileSync(
+        "/tmp/screenrecorder-coordinator.log",
+        `error: ${data.toString()}`
+      );
       notify(data.toString());
     });
     shrink.stdout.on("data", data => {
+      require("fs").appendFileSync(
+        "/tmp/screenrecorder-coordinator.log",
+        `info: ${data.toString()}`
+      );
       notify(data.toString());
     });
   }
