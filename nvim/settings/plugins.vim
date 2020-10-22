@@ -4,9 +4,8 @@ let pluginsExist = 1
 if (!isdirectory(expand("$HOME/.cache/dein")))
   call system(expand("curl https://raw.githubusercontent.com/Shougo/dein.vim/master/bin/installer.sh > /tmp/installer.sh"))
   call system(expand("sh /tmp/installer.sh $HOME/.cache/dein"))
-  let bundleExists = 0
+  bundleExists = 0
 endif
-if 0 | endif
 
 if &compatible
   set nocompatible " Be iMproved
