@@ -11,7 +11,7 @@ function create_kbdswitcher_widget()
   kbdcfg.switch = function ()
     kbdcfg.current = kbdcfg.current % #(kbdcfg.layout) + 1
     local t = kbdcfg.layout[kbdcfg.current]
-    os.execute(kbdcfg.cmd .. " " .. t[1] .. " " .. t[2])
+    awful.spawn.easy_async_with_shell(kbdcfg.cmd .. " " .. t[1] .. " " .. t[2], function(out) end)
   end
   -- default
   kbdcfg.current = 2
