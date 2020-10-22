@@ -6,7 +6,7 @@ amixer set Master 0
 # Tell my SimpleScreenRecorder coordinator to stop recording
 echo "record-save" | socat -t 1 - tcp:localhost:8124
 
-i3lock --image=/tmp/wallpaper.png --nofork
+i3lock --image=/home/gcg/dotfiles/awesome/themes/up.png --nofork
 
 xbacklight -set 100
 
