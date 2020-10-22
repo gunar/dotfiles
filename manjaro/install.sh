@@ -4,6 +4,9 @@
 sudo ln -fs "$(readlink -f xinitrc)" ~/.xinitrc
 sudo ln -fs "$(readlink -f xkb)" /usr/share/X11/xkb/symbols/gunar
 
+mkdir -p /home/gcg/.config/uniemoji
+sudo ln -fs "$(readlink -f uniemoji/custom.json)" /home/gcg/.config/uniemoji/custom.json
+
 sudo loginctl enable-linger "$(whoami)"
 
 # timesync
