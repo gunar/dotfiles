@@ -213,3 +213,11 @@ sudo pacman -Syy manjaro-settings-manager
 # ==> Unable to install module v4l2loopback/0.12.5 for kernel 5.4.62-1-MANJARO: Missing kernel modules tree.
 sudo pacman -Syy bc
 sudo pacman -Syy i3lock
+sudo pacman -Syy acpi_call-dkms
+yay --Syy tp_smapi-dkms
+yay --Syy briss
+sudo pacman -Syy github-cli
+sudo pacman -Syy flowblade
+sudo pacman -Syy lib32-alsa-plugins lib32-libpulse lib32-openal
+yay --Syy lazydocker
+sudo pacman -Syy htop
