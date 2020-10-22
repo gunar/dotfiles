@@ -37,6 +37,10 @@ augroup END
 
 nmap <F2> :lfirst<cr>
 
+" disable linter for typescript not to conflict with nvim-typescript and spawning two tsserver
 let g:ale_linters = {
-      \ 'clojure': ['clj-kondo', 'joker']
-      \}
+  \ 'clojure': ['clj-kondo', 'joker'],
+  \ 'typescript': [],
+  \ 'typescriptreact': [],
+\}
+
