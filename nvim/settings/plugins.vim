@@ -153,7 +153,7 @@ if dein#load_state('~/.cache/dein')
   " Not using the default snippets
   call dein#add('Shougo/neosnippet-snippets')
 
-  call dein#add('junegunn/fzf', { 'dir': '~/.fzf' })
+  call dein#add('junegunn/fzf', { 'dir': '~/.fzf', 'hook_post_update': 'call fzf#install()' })
   call dein#add('junegunn/fzf.vim')
   " call dein#add('ashisha/image.vim')
   " call dein#add('mhinz/vim-sayonara')
