@@ -4,6 +4,7 @@ local naughty = require("naughty")
 -- Get active outputs
 local function outputs()
   local outputs = {}
+  -- TODO: replace this blocking call for an async one
   local xrandr = io.popen("xrandr -q")
   if xrandr then
     for line in xrandr:lines() do
@@ -128,7 +129,7 @@ local function xrandr()
     state.timer = nil
     state.iterator = nil
     if action then
-      awful.spawn(action, false)
+      awful.spawn.easy_async_with_shell(action)
     end
   end)
   state.timer:start()
