@@ -270,12 +270,12 @@ mymainmenu = awful.menu({
 		{ "fix HDMI1", function()
 			awful.spawn.easy_async_with_shell(
 				"xrandr --output HDMI1 --mode 800x600&&xrandr --output HDMI1 --mode 1920x1080"
-			)
+			, function() end)
 		end },
 		{ "fix eDP1", function()
 			awful.spawn.easy_async_with_shell(
 				"xrandr --output eDP1 --mode 800x600&&xrandr --output eDP1 --mode 1920x1080"
-			)
+			, function() end)
 		end }
 	}
 })
@@ -457,11 +457,11 @@ function sendToSpotify(command)
 		)
 			local isClosed = exit_code > 0
 			if isClosed then
-				awful.easy_async_with_shell("spotify")
+				awful.easy_async_with_shell("spotify", function() end)
 			end
 			awful.easy_async_with_shell(
 				"dbus-send --print-reply --dest=org.mpris.MediaPlayer2.spotify /org/mpris/MediaPlayer2 org.mpris.MediaPlayer2.Player." .. command
-			)
+			, function() end)
 		end)
 	end
 end
@@ -471,15 +471,15 @@ end
 local getVol =
 	[[amixer|grep -e "[0-9]\%"|head -n 1|grep --only-matching -e "[0-9]\?[0-9]\?[0-9]\%"]]
 function incVol()
-	awful.spawn.easy_async_with_shell("amixer set Master 1000+")
+	awful.spawn.easy_async_with_shell("amixer set Master 1000+", function() end)
 	notifyCmd(getVol, "Volume")
 end
 function decVol()
-	awful.spawn.easy_async_with_shell("amixer set Master 1000-")
+	awful.spawn.easy_async_with_shell("amixer set Master 1000-", function() end)
 	notifyCmd(getVol, "Volume")
 end
 function setVol(x)
-	awful.spawn.easy_async_with_shell("amixer set Master " .. x)
+	awful.spawn.easy_async_with_shell("amixer set Master " .. x, function() end)
 	notifyCmd(getVol, "Volume")
 end
 function toggleMute()
@@ -500,7 +500,7 @@ function toggleMute()
         amixer set Speaker mute>/dev/null ;
         amixer set Headphone mute>/dev/null ;
       ]]
-			)
+			, function() end)
 		else
 			notify("mute", "Volume", "ON")
 			awful.spawn.easy_async_with_shell(
@@ -509,16 +509,16 @@ function toggleMute()
         amixer set Speaker unmute>/dev/null ;
         amixer set Headphone unmute>/dev/null ;
       ]]
-			)
+			, function() end)
 		end
 	end)
-	awful.spawn.easy_async_with_shell("~/dotfiles/scripts/toggleMute ")
+	awful.spawn.easy_async_with_shell("~/dotfiles/scripts/toggleMute ", function() end)
 end
 function muteMic()
-	awful.spawn.easy_async_with_shell("amixer set Capture nocap")
+	awful.spawn.easy_async_with_shell("amixer set Capture nocap", function() end)
 end
 function toggleMicMute()
-	awful.spawn.easy_async_with_shell("amixer set Capture toggle")
+	awful.spawn.easy_async_with_shell("amixer set Capture toggle", function() end)
 end
 -- }}}
 
@@ -554,7 +554,7 @@ function notifyCmd(cmd, title)
 	end)
 end
 function brightness(x)
-	awful.spawn.easy_async_with_shell("xbacklight " .. x)
+	awful.spawn.easy_async_with_shell("xbacklight " .. x, function() end)
 	notifyCmd("xbacklight|cut -d. -f 1", "Brightness")
 end
 
@@ -591,10 +591,10 @@ end
 globalkeys = awful.util.table.join(
 	-- Modal awesome
 	-- awful.key({                }, "XF86WakeUp", function ()
-	--   awful.spawn.easy_async_with_shell('setxkbmap -layout gunar -variant visual&&xrandr --output eDP1 --gamma 1:1:0.5')
+	--   awful.spawn.easy_async_with_shell('setxkbmap -layout gunar -variant visual&&xrandr --output eDP1 --gamma 1:1:0.5', function() end)
 	-- end),
 	-- awful.key({                }, "XF86AddFavorite", function ()
-	--   awful.spawn.easy_async_with_shell('setxkbmap -layout gunar -variant basic&&xrandr --output eDP1 --gamma 1:1:1')
+	--   awful.spawn.easy_async_with_shell('setxkbmap -layout gunar -variant basic&&xrandr --output eDP1 --gamma 1:1:1', function() end)
 	-- end)
 	globalkeys,
 	--- {{{ Useless gap
@@ -629,7 +629,7 @@ globalkeys = awful.util.table.join(
 	-- }}}
 	-- {{{ Display
 	-- this makes xrandr.lua unnecessary
-	-- awful.key({ }, "XF86Display",             function () awful.spawn.easy_async_with_shell("xfce4-display-settings") end),
+	-- awful.key({ }, "XF86Display",             function () awful.spawn.easy_async_with_shell("xfce4-display-settings", function() end) end),
 	-- }}}
 	-- {{{ Audio
 	awful.key({}, "XF86AudioRaiseVolume", function()
@@ -645,7 +645,7 @@ globalkeys = awful.util.table.join(
 		toggleMicMute()
 	end),
 	awful.key({}, "XF86Favorites", function()
-		awful.spawn.easy_async_with_shell("xlock")
+		awful.spawn.easy_async_with_shell("xlock", function() end)
 	end),
 	awful.key({ modkey, "Control" }, "Up", function()
 		incVol()
@@ -686,46 +686,46 @@ globalkeys = awful.util.table.join(
 		toggleBluetoothMic()
 	end),
 	awful.key({ modkey }, "e", function()
-		awful.spawn.easy_async_with_shell("termite -e \"tmux new-session 'nnn -x'\"")
+		awful.spawn.easy_async_with_shell("termite -e \"tmux new-session 'nnn -x'\"", function() end)
 	end),
 	awful.key({ modkey }, "b", function()
-		awful.spawn.easy_async_with_shell("termite -e \"tmux new-session 'bc -l'\"")
+		awful.spawn.easy_async_with_shell("termite -e \"tmux new-session 'bc -l'\"", function() end)
 	end),
 	awful.key({ "Control" }, "q", function()
-		awful.spawn.easy_async_with_shell("catfish")
+		awful.spawn.easy_async_with_shell("catfish", function() end)
 	end),
 	awful.key({ modkey }, "o", function()
 		awful.spawn.easy_async_with_shell(
 			"chromium --disk-cache-dir=/tmp/cache --profile-directory=Default"
-		)
+		, function() end)
 	end),
 	awful.key({ modkey, "Control" }, "o", function()
 		awful.spawn.easy_async_with_shell(
 			'chromium --disk-cache-dir=/tmp/cache --profile-directory="Profile 1"'
-		)
+		, function() end)
 	end),
 	awful.key({ modkey, "Control", "Shift" }, "o", function()
 		awful.spawn.easy_async_with_shell(
 			'chromium --disk-cache-dir=/tmp/cache --profile-directory="Profile 4"'
-		)
+		, function() end)
 	end),
 	awful.key({ modkey, "Shift" }, "o", function()
 		awful.spawn.easy_async_with_shell(
 			"chromium --disk-cache-dir=/tmp/cache --profile-directory=Default --incognito"
-		)
+		, function() end)
 	end),
 	awful.key({ modkey }, ".", function()
 		awful.spawn.easy_async_with_shell(
 			"chromium --disk-cache-dir=/tmp/cache --profile-directory=Default https://web.telegram.org"
-		)
+		, function() end)
 	end),
 	-- screenshot
 	awful.key({}, "Print", function()
-		awful.spawn.easy_async_with_shell("flameshot gui")
+		awful.spawn.easy_async_with_shell("flameshot gui", function() end)
 	end),
-	-- awful.key({ modkey,           }, "Print",       function () awful.spawn.easy_async_with_shell(terminal.." -e /home/gcg/dotfiles/scripts/clipboardImageToCloudApp.rb") end),
+	-- awful.key({ modkey,           }, "Print",       function () awful.spawn.easy_async_with_shell(terminal.." -e /home/gcg/dotfiles/scripts/clipboardImageToCloudApp.rb", function() end) end),
 	awful.key({ modkey, "Control" }, "m", function()
-		awful.spawn.easy_async_with_shell("htop")
+		awful.spawn.easy_async_with_shell("termite -e \"tmux new-session 'htop -x'\"", function() end)
 	end),
 	-- }}}
 
@@ -799,13 +799,13 @@ globalkeys = awful.util.table.join(
 
 	-- Standard program
 	awful.key({ modkey }, "Return", function()
-		awful.spawn.easy_async_with_shell(terminal)
+		awful.spawn.easy_async_with_shell(terminal, function() end)
 	end),
 	awful.key({ modkey, "Control" }, "r", awesome.restart),
 
 	-- lock screen
 	awful.key({ modkey, "Shift" }, "q", function()
-		awful.spawn.easy_async_with_shell("~/dotfiles/manjaro/lock.sh")
+		awful.spawn.easy_async_with_shell("~/dotfiles/manjaro/lock.sh", function() end)
 	end),
 
 	awful.key({ modkey, "Control" }, "h", function()
@@ -818,7 +818,7 @@ globalkeys = awful.util.table.join(
 	-- awful.key({ modkey, "Control" }, "n", awful.client.restore),
 
 	awful.key({ modkey, "Control" }, "x", function()
-		awful.spawn.easy_async_with_shell("xkill")
+		awful.spawn.easy_async_with_shell("xkill", function() end)
 	end),
 
 	-- Prompt
@@ -851,7 +851,7 @@ clientkeys = awful.util.table.join(
 		-- Hack to kill whatever we had in the terminal
 		cmd =
 			"tmux list-sessions | grep -v attached | cut -d: -f1 |  xargs -t -n1 tmux kill-session -t"
-		awful.spawn.easy_async_with_shell(cmd)
+		awful.spawn.easy_async_with_shell(cmd, function() end)
 	end),
 	awful.key({ modkey, "Control" }, "space", awful.client.floating.toggle),
 	awful.key({ modkey, "Control" }, "Return", function(c)
@@ -1118,18 +1118,18 @@ client.connect_signal("property::geometry", function(c)
 end)
 
 -- start session
-awful.spawn.easy_async_with_shell("killall lxsession ; lxsession")
-awful.spawn.easy_async_with_shell("pulseaudio --start")
+awful.spawn.easy_async_with_shell("killall lxsession ; lxsession", function() end)
+awful.spawn.easy_async_with_shell("pulseaudio --start", function() end)
 awful.spawn.easy_async_with_shell(
 	"killall xautolock ; xautolock -corners +-+- -cornerdelay 2 -time 5 -locker ~/dotfiles/manjaro/lock.sh -detectsleep"
-)
--- awful.spawn.easy_async_with_shell("setxkbmap -layout de")
-awful.spawn.easy_async_with_shell("setxkbmap -option compose:caps")
+, function() end)
+-- awful.spawn.easy_async_with_shell("setxkbmap -layout de", function() end)
+awful.spawn.easy_async_with_shell("setxkbmap -option compose:caps", function() end)
 -- If this ends up being run multiple times (e.g. restarting awesome) it won't be a problem
 -- because the first process will capture the socket port, and the second will fail to capture it and exit
 -- leaving a single process online
-awful.spawn.easy_async_with_shell("~/dotfiles/scripts/screenrecording/coordinator.js")
-awful.spawn.easy_async_with_shell("killall flameshot ; flameshot")
+awful.spawn.easy_async_with_shell("~/dotfiles/scripts/screenrecording/coordinator.js", function() end)
+awful.spawn.easy_async_with_shell("killall flameshot ; flameshot", function() end)
 muteMic()
 
 -- First update

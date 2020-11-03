@@ -129,7 +129,7 @@ local function xrandr()
     state.timer = nil
     state.iterator = nil
     if action then
-      awful.spawn.easy_async_with_shell(action)
+      awful.spawn.easy_async_with_shell(action, function() end)
     end
   end)
   state.timer:start()
