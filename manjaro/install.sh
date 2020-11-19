@@ -224,3 +224,6 @@ sudo pacman -Syy flowblade
 sudo pacman -Syy lib32-alsa-plugins lib32-libpulse lib32-openal
 yay --Syy lazydocker
 sudo pacman -Syy htop
+sudo pacman -Syy wireguard-dkms wireguard-tools
+sudo pacman -Syy gdal
+yay --Syy xzoom
