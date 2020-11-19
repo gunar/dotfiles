@@ -12,6 +12,8 @@ setopt EXTENDED_HISTORY
 
 export PATH="/home/gcg/.gem/ruby/2.3.0/bin:/usr/local/sbin:/usr/local/bin:/usr/bin:/usr/lib/jvm/default/bin:/usr/bin/site_perl:/usr/bin/vendor_perl:/usr/bin/core_perl"
 export PATH="$PATH:./node_modules/.bin:../node_modules/.bin:../../node_modules/.bin:../../../node_modules/.bin:../../../../node_modules/.bin"
+# golang
+export PATH="$PATH:/home/gcg/go/bin"
 # pip
 export PATH="$PATH:/home/gcg/.local/bin"
 
@@ -71,7 +73,7 @@ gitinv() {
   fi
   cd $1
 }
-alias gh="chromium \`git remote -v | grep fetch | head -1 | cut -f2 | cut -d' ' -f1 | sed -e's/git@/http:\/\//' -e's/\.git$//' | sed -E 's/(\/\/[^:]*):/\1\//'\`"
+# alias gh="chromium \`git remote -v | grep fetch | head -1 | cut -f2 | cut -d' ' -f1 | sed -e's/git@/http:\/\//' -e's/\.git$//' | sed -E 's/(\/\/[^:]*):/\1\//'\`"
 alias pr='hub pull-request'
 alias n='nvim'
 alias nn='f -e nvim'
@@ -99,6 +101,7 @@ alias yy='yarn --ignore-scripts'
 alias yya='yarn --ignore-scripts add'
 alias ya='yarn add'
 alias yd='yarn dev'
+alias ys='yarn start'
 alias t='docker start pg;yarn test:all;docker stop pg'
 alias cat='bat'
 m() {
@@ -138,6 +141,7 @@ tmpclone() {
   mkd $RANDOM
   git clone --depth 1 $* .
 }
+alias clonetmp='tmpclone'
 cc() { readlink -f $1 | c }
 alias ng='killall ngrok 2>/dev/null;ngrok http -subdomain=gunar 3000 >/dev/null &!'
 alias lint='nvim `eslint --cache -f ~/code/_archive/eslint-formatter-list --ignore-path .gitignore .`'
@@ -420,7 +424,7 @@ function mdcat () {
 # export BOOT_JVM_OPTIONS="--add-modules=java.xml.bind"
 export BOOT_JVM_OPTIONS="--add-opens=java.base/java.net=ALL-UNNAMED"
 
-alias fixhdmi="xrandr --output HDMI1 --mode 800x600&&xrandr --output HDMI1 --mode 1920x1080"
+alias hdmi="xrandr --output HDMI1 --mode 800x600&&xrandr --output HDMI1 --mode 1920x1080"
 alias fixdns="echo \"nameserver 8.8.8.8\"|sudo tee /etc/resolv.conf"
 alias did="nvim -c 'normal Go' -c 'r!date' ~/did.txt"
 alias bandwidth="sudo iftop -i wlp4s0"
@@ -495,6 +499,7 @@ zstyle ':completion:*' matcher-list 'm:{a-z}={A-Z}' # match upper from lower cas
 alias delta="nmcli c up Delta"
 alias 4g="nmcli c up \"COMPRE BITCOIN\""
 alias hotspot="nmcli c up \"COMPRE BITCOIN\""
+alias wifi="nmcli c up BITCOIN"
 
 alias updates='sudo pamac-manager updates'
 function gnew {
@@ -631,6 +636,37 @@ function splitVideo() {
   # 
   ffmpeg -i $1 -acodec copy -vcodec copy -ss $2 -t $3 $4
 }
+function shrink-video() {
+  if [ $# -eq 0 ]
+  then
+    echo "Usage: shrink-video input.mp4"
+    return
+  fi
+  ffmpeg -i "$1" -sws_flags lanczos+accurate_rnd -vf "scale=320:240" -c:v libx264 -crf 20 -preset fast -profile:v main -tune fastdecode -c:a copy "small - $1"
+}
+function shrink-video-all() {
+  for f in *; do
+    ffmpeg -i "$f" -sws_flags lanczos+accurate_rnd -vf "scale=320:240" -c:v libx264 -crf 20 -preset fast -profile:v main -tune fastdecode -c:a copy "small - $f"
+  done
+}
+function audio-to-video() {
+  if [ $# -eq 0 ]
+  then
+    echo "Usage: audio-to-video audio.mp3 image.jpg"
+    return
+  fi
+  ffmpeg -loop 1 -i "$2" -i "$1" -c:v libx264 -tune stillimage -shortest "$1.mp4"
+}
+function audio-to-video-all() {
+  if [ $# -eq 0 ]
+  then
+    echo "Usage: audio-to-video image.jpg"
+    return
+  fi
+  for f in *; do
+  ffmpeg -loop 1 -i "$1" -i "$f" -c:v libx264 -tune stillimage -shortest "$f.mp4"
+  done
+}
 alias mp3='lame -V 9 -h'
 function watermark() {
   if [ $# -eq 0 ]
@@ -675,7 +711,7 @@ function mergevideo() {
 }
 alias gnoop='git commit --allow-empty -m "chore: empty commit (probably trying to trigger CI)"'
 alias whoowns='pacman -Qo'
-alias pacman-clean-cache='sudo journalctl --vacuum-files=1 && paccache -r && yay -Sc && pacman -Sc && pacman -Scc'
+alias pacman-clean-cache='sudo journalctl --vacuum-files=1 && sudo paccache -r && sudo yay -Sc && sudo pacman -Sc && sudo pacman -Scc'
 alias pacman-remove-orphans='pacman -Qtdq | sudo pacman -Rns -'
 alias nrepl="clojure -Sdeps '{:deps {nrepl {:mvn/version \"0.7.0\"} cider/cider-nrepl {:mvn/version \"0.25.2\"}}}' -m nrepl.cmdline --middleware '[\"cider.nrepl/cider-middleware\"]'"
 
@@ -690,14 +726,14 @@ alias ports='sudo netstat -tunlp | less'
 alias pu='pulumi up -r'
 alias pl='pulumi logs -f'
 
-function convert-all-to-mobi() {
+function convert-all-to-azw3() {
   # TODO: For extra clean code, refactor to use case instead https://stackoverflow.com/a/18280350/1456173
   for f in ./*; do
-    if [[ $f =~ \.mobi$ ]]; then
-      echo "$f is mobi, ignoring"
+    if [[ $f =~ \.azw3$ ]]; then
+      echo "$f is already azw3, ignoring"
     else
-      echo "$f is not mobi, converting"
-      ebook-convert $f .mobi
+      echo "$f is not azw3, converting"
+      ebook-convert "$f" .azw3
     fi
   done
 }
@@ -719,7 +755,7 @@ function cloud() {
   echo "Done! You can safely remove '${1}'"
 }
 function cloud-and-delete() {
-  cloud "$1" && rm "$1"
+  cloud "$1" && rm -f "$1" && echo "Removed $1 successfully."
 }
 function cloud-ls() {
   aws s3 ls --human-readable --summarize s3://${AWS_S3_CLOUD_BACKUP_BUCKET}/
@@ -732,3 +768,20 @@ function cloud-dl() {
   fi
   aws s3 cp "s3://${AWS_S3_CLOUD_BACKUP_BUCKET}/$1" - | gpg --decrypt >"$1" || exit 1
 }
+alias count-by-file-type="find . -type f | sed -n 's/..*\.//p' | sort | uniq -c"
+function skynet() {
+  curl -X POST "https://siasky.net/skynet/skyfile" -F "file=@$1" | jq ".skylink" | xargs -I _ echo "https://siasky.net/_"
+}
+function skynet-and-delete() {
+  curl -X POST "https://siasky.net/skynet/skyfile" -F "file=@$1" | jq ".skylink" | xargs -I _ echo "https://siasky.net/_" && rm "$1"
+}
+alias video-editor="flowblade"
+# or openshot
+
+parent-pid () { ps -p ${1:-$$} -o ppid=; }
+
+# create packge.json pointint to file $1
+pkg() {
+  echo "{ \"main\" : \"$1\" }">>package.json
+}
+alias ink="inkscape"
