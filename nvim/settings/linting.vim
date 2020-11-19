@@ -43,4 +43,14 @@ let g:ale_linters = {
   \ 'typescript': [],
   \ 'typescriptreact': [],
 \}
+  " \ 'typescript': ['tslint'],
+  " \ 'typescriptreact': ['prettier', 'tslint'],
 
+" " TODO: Remove prettier plugin as ALE can handle it
+" let g:ale_fixers = {
+"   \ 'clojure': ['clj-kondo', 'joker'],
+"   \ 'typescript': ['prettier','tslint'],
+"   \ 'typescriptreact': ['prettier', 'tslint'],
+" \}
+"
+" let g:ale_fix_on_save = 1
