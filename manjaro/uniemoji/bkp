@@ -6,5 +6,6 @@
   "btc": "฿",
   "bitcoin": "฿",
   "fakespace": " ",
+  "goldenratio": "1.6180339887",
   "#!": "#!/usr/bin/env bash"
 }
