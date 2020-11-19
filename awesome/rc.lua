@@ -457,9 +457,9 @@ function sendToSpotify(command)
 		)
 			local isClosed = exit_code > 0
 			if isClosed then
-				awful.easy_async_with_shell("spotify", function() end)
+				awful.spawn("spotify")
 			end
-			awful.easy_async_with_shell(
+			awful.spawn.easy_async_with_shell(
 				"dbus-send --print-reply --dest=org.mpris.MediaPlayer2.spotify /org/mpris/MediaPlayer2 org.mpris.MediaPlayer2.Player." .. command
 			, function() end)
 		end)
@@ -725,7 +725,7 @@ globalkeys = awful.util.table.join(
 	end),
 	-- awful.key({ modkey,           }, "Print",       function () awful.spawn.easy_async_with_shell(terminal.." -e /home/gcg/dotfiles/scripts/clipboardImageToCloudApp.rb", function() end) end),
 	awful.key({ modkey, "Control" }, "m", function()
-		awful.spawn.easy_async_with_shell("termite -e \"tmux new-session 'htop -x'\"", function() end)
+		awful.spawn.easy_async_with_shell("termite -e \"tmux new-session 'htop'\"", function() end)
 	end),
 	-- }}}
 
