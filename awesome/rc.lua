@@ -81,8 +81,6 @@ naughty.config.defaults["icon_size"] = 32
 -- {{{ Variable definitions
 -- Themes define colours, icons, font
 beautiful.init(awful.util.getdir("config") .. "/" .. "themes/gunar/theme.lua")
-beautiful.tasklist_bg_focus = "#FFFFFF33"
-beautiful.tasklist_fg_normal = "#FFFFFF"
 
 -- {{{ Useless gap
 beautiful.useless_gap = 10
@@ -127,9 +125,9 @@ loadrc("xrandr")
 -- }}}
 
 -- {{{ Widgets
-textclock =
+local textclock =
 	wibox.widget.textclock(
-		' <span  color="' .. beautiful.tasklist_fg_normal .. '" background="' .. beautiful.tasklist_bg_focus .. '"> %H:%M🕑 </span> <span background="' .. beautiful.tasklist_bg_focus .. '"> %d🌅 </span>'
+		'  %d %b %I.%M%P 🕑'
 	)
 
 require("widgets/heatmon")
@@ -138,7 +136,6 @@ heatmon_widget = create_heatmon_widget()
 power_widget = require("widgets/power")
 
 require("widgets/keepassxc")
-network_widget = require("widgets/network")
 speed_widget = require("widgets/speed")
 
 require("widgets/kbdswitcher")
@@ -220,8 +217,8 @@ end
 
 function updateTheme(work)
 	local theme = beautiful.get()
-	local bg = work and "#000000" or "#FFFFFF33"
-	local fg = work and "#FFFFFF" or "#000000"
+	local fg = work and "#FFFFFFCC" or "#000000CC"
+  local bg = work and "#00000099" or "#FFFFFF99"
 
 	theme.bg_normal = bg
 	theme.bg_focus = bg
@@ -233,12 +230,15 @@ function updateTheme(work)
 	theme.fg_focus = fg
 	theme.taglist_fg_empty = fg
 	theme.taglist_fg_occupied = fg
-	theme.titlebar_fg_normal = fg
 	theme.titlebar_fg_focus = fg
+
+  theme.tasklist_fg_normal = fg
+  theme.tasklist_bg_normal = bg
+  theme.tasklist_fg_focus = fg
+  theme.tasklist_bg_focus = bg
+  theme.fg_normal = fg
 	beautiful.init(theme)
 
-	beautiful.tasklist_bg_normal = bg
-	beautiful.tasklist_fg_normal = fg
 
 	for s = 1, screen.count() do
 		mywibox[s].bg = bg
