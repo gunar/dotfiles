@@ -450,7 +450,7 @@ function goodnight() {
 }
 
 alias win="/home/gcg/win/run.sh"
-alias mac="(cd /home/gcg/mac/ ; sudo ./boot-macOS-HS.sh)"
+alias mac="(cd /home/gcg/mac/ ; ./OpenCore-Boot.sh)"
 alias tv="rm -f ~/.config/minidlna/cache/files.db&&minidlnad -dR"
 alias serve="ifconfig | grep -A1 wlp4s0|grep -o '[0-9]\+\.[0-9]\+\.[0-9]\+\.[0-9]\+' | head -n 1 && python3 -m http.server"
 alias servelive="browser-sync start -s -f . --no-notify --host 0.0.0.0 --port 9000&&chromium http://0.0.0.0:9000"
