@@ -143,7 +143,6 @@ tmpclone() {
 }
 alias clonetmp='tmpclone'
 cc() { readlink -f $1 | c }
-alias ng='killall ngrok 2>/dev/null;ngrok http -subdomain=gunar 3000 >/dev/null &!'
 alias lint='nvim `eslint --cache -f ~/code/_archive/eslint-formatter-list --ignore-path .gitignore .`'
 perf() {
   sudo pstate-frequency --set --plan performance >/dev/null
@@ -503,7 +502,7 @@ alias wifi="nmcli c up BITCOIN"
 
 alias updates='sudo pamac-manager updates'
 function gnew {
-  git co master && g rcb && g co -b $1
+  git fetch && g checkout origin/master && g co -b $1
 }
 alias gpu='lspci -vnn | grep VGA -A 12'
 alias clear='tput reset'
@@ -713,6 +712,7 @@ alias gnoop='git commit --allow-empty -m "chore: empty commit (probably trying t
 alias whoowns='pacman -Qo'
 alias pacman-clean-cache='sudo journalctl --vacuum-files=1 && sudo paccache -r && sudo yay -Sc && sudo pacman -Sc && sudo pacman -Scc'
 alias pacman-remove-orphans='pacman -Qtdq | sudo pacman -Rns -'
+alias pacman-list-files='pacman -Ql'
 alias nrepl="clojure -Sdeps '{:deps {nrepl {:mvn/version \"0.7.0\"} cider/cider-nrepl {:mvn/version \"0.25.2\"}}}' -m nrepl.cmdline --middleware '[\"cider.nrepl/cider-middleware\"]'"
 
 export NNN_PLUG='z:fzz;o:fzopen'
@@ -739,6 +739,7 @@ function convert-all-to-azw3() {
 }
 
 function cloud() {
+  source ~/cloud/.envrc
   if [ -z "$AWS_S3_CLOUD_BACKUP_BUCKET" ]; then
     echo "Set AWS_S3_CLOUD_BACKUP_BUCKET"
     exit 1
@@ -755,9 +756,11 @@ function cloud() {
   echo "Done! You can safely remove '${1}'"
 }
 function cloud-and-delete() {
+  source ~/cloud/.envrc
   cloud "$1" && rm -f "$1" && echo "Removed $1 successfully."
 }
 function cloud-ls() {
+  source ~/cloud/.envrc
   aws s3 ls --human-readable --summarize s3://${AWS_S3_CLOUD_BACKUP_BUCKET}/
 }
 function cloud-dl() {
@@ -769,6 +772,9 @@ function cloud-dl() {
   aws s3 cp "s3://${AWS_S3_CLOUD_BACKUP_BUCKET}/$1" - | gpg --decrypt >"$1" || exit 1
 }
 alias count-by-file-type="find . -type f | sed -n 's/..*\.//p' | sort | uniq -c"
+function skynet-debug() {
+  curl -X POST "https://siasky.net/skynet/skyfile" -F "file=@$1"
+}
 function skynet() {
   curl -X POST "https://siasky.net/skynet/skyfile" -F "file=@$1" | jq ".skylink" | xargs -I _ echo "https://siasky.net/_"
 }
@@ -785,3 +791,9 @@ pkg() {
   echo "{ \"main\" : \"$1\" }">>package.json
 }
 alias ink="inkscape"
+
+# alias ng='killall ngrok 2>/dev/null;ngrok http -subdomain=gunar 3000 >/dev/null &!'
+# alias ng='lt --subdomain gunar --port'
+function ng() {
+  ssh -N -R localhost:4242:localhost:$1 root@dev.gunar.uk
+}
