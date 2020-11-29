@@ -4,6 +4,8 @@ local awful = require("awful")
 local gears = require("gears")
 local naughty = require("naughty")
 
+local TIMEOUT = 1 -- seconds
+
 function hex(inp)
 	return inp > 16 and string.format("%X", inp) or string.format("0%X", inp)
 end
@@ -29,7 +31,7 @@ end
 function update_heatmon(widget)
   local output = {} -- output buffer
   local temp = 0
-  awful.spawn.with_line_callback("sensors", {
+  awful.spawn.with_line_callback("timeout -sKILL ".. TIMEOUT .." sensors", {
     stdout = function(line)
       for key, value in string.gmatch(line, "(.+):[ ]+[+](%d+).*") do
         if key == "Package id 0" then
@@ -62,7 +64,7 @@ function create_heatmon_widget()
 	-- init the widget
 	update_heatmon(heatmon)
 
-	local timer = gears.timer({ timeout = 1 })
+	local timer = gears.timer({ timeout = TIMEOUT })
 	timer:connect_signal("timeout", function()
 		update_heatmon(heatmon)
 	end)

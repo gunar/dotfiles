@@ -50,4 +50,4 @@ vel_recv=$(get_velocity $received_bytes $old_received_bytes)
 vel_trans=$(get_velocity $transmitted_bytes $old_transmitted_bytes)
 
 # Shows results in the console.
-echo -n "$vel_recv🔽 $vel_trans🔼"
+echo -n "$vel_recv,$vel_trans"

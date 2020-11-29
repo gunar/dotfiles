@@ -7,7 +7,7 @@ local INTERVAL_IN_SECONDS = 60*15
 
 function doit()
   awful.spawn.easy_async_with_shell(
-  "~/dotfiles/scripts/keepassxc_sync.sh",
+  "timeout -sKILL "..INTERVAL_IN_SECONDS.." ~/dotfiles/scripts/keepassxc_sync.sh",
   function(stdout, stderr, reason, exit_code)
     -- notify on success
     -- notify('keepassxc', 'keepassxc', stdout)

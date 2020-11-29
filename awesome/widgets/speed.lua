@@ -80,12 +80,12 @@ local function create_widget()
   local speedTimer = gears.timer({ timeout = SPEED_AVERAGE_INTERVAL_IN_SECONDS })
   speedTimer:connect_signal("timeout", function()
     awful.spawn.easy_async_with_shell(
-    "~/dotfiles/awesome/widgets/speed.sh wlp4s0 " .. SPEED_AVERAGE_INTERVAL_IN_SECONDS,
-    function(stdout, stderr, reason, exit_code)
-      local down, up = string.sub(stdout, 0, -2):match("([^,]+),([^,]+)")
-      graphDown:add_value(tonumber(down), 1)
-      graphUp:add_value(tonumber(up), 1)
-    end)
+      "timeout -sKILL ".. (SPEED_AVERAGE_INTERVAL_IN_SECONDS + 0.5) .." ~/dotfiles/awesome/widgets/speed.sh wlp4s0 " .. SPEED_AVERAGE_INTERVAL_IN_SECONDS,
+      function(stdout, stderr, reason, exit_code)
+        local down, up = string.sub(stdout, 0, -2):match("([^,]+),([^,]+)")
+        graphDown:add_value(tonumber(down), 1)
+        graphUp:add_value(tonumber(up), 1)
+      end)
   end)
   speedTimer:start()
 
@@ -96,7 +96,7 @@ local function create_widget()
     max_value = MAX_PING_IN_MS,
     scale = false,
     background_color = "#00000000",
-    color = "#0000FF" -- high latency is very important so we do not add opacity
+    color = "#0000FF7F" -- high latency is very important so we do not add opacity
   }
   -- recursive function
   pingUpdate(graphPing)
