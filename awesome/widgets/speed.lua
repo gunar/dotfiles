@@ -10,17 +10,12 @@ local PING_TIMEOUT_IN_SECONDS = 0.2
 local TIME_BETWEEN_PINGS_IN_SECONDS = 0.5
 local MAX_PING_IN_MS = PING_TIMEOUT_IN_SECONDS * 1000
 local watchdog = gears.timer({ timeout = PING_TIMEOUT_IN_SECONDS + TIME_BETWEEN_PINGS_IN_SECONDS })
-local pingPid
 
 
 local textWidget = wibox.widget {
     widget = wibox.widget.textbox,
     markup = ''
 }
-
-local function resetWatchdog()
-  watchdog:again()
-end
 
 local function toEmoji(ms)
   if ms then
@@ -32,25 +27,23 @@ local function toEmoji(ms)
   end
 end
 
-local function update(widget, pingMs)
+local function updatePingGraph(widget, pingMs)
   widget:add_value(pingMs)
   textWidget.markup = toEmoji(pingMs)
 end
 
-local function pingUpdate(graphWidget)
-  pingPid = awful.spawn.with_line_callback("ping -i " .. TIME_BETWEEN_PINGS_IN_SECONDS .. " 8.8.8.8", {
+local function startPingProcess(graphWidget)
+  awful.spawn.with_line_callback("ping -i " .. TIME_BETWEEN_PINGS_IN_SECONDS .. " 8.8.8.8", {
     stdout = function(line)
-      resetWatchdog()
+      watchdog:again()
       local _, offset = line:find("time=")
       local ms = line:match("time=([0-9.]+) ms")
       if not ms then return end
       pingMs = tonumber(ms)
-      update(graphWidget, pingMs)
+      updatePingGraph(graphWidget, pingMs)
     end,
     exit = function (reason, exitcode)
-      if exitcode == 0 then
-        pingUpdate(graphWidget)
-      end
+      startPingProcess(graphWidget)
     end,
   })
 end
@@ -99,20 +92,9 @@ local function create_widget()
     color = "#0000FF7F" -- high latency is very important so we do not add opacity
   }
   -- recursive function
-  pingUpdate(graphPing)
+  startPingProcess(graphPing)
   watchdog:connect_signal("timeout", function()
-    update(graphPing, MAX_PING_IN_MS)
-    if pingPid then
-      awful.spawn.easy_async_with_shell(
-        'kill -KILL '.. pingPid,
-        function()
-          pingPid = nil
-          pingUpdate(graphPing)
-        end
-      )
-    else
-      naughty.notify({ title = 'watchdog timeout but no PID to kill' })
-    end
+    updatePingGraph(graphPing, MAX_PING_IN_MS)
   end)
   watchdog:start()
 
