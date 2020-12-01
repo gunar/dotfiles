@@ -16,6 +16,32 @@ local textWidget = wibox.widget {
     widget = wibox.widget.textbox,
     markup = ''
 }
+local graphDown = wibox.widget {
+  widget = wibox.widget.graph,
+  step_spacing = 0,
+  max_value = 8, -- GiB/s
+  scale = true,
+  background_color = "#00000000",
+  stack = true,
+  stack_colors = { "#00ff007F" }
+}
+local graphUp = wibox.widget {
+  widget = wibox.widget.graph,
+  step_spacing = 0,
+  max_value = 8, -- GiB/s
+  scale = true,
+  background_color = "#00000000",
+  stack = true,
+  stack_colors = { "#ff00007F" }
+}
+local graphPing = wibox.widget {
+  widget = wibox.widget.graph,
+  step_spacing = 0,
+  max_value = MAX_PING_IN_MS,
+  scale = false,
+  background_color = "#00000000",
+  color = "#0000FF7F"
+}
 
 local function toEmoji(ms)
   if ms then
@@ -48,67 +74,38 @@ local function startPingProcess(graphWidget)
   })
 end
 
-
-
-local function create_widget()
-  local graphDown = wibox.widget {
-    widget = wibox.widget.graph,
-    step_spacing = 0,
-    max_value = 8, -- GiB/s
-    scale = true,
-    background_color = "#00000000",
-    stack = true,
-    stack_colors = { "#00ff007F" }
-  }
-  local graphUp = wibox.widget {
-    widget = wibox.widget.graph,
-    step_spacing = 0,
-    max_value = 8, -- GiB/s
-    scale = true,
-    background_color = "#00000000",
-    stack = true,
-    stack_colors = { "#ff00007F" }
-  }
-
-  local speedTimer = gears.timer({ timeout = SPEED_AVERAGE_INTERVAL_IN_SECONDS })
-  speedTimer:connect_signal("timeout", function()
-    awful.spawn.easy_async_with_shell(
-      "timeout -sKILL ".. (SPEED_AVERAGE_INTERVAL_IN_SECONDS + 0.5) .." ~/dotfiles/awesome/widgets/speed.sh wlp4s0 " .. SPEED_AVERAGE_INTERVAL_IN_SECONDS,
-      function(stdout, stderr, reason, exit_code)
-        local down, up = string.sub(stdout, 0, -2):match("([^,]+),([^,]+)")
-        graphDown:add_value(tonumber(down), 1)
-        graphUp:add_value(tonumber(up), 1)
-      end)
-  end)
-  speedTimer:start()
-
-
-  local graphPing = wibox.widget {
-    widget = wibox.widget.graph,
-    step_spacing = 0,
-    max_value = MAX_PING_IN_MS,
-    scale = false,
-    background_color = "#00000000",
-    color = "#0000FF7F" -- high latency is very important so we do not add opacity
-  }
-  -- recursive function
-  startPingProcess(graphPing)
-  watchdog:connect_signal("timeout", function()
-    updatePingGraph(graphPing, MAX_PING_IN_MS)
-  end)
-  watchdog:start()
-
-
-
-
-
-  return wibox.widget {
-    wibox.container.mirror(graphDown, { horizontal = true, vertical = false }),
-    wibox.container.mirror(graphUp, { horizontal = true, vertical = false }),
-    wibox.container.mirror(graphPing, { horizontal = true, vertical = true }),
-    textWidget,
-    layout = wibox.layout.stack
-  }
+local function startSpeedProcess(graphDown, graphUp)
+  awful.spawn.with_line_callback("bash /home/gcg/dotfiles/awesome/widgets/speed.sh wlp4s0 " .. SPEED_AVERAGE_INTERVAL_IN_SECONDS, {
+    stdout = function(line)
+      local down, up = line:match("([^,]+),([^,]+)")
+      graphDown:add_value(tonumber(down), 1)
+      graphUp:add_value(tonumber(up), 1)
+    end,
+    stderr = function(line)
+      naughty.notify({ title= "errror", text=line })
+    end,
+    exit = function (reason, exitcode)
+      naughty.notify({ title= "speed", text="exited" })
+      startSpeedProcess(graphDown, graphUp)
+    end,
+  })
 end
 
-return create_widget()
+-- Recursive function
+startSpeedProcess(graphDown, graphUp)
+
+
+-- recursive function
+startPingProcess(graphPing)
+-- XXX: Latency indicator requires a watchdog because we need to transform no-response into high-latency
+--      The same doesn't happen with "speed" because no-speed means low-speed already
+watchdog:connect_signal("timeout", function() updatePingGraph(graphPing, MAX_PING_IN_MS) end)
+watchdog:start()
+
+return wibox.widget {
+  wibox.container.mirror(graphDown, { horizontal = true, vertical = false }),
+  wibox.container.mirror(graphUp, { horizontal = true, vertical = false }),
+  wibox.container.mirror(graphPing, { horizontal = true, vertical = true }),
+  textWidget,
+  layout = wibox.layout.stack
+}
