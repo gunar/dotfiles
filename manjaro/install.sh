@@ -227,3 +227,10 @@ sudo pacman -Syy htop
 sudo pacman -Syy wireguard-dkms wireguard-tools
 sudo pacman -Syy gdal
 yay --Syy xzoom
+sudo pacman -Syy sox
+sudo pacman -Syy opus-tools
+yay --Syy statifier
+sudo pacman -Syy autoconf-archive
+sudo pacman -Syy libfaketime
+sudo pacman -Syy p7zip
+yay --Syy ttf-ancient-fonts

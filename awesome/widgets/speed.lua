@@ -3,6 +3,7 @@ local wibox = require("wibox")
 local gears = require("gears")
 local naughty = require("naughty")
 local beautiful = require("beautiful")
+local notify = require("../notify")
 
 local SPEED_AVERAGE_INTERVAL_IN_SECONDS = 0.5
 
@@ -99,7 +100,10 @@ startSpeedProcess(graphDown, graphUp)
 startPingProcess(graphPing)
 -- XXX: Latency indicator requires a watchdog because we need to transform no-response into high-latency
 --      The same doesn't happen with "speed" because no-speed means low-speed already
-watchdog:connect_signal("timeout", function() updatePingGraph(graphPing, MAX_PING_IN_MS) end)
+watchdog:connect_signal("timeout", function()
+  notify('ping-timeout', 'Latency', 'timed out')
+  updatePingGraph(graphPing, MAX_PING_IN_MS)
+end)
 watchdog:start()
 
 return wibox.widget {
