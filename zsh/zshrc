@@ -540,14 +540,6 @@ function ygg {
   tmux send-keys 'cd services/heimdall && yarn dev' 'C-m'
 }
 
-function changeMac() {
-  local mac=$(openssl rand -hex 6 | sed 's/\(..\)/\1:/g; s/.$//')
-  sudo ifconfig wlp4s0 ether $mac
-  sudo ifconfig wlp4s0 down
-  sudo ifconfig wlp4s0 up
-  echo "Your new physical address is $mac"
-}
-
 eval "$(direnv hook zsh)"
 
 # https://github.com/yarnpkg/yarn/issues/6130
