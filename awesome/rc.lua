@@ -118,6 +118,9 @@ awful.layout.suit.tile }
 --    awful.layout.suit.magnifier
 -- }}}
 
+-- Save tables to files
+loadrc("table.save-1.0")
+
 -- {{{ Prompts
 loadrc("prompt")
 -- disabled in favor of xfce4-display-settings
@@ -167,12 +170,13 @@ myassault = assault({
 -- {{{ TAGS
 -- Define a tag table which hold all screen tags.
 tags = {}
-tagsPersonal = {}
+local tagNamesCache, err = table.load(".tagNames.lua")
+local tagNames = err == nil and tagNamesCache or { "1.", "2.", "3.", "4.", "5.", "6.", "7.", "8.", "9.", "0." }
 for s = 1, screen.count() do
 	-- Each screen has its own tag table.
 	tags[s] =
 		awful.tag(
-			{ "1.", "2.", "3.", "4.", "5.", "1.", "2.", "3.", "4.", "5." },
+			tagNames,
 			s,
 			layouts[1]
 		)
@@ -613,8 +617,10 @@ globalkeys = awful.util.table.join(
 				text = tostring(awful.tag.selected().index) .. "."
 			},
 			mypromptbox[mouse.screen.index].widget,
-			function(s)
-				awful.tag.selected().name = s
+			function(input)
+				awful.tag.selected().name = input
+        tagNames[awful.tag.selected().index] = input
+        assert(table.save(tagNames, '.tagNames.lua') == nil)
 			end
 		)
 	end),
