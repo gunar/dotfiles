@@ -105,7 +105,7 @@ modkey = "Mod4"
 
 -- Table of layouts to cover with awful.layout.inc, order matters.
 local layouts = { --    awful.layout.suit.floating,
-awful.layout.suit.tile }
+  awful.layout.suit.tile 
 --    awful.layout.suit.tile.left,
 --    awful.layout.suit.tile.bottom,
 --    awful.layout.suit.tile.top,
@@ -116,7 +116,85 @@ awful.layout.suit.tile }
 --    awful.layout.suit.max,
 -- awful.layout.suit.max.fullscreen,
 --    awful.layout.suit.magnifier
--- }}}
+--    
+  }
+local ll = awful.widget.layoutlist {
+    base_layout = wibox.widget {
+        spacing         = 5,
+        forced_num_cols = 5,
+        layout          = wibox.layout.grid.vertical,
+    },
+    widget_template = {
+        {
+            {
+                id            = 'icon_role',
+                forced_height = 22,
+                forced_width  = 22,
+                widget        = wibox.widget.imagebox,
+            },
+            margins = 4,
+            widget  = wibox.container.margin,
+        },
+        id              = 'background_role',
+        forced_width    = 24,
+        forced_height   = 24,
+        shape           = gears.shape.rounded_rect,
+        widget          = wibox.container.background,
+    },
+}
+
+local layout_popup = awful.popup {
+    widget = wibox.widget {
+        ll,
+        margins = 4,
+        widget  = wibox.container.margin,
+    },
+    border_color = beautiful.border_color,
+    border_width = beautiful.border_width,
+    placement    = awful.placement.centered,
+    ontop        = true,
+    visible      = false,
+    shape        = gears.shape.rounded_rect
+}
+local gtable = require('gears.table')
+local gmath = require('gears.math')
+-- https://github.com/awesomeWM/awesome/pull/2942/files
+function gears.table.cycle_value(t, value, step_size, filter, start_at)
+    local k = gtable.hasitem(t, value, true, start_at)
+    if not k then return end
+
+    step_size = step_size or 1
+    local new_key = gmath.cycle(#t, k + step_size)
+
+    if filter and not filter(t[new_key]) then
+        for i=1, #t do
+            local k2 = gmath.cycle(#t, new_key + i)
+            if filter(t[k2]) then
+                return t[k2], k2
+            end
+        end
+        return
+    end
+
+    return t[new_key], new_key
+end
+awful.keygrabber {
+    start_callback = function() layout_popup.visible = true  end,
+    stop_callback  = function() layout_popup.visible = false end,
+    export_keybindings = true,
+    release_event = 'release',
+    stop_key = {'Escape', 'Super_L'--[[, 'Super_R' --]]},
+    keybindings = {
+        {{ modkey, 'Shift' } , ' ' , function()
+            -- awful.layout.set(gears.table.cycle_value(ll.layouts, ll.current_layout, 1))
+        end},
+        -- {{ modkey, 'Shift' } , ' ' , function()
+        --     awful.layout.set(gears.table.iterate_value(ll.layouts, ll.current_layout, -1), nil)
+        -- end},
+    }
+}
+--- }}}
+
 
 -- Save tables to files
 loadrc("table.save-1.0")
