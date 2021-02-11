@@ -1,5 +1,5 @@
 # download from somewhere authenticated by rsa key
-git clone git@gitlab.com:gunar/commercial-fonts.git
+git clone git@github.com:gunar/commercial-fonts.git
 cd commercial-fonts || exit
 yes | sudo cp ./*.ttf /usr/share/fonts/TTF/
 yes | sudo mkdir -p /usr/share/fonts/OTF/
