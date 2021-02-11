@@ -202,7 +202,8 @@ loadrc("table.save-1.0")
 -- {{{ Prompts
 loadrc("prompt")
 -- disabled in favor of xfce4-display-settings
-loadrc("xrandr")
+
+local xrandr = require("rc/xrandr")
 -- }}}
 
 -- {{{ Widgets
@@ -812,6 +813,9 @@ globalkeys = awful.util.table.join(
 		awful.spawn.easy_async_with_shell("termite -e \"tmux new-session 'htop'\"", function() end)
 	end),
 	-- }}}
+  -- {{{ xrandr xfce4-display-settings
+    awful.key({}, "XF86Display", function() xrandr.xrandr() end),
+  --- }}}
 
 	--- {{{ Screen movement
 	-- Switch screen
