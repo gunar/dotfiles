@@ -248,3 +248,4 @@ yay --Syy arc-icon-theme-git
 yay --Syy reaper-bin
 sudo pacman -Syy brave
 sudo pacman -Syy macchanger
+yay --Syy pnpm
