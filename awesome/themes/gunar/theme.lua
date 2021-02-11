@@ -5,6 +5,7 @@ theme = {}
 
 theme.font          = "Essential PragmataPro regular 12"
 
+-- TODO: Remove unused variables or move them all here
 theme.bg_normal             = "#000000FF"
 theme.taglist_bg_empty      = "#000000FF"
 theme.taglist_bg_occupied   = "#000000FF"
@@ -25,6 +26,11 @@ theme.border_width  = 4
 theme.border_normal = "#aaaaaa00"
 theme.border_focus  = "#cd265800" -- pink
 theme.border_marked = "#91231c00"
+
+theme.tasklist_bg_focus = "#FFFFFF33"
+theme.tasklist_fg_normal = "#FFFFFF"
+theme.tasklist_bg_normal = "#000000FF"
+-- theme.tasklist_fg_normal = fg
 
 -- There are other variable sets
 -- overriding the default one when
