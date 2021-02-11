@@ -101,7 +101,7 @@ startPingProcess(graphPing)
 -- XXX: Latency indicator requires a watchdog because we need to transform no-response into high-latency
 --      The same doesn't happen with "speed" because no-speed means low-speed already
 watchdog:connect_signal("timeout", function()
-  notify('ping-timeout', 'Latency', 'timed out')
+  -- notify('ping-timeout', 'Latency', 'timed out')
   updatePingGraph(graphPing, MAX_PING_IN_MS)
 end)
 watchdog:start()

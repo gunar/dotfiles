@@ -218,7 +218,6 @@ heatmon_widget = create_heatmon_widget()
 power_widget = require("widgets/power")
 
 require("widgets/keepassxc")
-speed_widget = require("widgets/speed")
 
 require("widgets/kbdswitcher")
 kbdswitcher_widget = create_kbdswitcher_widget()
@@ -243,6 +242,7 @@ myassault = assault({
 	charging_color = "#0000FF",
 	fully_charged_color = "#ff0000"
 })
+bandwidth = require("widgets/bandwidth")
 
 -- }}}
 
@@ -460,10 +460,9 @@ for s = 1, screen.count() do
 	local right_layout = wibox.layout{
 		power_widget,
 		myassault,
-		speed_widget,
-		network_widget,
 		heatmon_widget,
 		kbdswitcher_widget,
+		bandwidth,
 		textclock,
 		layout = wibox.layout.fixed.horizontal()
 	}
