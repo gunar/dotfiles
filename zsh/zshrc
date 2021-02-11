@@ -16,6 +16,8 @@ export PATH="$PATH:./node_modules/.bin:../node_modules/.bin:../../node_modules/.
 export PATH="$PATH:/home/gcg/go/bin"
 # pip
 export PATH="$PATH:/home/gcg/.local/bin"
+# parasite (proxy to record and replay requests)
+export PATH="$PATH:/home/gcg/dotfiles/manjaro/parasite"
 
 # this slows down startup because nodejs
 # export PATH="$PATH:$(yarn global bin 2>/dev/null)"
@@ -54,8 +56,8 @@ alias gcm='git commit -m'
 alias gc='git commit -v'
 alias gcam='git commit -a -m'
 alias gst='git status'
-alias griom='git fetch origin &&git rebase -i origin/master'
-alias grom='git fetch origin && git rebase origin/master'
+alias griom='git fetch origin &&git rebase -i origin/master || git rebase -i origin/main'
+alias grom='git fetch origin && git rebase origin/master || git rebase origin/main'
 alias griod='git fetch &&git rebase -i origin/develop'
 alias gd='git diff --minimal'
 alias gdc='git diff --cached'
@@ -156,7 +158,7 @@ powersave() {
 alias hibernate='sudo echo "ok" && xlock 2>/dev/null & echo disk | sudo tee /sys/power/state'
 alias suspend='sudo echo "ok" && xlock 2>/dev/null & echo mem | sudo tee /sys/power/state'
 alias wf='chromium --app="https://workflowy.com" --enable-apps --enable-extension-apps'
-alias mictest='arecord -vvv -f dat /dev/null'
+alias mic-test='arecord -vvv -f dat /dev/null'
 alias p='pulumi'
 # p() {
 #   while true
@@ -386,7 +388,8 @@ alias blueswitch='~/dotfiles/scripts/blueswitch.sh'
 
 
 alias keys='xmodmap -pke|less'
-alias np='n -c :Denite\ -start-filter\ -no-split\ -buffer-name=files\ -ignorecase\ file/rec'
+# alias np='n -c :Denite\ -start-filter\ -no-split\ -buffer-name=files\ -ignorecase\ file/rec'
+alias np='echo "This alias was making Denite run at all times with 100% CPU"'
 
 alias dotf='cd ~/dotfiles'
 function dox() {
@@ -787,5 +790,21 @@ alias ink="inkscape"
 # alias ng='killall ngrok 2>/dev/null;ngrok http -subdomain=gunar 3000 >/dev/null &!'
 # alias ng='lt --subdomain gunar --port'
 function ng() {
-  ssh -N -R localhost:4242:localhost:$1 root@dev.gunar.uk
+  destination_port=$1
+  ssh -N -R "localhost:4242:localhost:${1}" root@dev.gunar.uk
 }
+function para() {
+  destination_port=$1
+  parasite_port=7566
+  ssh -N -R "localhost:4242:localhost:${parasite_port}" root@dev.gunar.uk &
+  parasite "$parasite_port" "$destination_port" -l 0.0.0.0 -f 127.0.0.1
+}
+
+alias london='sudo timedatectl set-timezone Europe/London'
+alias brazil='sudo timedatectl set-timezone America/Sao_Paulo'
+
+alias rec-stop="killall simplescreenrecorder -s SIGSTOP"
+alias rec-start="killall simplescreenrecorder -s SIGCONT"
+alias dig='dog'
+alias suspend="systemctl suspend"
+alias limit-bandwidth="trickle"
