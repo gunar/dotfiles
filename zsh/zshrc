@@ -52,9 +52,9 @@ function ga() {
 }
 alias gp='git push'
 alias gpf='git push --force-with-lease'
-alias gcm='git commit -m'
-alias gc='git commit -v'
-alias gcam='git commit -a -m'
+alias gcm='git commit --gpg-sign -m'
+alias gc='git commit --gpg-sign -v'
+alias gcam='git commit --gpg-sign -a -m'
 alias gst='git status'
 alias griom='git fetch origin &&git rebase -i origin/master || git rebase -i origin/main'
 alias grom='git fetch origin && git rebase origin/master || git rebase origin/main'
@@ -703,7 +703,7 @@ function mergevideo() {
   fi
   ffmpeg -f concat -safe 0 -i $1 -c copy output.mp4               
 }
-alias gnoop='git commit --allow-empty -m "chore: empty commit (probably trying to trigger CI)"'
+alias gnoop='git commit  --gpg-sign --allow-empty -m "chore: empty commit (probably trying to trigger CI)"'
 alias whoowns='pacman -Qo'
 alias pacman-clean-cache='sudo journalctl --vacuum-files=1 && sudo paccache -r && sudo yay -Sc && sudo pacman -Sc && sudo pacman -Scc'
 alias pacman-remove-orphans='pacman -Qtdq | sudo pacman -Rns -'

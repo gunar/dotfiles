@@ -1,6 +1,7 @@
 [user]
   name = Gunar C. Gessner
-	email = gunargessner@gmail.com
+	email = gunar@gunargessner.com
+	signingkey = B01F094E13AB943A5D43341C5DFB0EAE9EC45D88
 [core]
   editor = nvim
 [merge]
@@ -55,7 +56,7 @@
   delete-all-branches = "!f(){git branch | grep -v "master" | xargs git branch -D};f"
   c = clone
   cl = clean -fd
-  amend = commit -a --amend --no-edit
+  amend = commit -a --gpg-sign --amend --no-edit
   # changelog = !"git log --pretty=format:'- %s%n%b' --since='$(git show -s --format=%ad `git rev-list --tags --max-count=1`)'"
   # lg = log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%ci%x08%x08%x08%x08%x08%x08%x08%x08%x08)%Creset' --abbrev-commit --date=iso --decorate
   # who = shortlog -s --
@@ -64,7 +65,7 @@
   # br       = for-each-ref --sort=committerdate --format='%(HEAD) %(color:yellow)%(refname:short)%(color:reset) - %(color:red)%(objectname:short)%(color:reset) - %(contents:subject) - %(authorname) (%(color:green)%(committerdate:relative)%(color:reset))'
   # bugs     = checkout bugs
   # cherry   = cherry-pick
-  cm       = commit -m -v
+  cm       = commit --gpg-sign -m -v
   co       = checkout
   cor       = "!cor() { git fetch && git co $1 && git reset --hard origin/$1; }; cor"
   # d        = diff --word-diff
@@ -122,3 +123,5 @@
 	smudge = git-lfs smudge -- %f
 	process = git-lfs filter-process
 	required = true
+[commit]
+	gpgsign = true
