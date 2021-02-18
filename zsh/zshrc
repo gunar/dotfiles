@@ -499,9 +499,8 @@ zstyle ':completion:*' matcher-list 'r:[[:ascii:]]||[[:ascii:]]=** r:|=* m:{a-z\
 zstyle ':completion:*' matcher-list 'm:{a-z}={A-Z}' # match upper from lower case
 
 alias delta="nmcli c up Delta"
-alias 4g="nmcli c up \"COMPRE BITCOIN\""
-alias hotspot="nmcli c up \"COMPRE BITCOIN\""
-alias wifi="nmcli c up BITCOIN"
+alias 4g="nmcli c up \"HP Deskjet 2541\""
+alias wifi="nmcli c up \"HP Deskjet 2540\""
 
 alias updates='sudo pamac-manager updates'
 function gnew {
@@ -790,7 +789,17 @@ alias ink="inkscape"
 # alias ng='killall ngrok 2>/dev/null;ngrok http -subdomain=gunar 3000 >/dev/null &!'
 # alias ng='lt --subdomain gunar --port'
 function ng() {
-  destination_port=$1
+  # Creates a tunnel
+  # dev.gunar.uk
+  # dev.besloor.com
+  if [ $# -eq 0 ]
+  then
+    echo "Usage: ng <port number>"
+    return
+  fi
+  echo "Creating tunnels:"
+  echo "  https://dev.besloor.com"
+  echo "  https://dev.gunar.uk"
   ssh -N -R "localhost:4242:localhost:${1}" root@dev.gunar.uk
 }
 function para() {
@@ -808,3 +817,4 @@ alias rec-start="killall simplescreenrecorder -s SIGCONT"
 alias dig='dog'
 alias suspend="systemctl suspend"
 alias limit-bandwidth="trickle"
+alias backup-all-gists="gh gist list | cut -f1 | tr '\n' '\0' | xargs -0 -n1 gh gist clone"
