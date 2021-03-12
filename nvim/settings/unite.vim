@@ -21,7 +21,7 @@ map <leader>a :Ag<CR>
 	  imap <silent><buffer> <C-o> <Plug>(denite_filter_quit)
 	endfunction
 
-nnoremap <silent> <c-p> :Denite -start-filter -no-split -buffer-name=files -ignorecase file/rec<cr>
+nnoremap <silent> <c-p> :Denite -start-filter -buffer-name=files -ignorecase file/rec<cr>
 
 
 	" Change file/rec command.
