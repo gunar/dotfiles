@@ -93,17 +93,18 @@ local function startSpeedProcess(graphDown, graphUp)
 end
 
 -- Recursive function
+-- XXX: Is the memory problem due to this recursion is accumulating in the stack?
 startSpeedProcess(graphDown, graphUp)
 
-
--- recursive function
-startPingProcess(graphPing)
 -- XXX: Latency indicator requires a watchdog because we need to transform no-response into high-latency
 --      The same doesn't happen with "speed" because no-speed means low-speed already
 watchdog:connect_signal("timeout", function()
   -- notify('ping-timeout', 'Latency', 'timed out')
   updatePingGraph(graphPing, MAX_PING_IN_MS)
 end)
+
+-- recursive function
+startPingProcess(graphPing)
 watchdog:start()
 
 return wibox.widget {

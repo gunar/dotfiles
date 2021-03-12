@@ -1,0 +1,3 @@
+# awesomewm
+
+![layouts](./layouts.png)

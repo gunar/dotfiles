@@ -31,6 +31,7 @@ end
 function update_heatmon(widget)
   local output = {} -- output buffer
   local temp = 0
+  -- TODO: maybe this is not returning faste nough? mightneed a watchdog or might just use a proper watch instead
   awful.spawn.with_line_callback("timeout -sKILL ".. TIMEOUT .." sensors", {
     stdout = function(line)
       for key, value in string.gmatch(line, "(.+):[ ]+[+](%d+).*") do

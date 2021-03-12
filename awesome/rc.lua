@@ -104,19 +104,24 @@ editor_cmd = terminal .. " " .. editor
 modkey = "Mod4"
 
 -- Table of layouts to cover with awful.layout.inc, order matters.
-local layouts = { --    awful.layout.suit.floating,
+local layouts = {
   awful.layout.suit.tile 
---    awful.layout.suit.tile.left,
---    awful.layout.suit.tile.bottom,
---    awful.layout.suit.tile.top,
---    awful.layout.suit.fair,
---    awful.layout.suit.fair.horizontal,
---    awful.layout.suit.spiral,
---    awful.layout.suit.spiral.dwindle,
---    awful.layout.suit.max,
--- awful.layout.suit.max.fullscreen,
---    awful.layout.suit.magnifier
---    
+  , awful.layout.suit.floating
+  , awful.layout.suit.tile
+  , awful.layout.suit.tile.left
+  , awful.layout.suit.tile.bottom
+  , awful.layout.suit.tile.top
+  , awful.layout.suit.fair
+  , awful.layout.suit.fair.horizontal
+  , awful.layout.suit.spiral
+  , awful.layout.suit.spiral.dwindle
+  , awful.layout.suit.max
+  , awful.layout.suit.max.fullscreen
+  , awful.layout.suit.magnifier
+  , awful.layout.suit.corner.nw
+  , awful.layout.suit.corner.ne
+  , awful.layout.suit.corner.sw
+  , awful.layout.suit.corner.se
   }
 local ll = awful.widget.layoutlist {
     base_layout = wibox.widget {
@@ -201,7 +206,6 @@ loadrc("table.save-1.0")
 
 -- {{{ Prompts
 loadrc("prompt")
--- disabled in favor of xfce4-display-settings
 
 local xrandr = require("rc/xrandr")
 -- }}}
@@ -212,130 +216,90 @@ local textclock =
 		'  %d %b %I.%M%P 🕑'
 	)
 
-require("widgets/heatmon")
-heatmon_widget = create_heatmon_widget()
+-- require("widgets/heatmon")
+-- heatmon_widget = create_heatmon_widget()
 
 power_widget = require("widgets/power")
 
 require("widgets/keepassxc")
+-- bandwidth = require("widgets/bandwidth")
 
-require("widgets/kbdswitcher")
-kbdswitcher_widget = create_kbdswitcher_widget()
+-- require("widgets/kbdswitcher")
+-- kbdswitcher_widget = create_kbdswitcher_widget()
 
-local assault = require("widgets/assault")
-myassault = assault({
-	-- need to update these if replacing hardware
-	-- too costly to automate
-	battery = "BAT0",
-	timeout = 1,
-	adapter = "AC",
-	width = 25,
-	stroke_width = 1,
-	-- font = "monospace 11",
-	font = "DejaVu Sans 9",
-	height = 9,
-	bolt_width = 0,
-	bolt_weight = 0,
-	critical_level = 0.1,
-	normal_color = "#FFFFFFFF",
-	critical_color = "#ff0000",
-	charging_color = "#0000FF",
-	fully_charged_color = "#ff0000"
-})
-bandwidth = require("widgets/bandwidth")
+-- local assault = require("widgets/assault")
+-- battery_widget = assault({
+-- 	-- need to update these if replacing hardware
+-- 	-- too costly to automate
+-- 	battery = "BAT0",
+-- 	timeout = 1,
+-- 	adapter = "AC",
+-- 	width = 25,
+-- 	stroke_width = 1,
+-- 	-- font = "monospace 11",
+-- 	font = "DejaVu Sans 9",
+-- 	height = 9,
+-- 	bolt_width = 0,
+-- 	bolt_weight = 0,
+-- 	critical_level = 0.1,
+-- 	normal_color = "#FFFFFFFF",
+-- 	critical_color = "#ff0000",
+-- 	charging_color = "#0000FF",
+-- 	fully_charged_color = "#ff0000"
+-- })
+local battery_widget = require("widgets/battery/lua")()
 
 -- }}}
+
+
+local main_screen = 1;
 
 -- {{{ TAGS
 -- Define a tag table which hold all screen tags.
 tags = {}
 local tagNamesCache, err = table.load(".tagNames.lua")
 local tagNames = err == nil and tagNamesCache or { "1.", "2.", "3.", "4.", "5.", "6.", "7.", "8.", "9.", "0." }
+
 for s = 1, screen.count() do
 	-- Each screen has its own tag table.
-	tags[s] =
-		awful.tag(
-			tagNames,
-			s,
-			layouts[1]
-		)
+  if s == 1 then
+    -- first screen is main screen
+    tags[s] = awful.tag(tagNames, s, layouts[1])
+  else 
+    -- remaining screens get only one tag each (so that I focus on one thing at the time)
+    tags[s] = awful.tag({""}, s, layouts[8])
+  end
 end
+
 -- }}}
 
-local work = true
-local lastTag = 6
-function toggleTags()
-	if work then
-		work = false
-	else
-		work = true
-	end
-	updateTags(work)
-	updateTheme(work)
-end
+local fg = "#FFFFFFCC"
+local bg = "#00000099"
+theme.bg_normal = bg
+theme.bg_focus = bg
+theme.taglist_bg_empty = bg
+theme.taglist_bg_occupied = bg
+theme.titlebar_bg_normal = bg
+theme.titlebar_bg_focus = bg
+theme.fg_normal = fg
+theme.fg_focus = fg
+theme.taglist_fg_empty = fg
+theme.taglist_fg_occupied = fg
+theme.titlebar_fg_focus = fg
 
-function updateTags(work)
-	local currentTag = awful.screen.focused().selected_tag.index
-	for s = 1, screen.count() do
-		if work then
-			for t = 1, 10 do
-				tags[s][t].activated = (t <= 5)
-			end
-			tags[s][lastTag]:view_only()
-		else
-			for t = 1, 10 do
-				tags[s][t].activated = (t > 5)
-			end
-			tags[s][lastTag]:view_only()
-		end
-	end
-	lastTag = currentTag
-end
--- Init
-for s = 1, screen.count() do
-	for t = 1, 10 do
-		tags[s][t].activated = (t <= 5)
-	end
-end
-
-function updateTheme(work)
-	local theme = beautiful.get()
-	local fg = work and "#FFFFFFCC" or "#000000CC"
-  local bg = work and "#00000099" or "#FFFFFF99"
-
-	theme.bg_normal = bg
-	theme.bg_focus = bg
-	theme.taglist_bg_empty = bg
-	theme.taglist_bg_occupied = bg
-	theme.titlebar_bg_normal = bg
-	theme.titlebar_bg_focus = bg
-	theme.fg_normal = fg
-	theme.fg_focus = fg
-	theme.taglist_fg_empty = fg
-	theme.taglist_fg_occupied = fg
-	theme.titlebar_fg_focus = fg
-
-  theme.tasklist_fg_normal = fg
-  theme.tasklist_bg_normal = bg
-  theme.tasklist_fg_focus = fg
-  theme.tasklist_bg_focus = bg
-  theme.fg_normal = fg
-	beautiful.init(theme)
+theme.tasklist_fg_normal = fg
+theme.tasklist_bg_normal = bg
+theme.tasklist_fg_focus = fg
+theme.tasklist_bg_focus = bg
+theme.fg_normal = fg
+beautiful.init(theme)
 
 
-	for s = 1, screen.count() do
-		mywibox[s].bg = bg
-	end
-
-	local path =
-		"/home/gcg/dotfiles/awesome/themes/" .. (work and "down" or "up") .. ".jpg"
-	awful.spawn.easy_async_with_shell(
-		"awesome-client \"require('gears').wallpaper.maximized('" .. path .. "')\"",
-		function(stdout, stderr, reason, exit_code)
-			-- notify("wallpaper", stdout .. stderr)
-		end
-	)
-end
+local path = "/home/gcg/dotfiles/awesome/themes/" .. (work and "down" or "up") .. ".jpg"
+awful.spawn.easy_async_with_shell(
+  "awesome-client \"require('gears').wallpaper.maximized('" .. path .. "')\"",
+  function(stdout, stderr, reason, exit_code) end
+)
 
 -- {{{ Menu
 -- Create a laucher widget and a main menu
@@ -459,10 +423,10 @@ for s = 1, screen.count() do
 
 	local right_layout = wibox.layout{
 		power_widget,
-		myassault,
-		heatmon_widget,
-		kbdswitcher_widget,
-		bandwidth,
+		battery_widget,
+		-- bandwidth,
+		-- heatmon_widget,
+		-- kbdswitcher_widget,
 		textclock,
 		layout = wibox.layout.fixed.horizontal()
 	}
@@ -605,8 +569,8 @@ end
 -- }}}
 
 --- {{{ Revelation
-local revelation = require("revelation")
-revelation.init() -- must come after beautiful.init
+-- local revelation = require("revelation")
+-- revelation.init() -- must come after beautiful.init
 --- }}}
 
 local notifications = {}
@@ -696,8 +660,9 @@ globalkeys = awful.util.table.join(
 			},
 			mypromptbox[mouse.screen.index].widget,
 			function(input)
-				awful.tag.selected().name = input
-        tagNames[awful.tag.selected().index] = input
+        local name = input .. "  "
+				awful.tag.selected().name = name
+        tagNames[awful.tag.selected().index] = name
         assert(table.save(tagNames, '.tagNames.lua') == nil)
 			end
 		)
@@ -770,46 +735,33 @@ globalkeys = awful.util.table.join(
 		toggleBluetoothMic()
 	end),
 	awful.key({ modkey }, "e", function()
-		awful.spawn.easy_async_with_shell("termite -e \"tmux new-session 'nnn -x'\"", function() end)
+		awful.spawn("termite -e \"tmux new-session 'nnn -x'\"", { tag = mouse.screen.selected_tag })
 	end),
 	awful.key({ modkey }, "b", function()
-		awful.spawn.easy_async_with_shell("termite -e \"tmux new-session 'bc -l'\"", function() end)
-	end),
-	awful.key({ "Control" }, "q", function()
-		awful.spawn.easy_async_with_shell("catfish", function() end)
+		awful.spawn("termite -e \"tmux new-session 'bc -l'\"", { tag = mouse.screen.selected_tag })
 	end),
 	awful.key({ modkey }, "o", function()
-		awful.spawn.easy_async_with_shell(
-			"chromium --disk-cache-dir=/tmp/cache --profile-directory=Default"
-		, function() end)
+		awful.spawn("brave --disk-cache-dir=/tmp/cache --profile-directory=Default" , { tag = mouse.screen.selected_tag })
 	end),
 	awful.key({ modkey, "Control" }, "o", function()
-		awful.spawn.easy_async_with_shell(
-			'chromium --disk-cache-dir=/tmp/cache --profile-directory="Profile 1"'
-		, function() end)
+		awful.spawn('brave --profile-directory="Profile 1"' , { tag = mouse.screen.selected_tag })
 	end),
 	awful.key({ modkey, "Control", "Shift" }, "o", function()
-		awful.spawn.easy_async_with_shell(
-			'chromium --disk-cache-dir=/tmp/cache --profile-directory="Profile 4"'
-		, function() end)
+		awful.spawn('brave --profile-directory="Profile 4"' , { tag = mouse.screen.selected_tag })
 	end),
 	awful.key({ modkey, "Shift" }, "o", function()
-		awful.spawn.easy_async_with_shell(
-			"chromium --disk-cache-dir=/tmp/cache --profile-directory=Default --incognito"
-		, function() end)
+		awful.spawn("brave --profile-directory=Default --incognito" , { tag = mouse.screen.selected_tag })
 	end),
 	awful.key({ modkey }, ".", function()
-		awful.spawn.easy_async_with_shell(
-			"chromium --disk-cache-dir=/tmp/cache --profile-directory=Default https://web.telegram.org"
-		, function() end)
+		awful.spawn("brave --profile-directory=Default https://web.telegram.org" , { tag = mouse.screen.selected_tag })
 	end),
 	-- screenshot
 	awful.key({}, "Print", function()
-		awful.spawn.easy_async_with_shell("flameshot gui", function() end)
+		awful.spawn("flameshot gui", { tag = mouse.screen.selected_tag })
 	end),
 	-- awful.key({ modkey,           }, "Print",       function () awful.spawn.easy_async_with_shell(terminal.." -e /home/gcg/dotfiles/scripts/clipboardImageToCloudApp.rb", function() end) end),
 	awful.key({ modkey, "Control" }, "m", function()
-		awful.spawn.easy_async_with_shell("termite -e \"tmux new-session 'htop'\"", function() end)
+		awful.spawn("termite -e \"tmux new-session 'htop'\"", { tag = mouse.screen.selected_tag })
 	end),
 	-- }}}
   -- {{{ xrandr xfce4-display-settings
@@ -818,24 +770,12 @@ globalkeys = awful.util.table.join(
 
 	--- {{{ Screen movement
 	-- Switch screen
-	awful.key({ modkey }, "i", function()
-		awful.screen.focus_bydirection("up")
-	end),
-	awful.key({ modkey }, "Up", function()
-		awful.screen.focus_bydirection("up")
-	end),
-	awful.key({ modkey }, "n", function()
-		awful.screen.focus_bydirection("down")
-	end),
-	awful.key({ modkey }, "Down", function()
-		awful.screen.focus_bydirection("down")
-	end),
-	awful.key({ modkey }, "Left", awful.tag.viewprev),
 	awful.key({ modkey }, "Up", changeFocus(1)),
 	awful.key({ modkey }, "Down", changeFocus(-1)),
-	awful.key({ modkey }, "Right", awful.tag.viewnext),
-	awful.key({ modkey }, "l", awful.tag.viewnext),
-	awful.key({ modkey }, "h", awful.tag.viewprev),
+	awful.key({ modkey }, "Right", function() awful.tag.viewnext(screen[main_screen]) end),
+	awful.key({ modkey }, "l", function() awful.tag.viewnext(screen[main_screen]) end),
+	awful.key({ modkey }, "h", function() awful.tag.viewprev(screen[main_screen]) end),
+	awful.key({ modkey }, "Left", function() awful.tag.viewprev(screen[main_screen]) end),
 	-- Move client
 	awful.key({ modkey, "Shift" }, "i", function()
 		client.focus:move_to_screen()
@@ -849,12 +789,30 @@ globalkeys = awful.util.table.join(
 	awful.key({ modkey, "Shift" }, "Down", function()
 		client.focus:move_to_screen()
 	end),
-	awful.key({ modkey, "Shift" }, "l", function()
+	awful.key({ modkey, "Control" }, "l", function()
 		moveToTag(client, 1)
 	end),
-	awful.key({ modkey, "Shift" }, "h", function()
+	awful.key({ modkey, "Control" }, "h", function()
 		moveToTag(client, -1)
 	end),
+  awful.key({ modkey }, "space", function()
+
+    local a = screen[1].selected_tag;
+    local b = screen[2].selected_tag;
+
+    local cache = screen[1].tags
+    for k, v in pairs(screen[2].tags) do
+      v.screen = screen[1]
+    end
+    for k, v in pairs(cache) do
+      v.screen = screen[2]
+    end
+
+    a:view_only();
+    b:view_only();
+
+    main_screen = main_screen == 1 and 2 or 1
+  end),
 	--- }}}
 
 	awful.key({ modkey }, "j", changeFocus(1)),
@@ -864,16 +822,16 @@ globalkeys = awful.util.table.join(
 	end),
 
 	-- Layout manipulation
-	awful.key({ modkey, "Shift" }, "j", function()
+	awful.key({ modkey, "Control" }, "j", function()
 		awful.client.swap.byidx(1)
 	end),
-	awful.key({ modkey, "Shift" }, "k", function()
+	awful.key({ modkey, "Control" }, "k", function()
 		awful.client.swap.byidx(-1)
 	end),
-	awful.key({ modkey, "Control" }, "j", function()
+	awful.key({ modkey, "Shift" }, "j", function()
 		awful.screen.focus_relative(1)
 	end),
-	awful.key({ modkey, "Control" }, "k", function()
+	awful.key({ modkey, "Shift" }, "k", function()
 		awful.screen.focus_relative(-1)
 	end),
 	awful.key({ modkey }, "u", awful.client.urgent.jumpto),
@@ -886,13 +844,13 @@ globalkeys = awful.util.table.join(
 
 	-- Standard program
 	awful.key({ modkey }, "Return", function()
-		awful.spawn.easy_async_with_shell(terminal, function() end)
+    awful.spawn(terminal, { tag = mouse.screen.selected_tag })
 	end),
 	awful.key({ modkey, "Control" }, "r", awesome.restart),
 
 	-- lock screen
 	awful.key({ modkey, "Shift" }, "q", function()
-		awful.spawn.easy_async_with_shell("~/dotfiles/manjaro/lock.sh", function() end)
+		awful.spawn("~/dotfiles/manjaro/lock.sh")
 	end),
 
 	awful.key({ modkey, "Control" }, "h", function()
@@ -901,11 +859,10 @@ globalkeys = awful.util.table.join(
 	awful.key({ modkey, "Control" }, "l", function()
 		awful.tag.incmwfact(0.05)
 	end),
-	awful.key({ modkey }, "space", toggleTags), -- toggle between work and non-work
 	-- awful.key({ modkey, "Control" }, "n", awful.client.restore),
 
 	awful.key({ modkey, "Control" }, "x", function()
-		awful.spawn.easy_async_with_shell("xkill", function() end)
+		awful.spawn("xkill", { tag = mouse.screen.selected_tag })
 	end),
 
 	-- Prompt
@@ -941,10 +898,6 @@ clientkeys = awful.util.table.join(
 		awful.spawn.easy_async_with_shell(cmd, function() end)
 	end),
 	awful.key({ modkey, "Control" }, "space", awful.client.floating.toggle),
-	awful.key({ modkey, "Control" }, "Return", function(c)
-		c:swap(awful.client.getmaster())
-	end),
-	-- awful.key({ modkey,           }, "o",      awful.client.movetoscreen                        ),
 	awful.key({ modkey, "Control" }, "t", function(c)
 		c.ontop = not c.ontop
 	end),
@@ -964,22 +917,24 @@ clientkeys = awful.util.table.join(
 -- Be careful: we use keycodes to make it works on any keyboard layout.
 -- This should map on the top row of your keyboard, usually 1 to 9.
 -- TAGS
-for i = 1, 5 do
+for i = 1, 10 do
 	globalkeys = awful.util.table.join(
 		-- Toggle tag.
 		globalkeys,
 		-- View tag only.
 		awful.key({ modkey }, "#" .. i + 9, function()
-			mouse.screen.tags[i]:view_only()
+			screen[main_screen].tags[i]:view_only()
 		end),
 		-- Toggle tag.
 		awful.key({ modkey, "Control" }, "#" .. i + 9, function()
-			awful.tag.viewtoggle(mouse.screen.tags[i])
+			awful.tag.viewtoggle(screens[main_screen].tags[i])
 		end),
 		-- Move client to tag.
 		awful.key({ modkey, "Shift" }, "#" .. i + 9, function()
 			if client.focus then
-				client.focus:move_to_tag(client.focus.screen.tags[i])
+				client.focus:move_to_tag(tags[1][i])
+        -- Alternative:
+        -- client.focus:move_to_tag(client.focus.screen.tags[i])
 			end
 		end),
 		awful.key({ modkey, "Control", "Shift" }, "#" .. i + 9, function()
@@ -989,15 +944,6 @@ for i = 1, 5 do
 		end)
 	)
 end
-globalkeys = awful.util.table.join(
-	globalkeys,
-	awful.key({ modkey, "Shift" }, "Return", function()
-		if client.focus then
-			client.focus:move_to_tag(tags[1][work and 6 or 1])
-			-- TODO: extend to allow for multiple screens
-		end
-	end)
-)
 
 clientbuttons = awful.util.table.join(
 	--- }}}
@@ -1204,6 +1150,7 @@ client.connect_signal("property::geometry", function(c)
 	end
 end)
 
+-- TODO: perhaps it'd be better to use spawn.once or spawn.single_instance for the calls below
 -- start session
 awful.spawn.easy_async_with_shell("killall lxsession ; lxsession", function() end)
 awful.spawn.easy_async_with_shell("pulseaudio --start", function() end)
@@ -1218,6 +1165,3 @@ awful.spawn.easy_async_with_shell("setxkbmap -option compose:caps", function() e
 awful.spawn.easy_async_with_shell("~/dotfiles/scripts/screenrecording/coordinator.js", function() end)
 awful.spawn.easy_async_with_shell("killall flameshot ; flameshot", function() end)
 muteMic()
-
--- First update
-updateTheme(work)
