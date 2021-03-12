@@ -179,7 +179,7 @@ yars() {
   yay --sortby popularity -Ss $* | less
 }
 
-alias curlpost='curl -H "Content-Type: application/json" -d @-'
+alias curlpost='curl -X POST -H "Content-Type: application/json" -d @-'
 gif() { ffmpeg -i $1 $1.gif }
 gifhq() {
   palette="/tmp/palette.png"
@@ -189,7 +189,14 @@ gifhq() {
 }
 
 speedup() { ffmpeg -i $1 -filter_complex "[0:v]setpts=0.8*PTS[v]" -map "[v]" fast-$1 }
-speedupx() { ffmpeg -i $1 -filter_complex "[0:v]setpts=$2*PTS[v]" -map "[v]" fast-$1 }
+speedupx() {
+  if [ $# -eq 0 ]
+  then
+    echo "Usage: speedupx <speed=0.8> <input>"
+    return
+  fi
+  ffmpeg -i $2 -filter_complex "[0:v]setpts=$1*PTS[v]" -map "[v]" fast-$2
+}
 speedupa() { ffmpeg -i $1 -filter_complex "[0:v]setpts=0.8*PTS[v];[0:a]atempo=1.25[a]" -map "[v]" -map "[a]" fast-$1 }
 reload() { source ~/.zshrc }
 
@@ -800,7 +807,7 @@ function ng() {
   echo "Creating tunnels:"
   echo "  https://dev.besloor.com"
   echo "  https://dev.gunar.uk"
-  ssh -N -R "localhost:4242:localhost:${1}" root@dev.gunar.uk
+  ssh -N -R "4242:localhost:${1}" root@dev.gunar.uk
 }
 function para() {
   destination_port=$1
@@ -818,3 +825,6 @@ alias dig='dog'
 alias suspend="systemctl suspend"
 alias limit-bandwidth="trickle"
 alias backup-all-gists="gh gist list | cut -f1 | tr '\n' '\0' | xargs -0 -n1 gh gist clone"
+function goog() {
+  tuxi "$*"
+}
