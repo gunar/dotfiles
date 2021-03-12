@@ -1,5 +1,7 @@
 #!/usr/bin/env sh
 
+# TODO: Trigger this script in the middle of the night
+
 # Try to resume a paused encoding/upload job
 killall ffmpeg -s SIGCONT
 killall aws -s SIGCONT
@@ -11,7 +13,7 @@ flock -n 200 || exit 1
 # Merge -------------------------------------------------------------------------
 cd /home/gcg/screenrecordings/in-progress || exit 1
 mkdir -p ../by-day
-# XXX: Ignore last day tto prevent multiple files per day               vvvvvvvvvv
+# XXX: Ignore last day to prevent multiple files per day               vvvvvvvvvv
 PREFIXES=$(find . -name '*.mkv' | sort | uniq | cut -d'_' -f 1 | uniq | head -n -1)
 for prefix in ${PREFIXES}; do
   rm -f files.txt
