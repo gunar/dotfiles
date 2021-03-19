@@ -129,7 +129,6 @@ sudo pacman -Syy httpie
 yay --noconfirm -Syy lsix
 yay --noconfirm -Syy mysql-clients
 yay --noconfirm -Syy lighttable-bin
-yay --noconfirm -Syy pgcli
 sudo pacman -Syy beep
 sudo pacman -Syy mpg123
 yay --noconfirm -Syy clojure
@@ -251,4 +250,5 @@ sudo pacman -Syy macchanger
 yay --Syy pnpm
 sudo pacman -Syy signal-desktop
 yay --Syy tuxi-git
+yay --Syy python-pendulum pgcli-git
 yay --Syy antigen-git

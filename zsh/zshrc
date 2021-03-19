@@ -820,3 +820,4 @@ alias backup-all-gists="gh gist list | cut -f1 | tr '\n' '\0' | xargs -0 -n1 gh 
 function goog() {
   tuxi "$*"
 }
+alias psql="pgcli"
