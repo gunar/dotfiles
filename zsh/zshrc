@@ -273,44 +273,47 @@ if [[ $TERM == xterm-termite ]]; then
 fi
 
 export KEYTIMEOUT=1
-# ctrl+s for "... && exit"
-function append-exit {
+
+# Key bindings -- {{{
+function append_exit() {
   BUFFER="$BUFFER && beep && exit"
 }
-zle -N append-exit
-bindkey "^S" append-exit
-# ctrl+a for "nohup"
-function append-nohup {
+function append_nohup {
   BUFFER="nohup "$BUFFER" </dev/null >myprogram.log 2>&1 &! exit"
 }
-zle -N append-nohup
-bindkey "^A" append-nohup
-# 
-# alt+l for "ls"
-function call-ls {
+function call_ls {
   zle accept-line
   echo ""
   exa --long # ls
 }
-zle -N call-ls
-bindkey "^[l" call-ls
-
-# alt+s for "git status"
-function call-gst {
+function call_gst {
   zle accept-line
   echo ""
   gst
 }
-zle -N call-gst
-bindkey "^[s" call-gst
-# alt+s for "git diff"
-function call-gd {
+function call_gd {
   zle accept-line
   echo ""
   gd
 }
-zle -N call-gd
-bindkey "^[d" call-gd
+function zvm_after_lazy_keybindings() {
+  zvm_define_widget append_exit
+  zvm_bindkey viins '^S' append_exit
+
+  zvm_define_widget append_nohup
+  zvm_bindkey viins '^A' append_nohup
+
+  zvm_define_widget call_ls
+  zvm_bindkey viins '^[l' call_ls
+
+  zvm_define_widget call_gst
+  zvm_bindkey viins '^[s' call_gst
+
+  zvm_define_widget call_gd
+  zvm_bindkey viins '^[d' call_gd
+}
+
+# Key bindings -- }}}
 
 # fasd ---------------
 #
