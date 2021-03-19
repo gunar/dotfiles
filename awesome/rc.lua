@@ -759,7 +759,6 @@ globalkeys = awful.util.table.join(
 	awful.key({}, "Print", function()
 		awful.spawn("flameshot gui", { tag = mouse.screen.selected_tag })
 	end),
-	-- awful.key({ modkey,           }, "Print",       function () awful.spawn.easy_async_with_shell(terminal.." -e /home/gcg/dotfiles/scripts/clipboardImageToCloudApp.rb", function() end) end),
 	awful.key({ modkey, "Control" }, "m", function()
 		awful.spawn("termite -e \"tmux new-session 'htop'\"", { tag = mouse.screen.selected_tag })
 	end),
