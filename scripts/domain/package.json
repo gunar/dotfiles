@@ -1,0 +1,11 @@
+{
+  "name": "domain",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "dependencies": {
+    "domain-check": "^1.0.5",
+    "percom": "^1.0.8",
+    "prettier": "^2.1.2"
+  }
+}
