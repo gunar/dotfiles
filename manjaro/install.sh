@@ -251,3 +251,4 @@ sudo pacman -Syy macchanger
 yay --Syy pnpm
 sudo pacman -Syy signal-desktop
 yay --Syy tuxi-git
+yay --Syy antigen-git

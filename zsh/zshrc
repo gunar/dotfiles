@@ -1,9 +1,28 @@
 # Path to your oh-my-zsh installation.
-export ZSH=/home/gcg/.oh-my-zsh
+# export ZSH=/home/gcg/.oh-my-zsh
 
-ZSH_THEME="agnoster"
+source /usr/share/zsh/share/antigen.zsh
+antigen use oh-my-zsh
+# Dependencies from https://github.com/ohmyzsh/ohmyzsh
+antigen bundle jump
+antigen bundle heroku
+antigen bundle tldr
+antigen bundle command-not-found
+# Dependencies from other GitHub repos
+antigen bundle zsh-users/zsh-autosuggestions
+antigen bundle zsh-users/zsh-syntax-highlighting
+antigen bundle jeffreytse/zsh-vi-mode
+
+# Theme
+antigen theme romkatv/powerlevel10k
+export POWERLEVEL9K_LEFT_PROMPT_ELEMENTS=(status vcs dir) # context
+export POWERLEVEL9K_RIGHT_PROMPT_ELEMENTS=() # Right prompt not working (because "vim-mode" on zsh?)
+export POWERLEVEL9K_PROMPT_ON_NEWLINE=false
+# export POWERLEVEL9K_MULTILINE_FIRST_PROMPT_PREFIX=""
+# export POWERLEVEL9K_MULTILINE_LAST_PROMPT_PREFIX=""
+antigen apply
+
 HIST_STAMPS="yyyy-mm-dd"
-plugins=(jump heroku tldr)
 
 # infinite .zsh_history
 export HISTSIZE=1000000000
@@ -25,11 +44,6 @@ export PATH="$PATH:/home/gcg/dotfiles/manjaro/parasite"
 export PATH="$PATH:$HOME/.config/yarn/global/node_modules/.bin"
 
 # export MANPATH="/usr/local/man:$MANPATH"
-
-# costly call
-source $ZSH/oh-my-zsh.sh
-
-source /usr/share/zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh
 
 debug() {
   zsh -xv -i -c "print -n" 2>&1 | ts -i "%.s" > zsh_startup.log
@@ -129,7 +143,6 @@ nrc() {
 re() {
   rec -t wav - | lame -V 9 -h - >rec.mp3
   # rec -t wav - | lame -V 9 -h - >/tmp/record.mp3
-  # cloudapp /tmp/record.mp3
 }
 mkd() { mkdir -p $1 && cd $1 }
 tmp() {
@@ -259,21 +272,6 @@ if [[ $TERM == xterm-termite ]]; then
   __vte_osc7
 fi
 
-# vi mode
-bindkey -v
-bindkey '^P' up-history
-bindkey '^N' down-history
-bindkey '^?' backward-delete-char
-bindkey '^h' backward-delete-char
-bindkey '^w' backward-kill-word
-bindkey '^r' history-incremental-search-backward
-function zle-line-init zle-keymap-select {
-    VIM_PROMPT="%{$fg_bold[yellow]%} [% NORMAL]%  %{$reset_color%}"
-    RPS1="${${KEYMAP/vicmd/$VIM_PROMPT}/(main|viins)/} $EPS1"
-    zle reset-prompt
-}
-zle -N zle-line-init
-zle -N zle-keymap-select
 export KEYTIMEOUT=1
 # ctrl+s for "... && exit"
 function append-exit {
@@ -569,12 +567,6 @@ export GPG_TTY=$(tty)
 alias hp='heroku accounts:set personal'
 alias hi='heroku accounts:set inv'
 export PG='postgres://postgres@localhost/postgres'
-source /usr/share/zsh-theme-powerlevel10k/powerlevel10k.zsh-theme
-export POWERLEVEL9K_LEFT_PROMPT_ELEMENTS=(status vcs dir) # context
-export POWERLEVEL9K_RIGHT_PROMPT_ELEMENTS=() # Right prompt not working (because "vim-mode" on zsh?)
-export POWERLEVEL9K_PROMPT_ON_NEWLINE=false
-# export POWERLEVEL9K_MULTILINE_FIRST_PROMPT_PREFIX=""
-# export POWERLEVEL9K_MULTILINE_LAST_PROMPT_PREFIX=""
 
 +(){
   dc -e "$* p"
