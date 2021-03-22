@@ -96,10 +96,9 @@ alias nn='f -e nvim'
 alias nd='node -r ~/dotfiles/node'
 alias nt='nvim /tmp/$RANDOM'
 alias ntsx='nvim /tmp/$RANDOM.tsx'
-na () { n "+/\c$*" `ag --ignore yarn.lock --ignore-dir node_modules --ignore-dir .next -l "$*"` }
-nag () { n "+/\c$*" `ag --ignore yarn.lock --ignore-dir node_modules --ignore-dir .next -l "$*"` }
-nf () { n `find -name "$*" -not -path "./node_modules/*"` }
-nlint() { n `eslint --cache -f ~/code/_archive/eslint-formatter-list .` }
+na  () { nvim "+/\c$*" `ag --ignore yarn.lock --ignore-dir node_modules --ignore-dir .next -l "$*"` }
+nf  () { nvim `find -name "$*" -not -path "./node_modules/*"` }
+nlint() { nvim `eslint --cache -f ~/code/_archive/eslint-formatter-list .` }
 alias ff='ag -g'
 alias w='watch -n 0.5 --color'
 alias v='viewnior'
@@ -824,3 +823,6 @@ function goog() {
   tuxi "$*"
 }
 alias psql="pgcli"
+
+# If I ever get stuck on "command not found" again and decide I want to expand aliases inside function, I can uncomment this:
+# shopt expand_aliases
