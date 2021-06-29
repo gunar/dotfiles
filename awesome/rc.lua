@@ -92,7 +92,7 @@ end
 --- }}}
 
 -- This is used later as the default terminal and editor to run.
-terminal = "termite -e tmux"
+terminal = "alacritty -e tmux"
 editor = os.getenv("EDITOR") or "nvim"
 editor_cmd = terminal .. " " .. editor
 
@@ -735,10 +735,10 @@ globalkeys = awful.util.table.join(
 		toggleBluetoothMic()
 	end),
 	awful.key({ modkey }, "e", function()
-		awful.spawn("termite -e \"tmux new-session 'nnn -x'\"", { tag = mouse.screen.selected_tag })
+		awful.spawn("alacritty -e tmux new-session 'nnn -x'", { tag = mouse.screen.selected_tag })
 	end),
 	awful.key({ modkey }, "b", function()
-		awful.spawn("termite -e \"tmux new-session 'bc -l'\"", { tag = mouse.screen.selected_tag })
+		awful.spawn("alacritty -e tmux new-session 'bc -l'", { tag = mouse.screen.selected_tag })
 	end),
 	awful.key({ modkey }, "o", function()
 		awful.spawn("brave --disk-cache-dir=/tmp/cache --profile-directory=Default" , { tag = mouse.screen.selected_tag })
@@ -760,7 +760,7 @@ globalkeys = awful.util.table.join(
 		awful.spawn("flameshot gui", { tag = mouse.screen.selected_tag })
 	end),
 	awful.key({ modkey, "Control" }, "m", function()
-		awful.spawn("termite -e \"tmux new-session 'htop'\"", { tag = mouse.screen.selected_tag })
+		awful.spawn("alacritty -e tmux new-session 'htop'", { tag = mouse.screen.selected_tag })
 	end),
 	-- }}}
   -- {{{ xrandr xfce4-display-settings
@@ -891,7 +891,7 @@ clientkeys = awful.util.table.join(
 	awful.key({ modkey, "Shift" }, "c", function(c)
 		c:kill()
 
-		-- Hack to kill whatever we had in the terminal
+		-- Hack to kill whatever we had in the terminal (all children)
 		cmd =
 			"tmux list-sessions | grep -v attached | cut -d: -f1 |  xargs -t -n1 tmux kill-session -t"
 		awful.spawn.easy_async_with_shell(cmd, function() end)

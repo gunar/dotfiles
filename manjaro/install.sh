@@ -252,3 +252,4 @@ sudo pacman -Syy signal-desktop
 yay --Syy tuxi-git
 yay --Syy python-pendulum pgcli-git
 yay --Syy antigen-git
+sudo pacman -Syy alacritty
