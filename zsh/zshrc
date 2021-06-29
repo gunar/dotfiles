@@ -390,8 +390,7 @@ alias blueswitch='~/dotfiles/scripts/blueswitch.sh'
 
 
 alias keys='xmodmap -pke|less'
-# alias np='n -c :Denite\ -start-filter\ -no-split\ -buffer-name=files\ -ignorecase\ file/rec'
-alias np='echo "This alias was making Denite run at all times with 100% CPU"'
+alias np='fzf | xargs nvim'
 
 alias dotf='cd ~/dotfiles'
 function dox() {
@@ -428,7 +427,6 @@ function mdcat () {
 # export BOOT_JVM_OPTIONS="--add-modules=java.xml.bind"
 export BOOT_JVM_OPTIONS="--add-opens=java.base/java.net=ALL-UNNAMED"
 
-alias hdmi="xrandr --output HDMI1 --mode 800x600&&xrandr --output HDMI1 --mode 1920x1080"
 alias fixdns="echo \"nameserver 8.8.8.8\"|sudo tee /etc/resolv.conf"
 alias did="nvim -c 'normal Go' -c 'r!date' ~/did.txt"
 alias bandwidth="sudo iftop -i wlp4s0"
@@ -549,7 +547,7 @@ alias uz='unzip'
 export GPG_TTY=$(tty)
 
 alias hp='heroku accounts:set personal'
-alias hi='heroku accounts:set inv'
+alias hs='heroku accounts:set satoshienergy'
 export PG='postgres://postgres@localhost/postgres'
 
 +(){
@@ -572,9 +570,6 @@ alias rm='rm -i'
 alias sub='rm -rf /home/gcg/.ezsub && ezsub download -l en --destination sub -G -O -A  --title'
 
 # 96, 120 (25% higher), 144 (50% higher), 168 (75% higher), 192 (100% higher) etc.
-# xrandr --dpi 120
-alias big='xrandr --output eDP1 --mode 1600x900'
-alias small='xrandr --output eDP1 --mode 1920x1080'
 alias red='systemctl --user restart redshift'
 pdfremovelastpage() {
   pdftk "$1" cat 1-r2 output "$2"
@@ -848,3 +843,9 @@ function qrcode() {
 ELGATO=/dev/video3
 V4LOOP=/dev/video4
 alias elgato="sudo modprobe v4l2loopback devices=1 exclusive_caps=1 && ffmpeg -f v4l2 -input_format yuyv422 -framerate 60 -video_size 1920x1080 -i $ELGATO -pix_fmt yuyv422 -codec copy -f v4l2 $V4LOOP"
+alias fulldiff="diff -U -1"
+function external() {
+  xrandr --output HDMI1 --auto
+  xrandr --output HDMI1 --left-of eDP1 --rotate left
+}
+alias ping="gping"
