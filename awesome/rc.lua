@@ -1153,14 +1153,11 @@ end)
 -- start session
 awful.spawn.easy_async_with_shell("killall lxsession ; lxsession", function() end)
 awful.spawn.easy_async_with_shell("pulseaudio --start", function() end)
-awful.spawn.easy_async_with_shell(
-	"killall xautolock ; xautolock -corners +-+- -cornerdelay 2 -time 5 -locker ~/dotfiles/manjaro/lock.sh -detectsleep"
-, function() end)
 -- awful.spawn.easy_async_with_shell("setxkbmap -layout de", function() end)
 awful.spawn.easy_async_with_shell("setxkbmap -option compose:caps", function() end)
 -- If this ends up being run multiple times (e.g. restarting awesome) it won't be a problem
 -- because the first process will capture the socket port, and the second will fail to capture it and exit
 -- leaving a single process online
-awful.spawn.easy_async_with_shell("~/dotfiles/scripts/screenrecording/coordinator.js", function() end)
+awful.spawn.easy_async_with_shell("~/dotfiles/scripts/screenrecording/coordinator.js >>/tmp/screenrecorder-coordinator.log", function() end)
 awful.spawn.easy_async_with_shell("killall flameshot ; flameshot", function() end)
 muteMic()
