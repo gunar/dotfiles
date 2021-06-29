@@ -34,14 +34,12 @@ function spawnSimpleScreenRecorder() {
           "/tmp/screenrecorder-shrinking.log",
           `error: ${data.toString()}`
         );
-        notify(data.toString());
       });
       shrink.stdout.on("data", (data) => {
         require("fs").appendFileSync(
           "/tmp/screenrecorder-shrinking.log",
           `info: ${data.toString()}`
         );
-        notify(data.toString());
       });
     }
     if (string.includes("StartPage")) {
