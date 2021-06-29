@@ -21,6 +21,7 @@ for prefix in ${PREFIXES}; do
   for file in $(find . -wholename "${prefix}*" | sort); do
     echo "file '$file'" >>files.txt
   done
+  # If merging videos with and without the side screen isn't working, could try this tool https://mkvtoolnix.download/doc/mkvmerge.html
   ffmpeg -f concat -safe 0 -i files.txt -c copy "../by-day/${prefix}.mkv" || exit 1
   for file in $(find . -wholename "${prefix}*" | sort); do
     rm "$file"
@@ -36,7 +37,7 @@ for filepath in $(find . -name '*.mkv' | sort | head -n -7); do
   filename=$(basename "${filepath}")
   echo "Encrypting and uploading file '${filename}'"
   gpg --encrypt -r gunar@gunargessner.com <"${filepath}" \
-    | aws s3 cp - "s3://${AWS_S3_BUCKET}/${filename}" --storage-class STANDARD_IA  \
+    | aws s3 cp - "s3://${AWS_S3_BUCKET}/${filename}" --storage-class DEEP_ARCHIVE  \
     || exit 1
   echo "Done! Removing '${filename}'"
   rm "$filepath" || exit 1
