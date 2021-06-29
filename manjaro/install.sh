@@ -174,7 +174,6 @@ sudo pacman -Syy pdftk
 
 sudo ./fontconfig/install.sh
 sudo ./org-protocol/install.sh
-yay --Syy magic-wormhole-git
 sudo pacman -Syy nethogs
 sudo pacman -Syy stunnel
 yay --Syy zoom
@@ -184,10 +183,7 @@ sudo pacman -Syy nnn
 sudo pacman -Syy torsocks
 yay --Syy ffmpeg-normalize
 sudo pacman -Syy terraform
-yay --Syy semgrep-bin
 sudo pacman -Syy aws-cli
-yay --Syy pulumi
-yay --Syy pulumi
 sudo pacman -Syy asciinema
 yay --Syy pulumi
 sudo pacman -Syy xsensors
@@ -253,4 +249,17 @@ sudo pacman -Syy signal-desktop
 yay --Syy tuxi-git
 yay --Syy python-pendulum pgcli-git
 yay --Syy antigen-git
+yay --Syy magic-wormhole
+sudo pacman -Syy speedtest-cli
+sudo pacman -Syy speedtest-cli
+yay --Syy gitinspector
+yay --Syy gitstats-git
+sudo pacman -Syy websocat
 sudo pacman -Syy alacritty
+yay --Syy jpeginfo
+sudo pacman -Syy boost
+sudo pacman -Syy python-pyzmq
+sudo pacman -Syy watchexec
+sudo pacman -Syy python-pipenv
+sudo pacman -Syy jupyter
+sudo pacman -Syy gping
