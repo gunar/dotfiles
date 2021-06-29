@@ -1,7 +1,8 @@
 #!/bin/sh
 ./pulseaudio/install.sh
 
-sudo cp random-mac/random-mac.sh /etc/NetworkManager/dispatcher.d/pre-up.d/random-mac.sh
+# Had problems with random mac
+# sudo cp random-mac/random-mac.sh /etc/NetworkManager/dispatcher.d/pre-up.d/random-mac.sh
 
 sudo ln -fs "$(readlink -f xinitrc)" ~/.xinitrc
 sudo ln -fs "$(readlink -f xkb)" /usr/share/X11/xkb/symbols/gunar
