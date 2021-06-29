@@ -30,7 +30,7 @@
 [core]
   # two-space tabs
   # pager = ~/.git-templates/hooks/commit-emoji.sh | less --raw-control-chars -FXS -x2 # less -FXRS -x2
-  pager = diff-so-fancy | less --tabs=2 -RFX
+  # pager = diff-so-fancy | less --tabs=2 -RFX
   whitespace = blank-at-eol, space-before-tab, tab-in-indent, blank-at-eof, trailing-space, cr-at-eol, tabwidth=2
 
 [push]
@@ -77,7 +77,8 @@
   hist     = log --pretty=format:\"%h %ad | %s%d [%an]\" --graph --date=short
   l        = log --pretty=format:'%h %an, %ar: %s' --graph --stat --decorate
   # last-tag = !"git describe --tags `git rev-list --tags --max-count=1`"
-  lg       = log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr)%Creset' --abbrev-commit --decorate
+  # lg       = log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr)%Creset' --abbrev-commit --decorate
+  lg       = log --graph --format=format:'%C(bold blue)%h%C(reset) - %C(bold green)(%ar)%C(reset) %C(white)%s%C(reset) %C(bold white)— %an%C(reset)%C(bold yellow)%d%C(reset)' --abbrev-commit --date=relative
   lp       = log -p -w
   pick     = cherry-pick
   # m        = merge --no-ff
@@ -87,7 +88,7 @@
   # re: recent branches
   re = "!re() { git for-each-ref --sort=-committerdate refs/heads/ --format='%(HEAD) %(color:yellow)%(refname:short)%(color:reset) (%(color:green)%(committerdate:relative)%(color:reset)) - %(contents:subject) - %(authorname)' | head -n 5; }; re"
   # rcb: reset current branch (from origin)
-  rcb      = "!rcb() { cur_branch=`git branch | grep '* ' | tr -d '* '` ; git fetch; git reset --hard origin/$cur_branch; }; rcb"
+  rcb      = "!rcb() { cur_branch=`git branch | grep '* ' | tr -d '* '` ; git fetch && git reset --hard origin/$cur_branch; }; rcb"
   # conflicts
   conf      = "!f() { nvim `git diff --name-status --diff-filter=U | cut -f 2-`; }; f"
   # continue
@@ -104,9 +105,6 @@
   s        = status --short --branch
   sho      = show -w
   st       = status
-  standup  = log --graph --author="gunar" --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cd) %C(green)<%an>%Creset' --abbrev-commit --date=local --all --since='yesterday'
-  standupz = log --graph --author="gunar" --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cd) %C(green)<%an>%Creset' --abbrev-commit --date=local --all
-  standupall = log --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cd) %C(green)<%an>%Creset' --abbrev-commit --date=local --all
   t        = !"git tag -a v`date +"%Y-%m-%d-%H-%M-%S"` -m"
   tags     = tag
   tl       = tag -l -n1
@@ -127,3 +125,22 @@
 	required = true
 [commit]
 	gpgsign = true
+
+# delta diffing tool https://github.com/dandavison/delta
+[pager]
+  diff = delta
+  log = delta
+  reflog = delta
+  show = delta
+[interactive]
+  diffFilter = delta --color-only
+[delta]
+  features = side-by-side line-numbers decorations
+  syntax-theme = Dracula
+  plus-style = syntax "#003800"
+  minus-style = syntax "#3f0001"
+  whitespace-error-style = 22 reverse
+[delta "decorations"]
+    commit-decoration-style = bold yellow box ul
+    file-style = bold yellow ul
+    file-decoration-style = none
