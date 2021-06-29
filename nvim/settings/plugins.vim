@@ -166,6 +166,9 @@ if dein#load_state('~/.cache/dein')
   " " call dein#add('vim-scripts/XML-Folding')
   " call dein#add('ruanyl/vim-fixmyjs')
 
+  " Search and replace multiple files
+  " https://github.com/windwp/nvim-spectre
+
   " call dein#add('ryanoasis/vim-devicons')
 
   call dein#add('qpkorr/vim-bufkill')
