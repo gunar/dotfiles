@@ -1,14 +1,16 @@
 #!/usr/bin/env sh
 
+set -xe
+
 # TODO: Trigger this script in the middle of the night
 
 # Try to resume a paused encoding/upload job
-killall ffmpeg -s SIGCONT
-killall aws -s SIGCONT
+killall ffmpeg -s SIGCONT || true
+killall aws -s SIGCONT || true
 
 # Ensure single process — https://stackoverflow.com/a/7305448/1456173
 exec 200<"$0"
-flock -n 200 || exit 1
+flock -n 200 || (echo "There's an instance of this script running already" ; exit 1)
 
 # Merge -------------------------------------------------------------------------
 cd /home/gcg/screenrecordings/in-progress || exit 1
