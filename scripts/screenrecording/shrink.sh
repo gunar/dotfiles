@@ -37,7 +37,7 @@ for filepath in $(find . -name '*.mkv' | sort | head -n -7); do
   filename=$(basename "${filepath}")
   echo "Encrypting and uploading file '${filename}'"
   gpg --encrypt -r gunar@gunargessner.com <"${filepath}" \
-    | aws s3 cp - "s3://${AWS_S3_BUCKET}/${filename}" --storage-class DEEP_ARCHIVE  \
+    | trickle -u 500 aws s3 cp - "s3://${AWS_S3_BUCKET}/${filename}" --storage-class DEEP_ARCHIVE  \
     || exit 1
   echo "Done! Removing '${filename}'"
   rm "$filepath" || exit 1
