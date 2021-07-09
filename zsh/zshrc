@@ -848,3 +848,6 @@ function external() {
   xrandr --output HDMI1 --left-of eDP1 --rotate left
 }
 alias ping="gping"
+alias kill-port="echo fuser -k 8080/tcp"
+# Limit download and upload network bandwidth speed
+alias trottle="trickle"
