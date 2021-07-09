@@ -394,11 +394,10 @@ alias np='fzf | xargs nvim'
 
 alias dotf='cd ~/dotfiles'
 function dox() {
-  cd ~/Downloads
-  teensy-loader-cli -v -w -mmcu=atmega32u4 $(ls -t1 *.hex|head -1)
+  wally
+  # cd ~/Downloads
+  # teensy-loader-cli -v -w -mmcu=atmega32u4 $(ls -t1 *.hex|head -1)
 }
-
-
 
 # TODO
 # Markdown utilities (requires `brew install pandoc`)

@@ -693,6 +693,9 @@ globalkeys = awful.util.table.join(
 	awful.key({}, "XF86AudioMicMute", function()
 		toggleMicMute()
 	end),
+	awful.key({ "Control", "Shift" }, "F4", function()
+		toggleMicMute()
+	end),
 	awful.key({}, "XF86Favorites", function()
 		awful.spawn.easy_async_with_shell("xlock", function() end)
 	end),
@@ -1018,7 +1021,7 @@ awful.rules.rules = { -- All clients will match this rule.
 -- { rule = { class = "Pavucontrol" },
 --   properties = { tag = tags1[1][4] , switchtotag=true } },
 {
-	rule = { class = "chromium" },
+	rule = { class = "brave" },
 	properties = { maximized = false }
 } }
 -- }}}

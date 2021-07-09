@@ -263,3 +263,4 @@ sudo pacman -Syy watchexec
 sudo pacman -Syy python-pipenv
 sudo pacman -Syy jupyter
 sudo pacman -Syy gping
+yay --Syy zsa-wally-bin
