@@ -811,7 +811,7 @@ alias backup-all-gists="gh gist list | cut -f1 | tr '\n' '\0' | xargs -0 -n1 gh 
 function goog() {
   tuxi "$*"
 }
-alias psql="pgcli"
+alias psql="pgcli --pgclirc ~/.psqlrc"
 
 # If I ever get stuck on "command not found" again and decide I want to expand aliases inside function, I can uncomment this:
 # shopt expand_aliases

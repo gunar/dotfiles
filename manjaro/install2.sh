@@ -1,5 +1,7 @@
 #!/bin/sh
 
+set -xe
+
 
 #packages
 sudo pacman -Syy fasd yay zip extra/unzip extra/keychain community/lxsession upower community/the_silver_searcher extra/imagemagick community/fzf extra/alsa-utils extra/pavucontrol extra/xorg-xinput community/npm 

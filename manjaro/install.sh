@@ -1,5 +1,9 @@
 #!/bin/sh
+
+set -xe
+
 ./pulseaudio/install.sh
+./psql/install.sh
 
 # Had problems with random mac
 # sudo cp random-mac/random-mac.sh /etc/NetworkManager/dispatcher.d/pre-up.d/random-mac.sh
